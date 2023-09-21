@@ -2,8 +2,14 @@ import React from "react";
 import { Box, Container, Toolbar, Button } from '@mui/material';
 import PhoneIcon from '@mui/icons-material/Phone';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import { useLocation } from 'react-router-dom';
 
 function Footer(){
+    const location = useLocation();
+    const hideFooterForPaths = ['/','/forgotPassword'];
+    if(hideFooterForPaths.includes(location.pathname)) {
+      return <></>;
+    }
     return(
         <Box sx={{borderTop: '1px solid #CECECE', opacity: '0.6'}}>
             <Toolbar>

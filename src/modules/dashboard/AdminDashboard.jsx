@@ -1,9 +1,14 @@
 import React from 'react'
-import { Container, Box, Typography, Tab } from '@mui/material';
+import { Container, Box, Typography, Tab, Button } from '@mui/material';
 import {TabContext, TabList, TabPanel} from '@mui/lab/';
-import Breadcrumbs from '@mui/material/Breadcrumbs';
-import HomeIcon from '@mui/icons-material/Home';
+import Banner from '../../components/banner/banner';
 
+const breadcrumbs = [
+    {
+        name: "Dashboard",
+        url: ""
+    }
+]
 
 const AdminDashboard = () => {
   const [value, setValue] = React.useState('one');
@@ -11,19 +16,10 @@ const AdminDashboard = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
   return (
-    <Box sx={{minHeight: '200vh'}}>
-        <Box className="banner">
-            <Container maxWidth="xl">
-                <Breadcrumbs sx={{mb:1}}>
-                    <Typography sx={{ display: 'flex', alignItems: 'center' }} fontSize="small" color="secondary">
-                        <HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
-                        Dashboard
-                    </Typography>
-                </Breadcrumbs>
-                <Typography variant='h5'>Dashboard</Typography>
-            </Container>
-        </Box>
+    <Box>
+        <Banner title="Dashboard" crumbs={breadcrumbs} />
         <Container maxWidth="xl">
             <TabContext value={value}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -46,7 +42,47 @@ const AdminDashboard = () => {
                     <Tab value="five" label="Assessments and Tenants" />
                 </TabList>
                 </Box>
-                <TabPanel value="one" sx={{py: 1, px: 0}}>Dashboard</TabPanel>
+                <TabPanel value="one" sx={{py: 1, px: 0}}>
+                    <Box className="d-flex" sx={{mb: 4}}>
+                        <Typography variant='h1' sx={{mr: 3}}>
+                            H1 Tag
+                        </Typography>
+                        <Typography variant='h2' sx={{mr: 3}}>
+                            H2 Tag
+                        </Typography>
+                        <Typography variant='h3' sx={{mr: 3}}>
+                            H3 Tag
+                        </Typography>
+                        <Typography variant='subtitle1' sx={{mr: 3}}>
+                            Subtitle1
+                        </Typography>
+                        <Typography variant='body1' sx={{mr: 3}}>
+                            body1
+                        </Typography>
+                        <Typography variant='body2' sx={{mr: 3}}>
+                            body2
+                        </Typography>
+                        <Typography variant='caption' sx={{mr: 3}}>
+                            caption
+                        </Typography>
+                    </Box>
+                    <Box className="d-flex" sx={{mb: 4}}>
+                        <Button variant="contained" color='primary'>
+                            Primary
+                        </Button>
+                        <Button variant="contained" color='secondary'>
+                            seconday
+                        </Button>
+                        <Button variant="outlined" color='primary'>
+                            outline
+                        </Button>
+                        <Button variant="banner">
+                            banner
+                        </Button>
+                    </Box>
+
+                    
+                </TabPanel>
                 <TabPanel value="two" sx={{py: 1, px: 0}}>Question Bank</TabPanel>
                 <TabPanel value="three" sx={{py: 1, px: 0}}>Question Bank Report</TabPanel>
                 <TabPanel value="four" sx={{py: 1, px: 0}}>Question Performance</TabPanel>

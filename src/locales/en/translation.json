@@ -1,0 +1,63 @@
+{
+    "preLogin": {
+        "username": "Username",
+        "password": "Password",
+        "confirmPassword": "Confirm Password",
+        "newPassword": "New Password",
+        "forgotPassword": "Forgot Password?",
+        "resetPassword": "Reset your Password",
+        "rememberMe": "Remember me",
+        "login": "Login",
+        "sendLink": "Send Link",
+        "recoverYourPassword": "Recoved your Password",
+        "enterEmailInstruction": "Enter your email and instructions will be send to you!",
+        "emailSentSuccessfully": "Email sent successfully to",
+        "pleaseCheckEmail": "Please check email for further instructions",
+        "passwordChanged": "Your password changed successfully"
+    },
+    "commonForm": {
+        "search": "Search",
+        "selectCategory": "Select Category",
+        "selectCategories": "Select Categories",
+        "assignCategories": "Assign Categories",
+        "categoryName": "Category Name",
+        "selectSkill": "Select Skill",
+        "selectSkills": "Select Skills",
+        "skillName": "Skill Name",
+        "subSkillName": "Sub Skill Name",
+        "assignSkills": "Assign Skills",
+        "uploadCategoryImage": "Upload Category Image",
+        "uploadSkillImage": "Upload Skill Image",
+        "uploadImgFormatText": "File size less than 1MB, Support: png, jpeg, jpg",
+        "maxResolutionText": "Max Resolution 300px width and 200px height"
+    },
+    "common": {
+        "category": "Category",
+        "categories": "Categories",
+        "skill": "Skill",
+        "skills": "Skills",
+        "question": "Question",
+        "questions": "Questions",
+        "assessment": "Assessment",
+        "assessments": "Assessments",
+        "user": "User",
+        "users": "Users",
+        "name": "Name",
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "email": "Email",
+        "phone": "Phone",
+        "businessUnit": "Business Unit",
+        "role": "Role",
+        "action": "Action",
+        "edit": "Edit",
+        "delete": "Delete",
+        "status": "Status",
+        "create": "Create",
+        "cancel": "Cancel"
+    },
+    "manageTags": {
+        "manageTags": "Manage Tags",
+        "createTags": "Create Tags"
+    }
+}

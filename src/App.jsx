@@ -9,6 +9,8 @@ import TagsLists from './modules/manageResources/manageTags/tagsList';
 import Login from './Account/Login/login'
 import ForgotPassword from './Account/forgotPassword/ForgotPassword';
 import CreateTag from './modules/manageResources/manageTags/createTag';
+import Tenants from './modules/tenantManagement/tenants/tenantsList';
+import CreateTenant from './modules/tenantManagement/tenants/createTenant';
 import UsersList from './modules/tenantManagement/users/usersList';
 import CreateUser from './modules/tenantManagement/users/createUser';
 import QuestionsBulkUpload from './modules/questionManagement/questionsBulkUpload';
@@ -30,6 +32,8 @@ function App() {
           <Route path='/dashboard' element={<AdminDashboard />} />
           <Route path="/tags" element={<TagsLists />} />
           <Route path="/create-tags" element={<CreateTag />} />
+          <Route path="/tenants" element={<Tenants/>}/>
+          <Route path="/create-tennant" element={<CreateTenant/>}/>
           <Route path="/users" element={<UsersList/>} />
           <Route path="/create-upload-users" element={<CreateUser/>} />
           <Route path="/bulk-upload-questions" element={<QuestionsBulkUpload />} />

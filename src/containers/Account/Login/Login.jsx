@@ -3,7 +3,7 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate, useParams } from "react-router-dom";
 import {
     Box, Button, Container, FormControl, FormControlLabel, IconButton, InputAdornment,
-    InputLabel, Link, OutlinedInput, Switch, TextField
+    InputLabel, Link, OutlinedInput, Switch, TextField, Typography
 } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -12,6 +12,8 @@ import logo from "../../../assets/yaksha.png";
 import { useFormik, FormikProvider, Field } from "formik";
 import { getApi, postApi } from "../../../_api/_api";
 import { apiIdentityUrl } from './../../../_api/_urls';
+import * as Yup from "yup";
+import * as commonYupValidations from "../../../_shared/yupObjects";
 
 const Login = () => {
     const [state, setState] = useState({
@@ -30,13 +32,25 @@ const Login = () => {
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
+    const emailValidate = Yup.string().matches(commonYupValidations.emailR, 'Enter valid Email').required('Email is required')
+    .min(8, 'Atleast 8 characters')
+    .max(50, 'Only 50 characters are allowed')
+
+    const loginSchema = Yup.object().shape({
+        userNameOrEmailAddress: emailValidate,
+        password: Yup.string()
+          .required("Password should not be empty")
+          .max(30),
+      });
+
     const formik = useFormik({
         initialValues: {
-            userNameOrEmailAddress: "admin",
-            password: "123qwe",
+            userNameOrEmailAddress: "",
+            password: "",
             rememberClient: true,
             tenancyName: tenancyName
         },
+        validationSchema: loginSchema,
         onSubmit: async () => {
             try {
                 resetErrorMessage();
@@ -83,16 +97,23 @@ const Login = () => {
                     <Box sx={{width: '85%'}}>
                         {state.errorMessage && (<>{state.errorMessage}</>)}
                         <Field name="userNameOrEmailAddress">
-                            {({ field }) => (<>
+                            {({ field, meta }) => (<>
                                 <TextField {...field} 
-                                sx={{ mb: 4 }} label={t('preLogin.username')} variant="outlined" fullWidth/>
+                                sx={{ mb: 4 }} label={t('preLogin.username')} variant="outlined" fullWidth />
+
+                                {meta.touched && meta.error && (
+                                    <Typography sx={{color: '#FF4128'}} variant='caption'>
+                                    {meta.error}
+                                    </Typography>
+                                )}
+
                             </>)}
                         </Field>
                         <Field name="password">
-                            {({ field }) => (<>
+                            {({ field, meta }) => (<>
                                 <FormControl fullWidth variant="outlined" required sx={{ mb: 4 }}>
                                 <InputLabel htmlFor="password">{t('preLogin.password')}</InputLabel>
-                                <OutlinedInput {...field} type={showPassword ? 'text' : 'password'} label={t('preLogin.password')}
+                                    <OutlinedInput {...field} type={showPassword ? 'text' : 'password'} label={t('preLogin.password')}
                                     endAdornment={
                                     <InputAdornment position="end">
                                         <IconButton onClick={handleClickShowPassword} onMouseDown={handleMouseDownPassword}>
@@ -101,6 +122,11 @@ const Login = () => {
                                     </InputAdornment>
                                     }/>
                             </FormControl>
+                            {meta.touched && meta.error && (
+                                <Typography sx={{color: '#FF4128'}} variant='caption'>
+                                {meta.error}
+                                </Typography>
+                            )}
                             </>)}
                         </Field>
                         

@@ -1,0 +1,3 @@
+export const EXAMPLE_DATA = "EXAMPLE_DATA";
+
+export const EXAMPLE_DATA_ASYNC = "EXAMPLE_DATA_ASYNC";

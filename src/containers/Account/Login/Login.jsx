@@ -67,6 +67,8 @@ const Login = () => {
                         setState(prev => ({...prev, errorMessage: body.errorMessage}));
                         return;
                     }
+                    // TODO::Added for testing routes
+                    routeChange();
                     sessionStorage.setItem("accessToken", body.accessToken);
                     getCurrentLoginInfo()
                     // dispatch

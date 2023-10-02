@@ -5,7 +5,8 @@ import { FileUploader } from "react-drag-drop-files";
 import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import './questionsBulkUpload.scss';
-import Banner from '../../components/banner/banner';
+
+import Banner from '../../../_shared/components/banner/banner';
 import { useTranslation } from 'react-i18next';
 
 export default function QuestionsBulkUpload() {

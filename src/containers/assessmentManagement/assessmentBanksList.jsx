@@ -6,7 +6,8 @@ import {
   TableHead, TableSortLabel, Stack, Tooltip,
 } from '@mui/material';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import Banner from '../../components/banner/banner';
+
+import Banner from '../../../_shared/components/banner/banner';
 import { visuallyHidden } from '@mui/utils';
 import PropTypes from 'prop-types';
 import { useTheme } from '@mui/material/styles';

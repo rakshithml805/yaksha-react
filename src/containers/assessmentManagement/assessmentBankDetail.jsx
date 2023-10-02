@@ -3,7 +3,8 @@ import {
     Box, Container, Grid, Autocomplete, TextField, FormControl, InputAdornment, InputLabel, OutlinedInput,
     Card, CardContent, Typography, IconButton, Menu, MenuItem
 } from '@mui/material';
-import Banner from '../../components/banner/banner';
+
+import Banner from '../../../_shared/components/banner/banner';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { useTranslation } from 'react-i18next';
 import AnalyticsOutlinedIcon from '@mui/icons-material/AnalyticsOutlined';

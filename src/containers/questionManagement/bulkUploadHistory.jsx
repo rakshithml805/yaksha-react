@@ -10,7 +10,8 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import PropTypes from 'prop-types';
 import { visuallyHidden } from '@mui/utils';
 import './bulkUploadHistory.scss';
-import Banner from '../../components/banner/banner';
+
+import Banner from '../../../_shared/components/banner/banner';
 import { useTranslation } from 'react-i18next';
 
 export default function BulkUploadHistory() {

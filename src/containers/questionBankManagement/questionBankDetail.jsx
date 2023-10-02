@@ -13,7 +13,7 @@ import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import LoopOutlinedIcon from '@mui/icons-material/LoopOutlined';
-import Banner from "../../components/banner/banner";
+import Banner from '../../../_shared/components/banner/banner';
 import { useTranslation } from 'react-i18next';
 import './questionBankDetail.scss';
 

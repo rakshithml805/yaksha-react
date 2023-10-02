@@ -8,7 +8,18 @@ import ScoreboardOutlinedIcon from '@mui/icons-material/ScoreboardOutlined';
 import EventOutlinedIcon from '@mui/icons-material/EventOutlined';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import LoopOutlinedIcon from '@mui/icons-material/LoopOutlined';
+import Banner from '../../_shared/components/banner/banner';
 
+const breadcrumbs = [
+    {
+        name: "Dashboard",
+        url: "/dashboard"
+    },
+    {
+        name: "Question on Review",
+        url: ""
+    }
+]
 export default function QuestionReview() {
     const banks=['Question Bank 1','Question Bank 2','Question Bank 3','Question Bank 4'];
     const status = ['All Status','Acitve','Expired'];
@@ -60,27 +71,7 @@ export default function QuestionReview() {
     };
   return (
     <Box>
-        <Box className="banner">
-            <Container maxWidth="xl">
-                <Box  sx={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
-                    <Box>
-                        <Breadcrumbs sx={{mb:1}}>
-                        <Typography sx={{ display: 'flex', alignItems: 'center' }} fontSize="small" color="secondary">
-                                <NavLink color="inherit" to="/dashboard" >
-                                    Dashboard
-                                </NavLink>
-                            </Typography>
-                            <Typography sx={{ display: 'flex', alignItems: 'center' }} fontSize="small" color="secondary">
-                                <NavLink color="secondary" to="/bulk-upload-history">
-                                    Questions On Review
-                                </NavLink>
-                            </Typography>
-                        </Breadcrumbs>
-                        <Typography variant='h5'>Questions On Review</Typography>
-                    </Box>          
-                </Box>            
-            </Container>
-        </Box>
+        <Banner title="Questions On Review" crumbs={breadcrumbs} />
         <Container maxWidth="xl">
             <Box sx={{my:4}}>
                 <Grid container columnGap={2}>

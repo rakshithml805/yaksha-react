@@ -3,7 +3,7 @@ import { Container, Box, Typography, Button, Grid, TextField, FormControl, Selec
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import { useNavigate } from 'react-router-dom';
-import Banner from '../../../components/banner/banner';
+import Banner from '../../../_shared/components/banner/banner';
 import { useTranslation } from 'react-i18next';
 
 

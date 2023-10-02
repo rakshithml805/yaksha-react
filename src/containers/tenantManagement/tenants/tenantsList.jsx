@@ -15,10 +15,10 @@ import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
 import { useTheme } from '@mui/material/styles';
-import Banner from '../../../components/banner/banner';
 import { useTranslation } from 'react-i18next';
 import { visuallyHidden } from '@mui/utils';
-import DeleteDialog from '../../../components/deleteDialog/DeleteDialog';
+import Banner from '../../../_shared/components/banner/banner';
+import DeleteDialog from '../../../_shared/components/deleteDialog/DeleteDialog';
 
 export default function TenantsList() {
     const { t } = useTranslation();

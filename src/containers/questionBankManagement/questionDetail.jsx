@@ -1,6 +1,6 @@
 import React from "react";
 import { 
-    Box, Container, Breadcrumbs, Typography, Grid, Stack, Chip, Avatar
+    Box, Container, Typography, Grid, Stack, Chip, Avatar
 } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 import {
@@ -15,7 +15,7 @@ import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
 import ScoreboardOutlinedIcon from '@mui/icons-material/ScoreboardOutlined';
 import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
 import HourglassTopOutlinedIcon from '@mui/icons-material/HourglassTopOutlined';
-import Banner from "../../components/banner/banner";
+import Banner from '../../_shared/components/banner/banner';
 import { useTranslation } from 'react-i18next';
 import './questionDetail.scss';
 
@@ -269,10 +269,10 @@ const QuestionDetail = () => {
                             <Box>
                                 <Typography variant="h6" sx={{color:'#676767'}}>{t('common.description')}</Typography>
                                 <Typography variant="body2" sx={{mt: 1, lineHeight: '27px'}}>
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
                                 </Typography>
                                 <Typography variant="body2" sx={{mt: 2, lineHeight: '27px'}}>
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
                                 </Typography>
                                 <Typography variant="subtitle1" sx={{mt: 2, mb: 1, color: '#7c96ab'}}>
                                     {questionTag.title}

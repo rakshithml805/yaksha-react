@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import Banner from '../../../components/banner/banner';
+import Banner from '../../../_shared/components/banner/banner';
 import { Box, Stepper, Step, StepLabel,Typography, Button } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { Assessment } from '@mui/icons-material';

@@ -27,6 +27,9 @@ a {
 .d-flex {
     display: flex;
 }
+.d-inline-flex {
+    display: inline-flex;
+}
 .justify-space-between {
     justify-content: space-between;
 }
@@ -66,6 +69,14 @@ a {
     border-radius: 5px;
     background-color: #F4F4F4;
 }
+.done-circle {
+    border: 1px solid #4CAF50;
+    border-radius: 50%;
+    width: 90px;
+    height: 90px;
+    overflow: hidden;
+    padding: 12px;
+}
 .data-table-wrapper {
     .data-table-head {
         border-top: solid 2px #858585;
@@ -73,7 +84,8 @@ a {
 
         th {
             color: #676767;
-            font-size: 0.900rem;
+            font-size: 16px;
+            font-weight: 500;
         }
     }
 
@@ -85,7 +97,6 @@ a {
 
             td {
                 color: #696969;
-                
                 .question-type {
                     color: #869eb1;
                     font-size: 0.750rem;
@@ -93,4 +104,41 @@ a {
             }
         }
     }
+    .data-table-footer{
+        .MuiTablePagination-selectLabel{
+            font-size: 15px;
+            font-weight: normal;
+            color:#696969;
+        }
+        .MuiTablePagination-displayedRows{
+            font-size: 15px;
+            font-weight: normal;
+            color:#696969;
+        }
+    }
+}
+
+.line-clamp {
+    display: -webkit-box !important;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    &.line-clamp-2 {
+        -webkit-line-clamp: 2;
+    }
+
+    &.line-clamp-3 {
+        -webkit-line-clamp: 3;
+    }
+}
+
+.form-control {
+    .MuiInputBase-formControl {
+        background-color: white;
+    }
+}
+
+.quill-text{
+    height: 250px;
 }

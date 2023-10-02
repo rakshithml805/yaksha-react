@@ -2,6 +2,7 @@ import React from 'react'
 import { Container, Box, Typography, Tab, Button } from '@mui/material';
 import {TabContext, TabList, TabPanel} from '@mui/lab/';
 import Banner from '../../components/banner/banner';
+import { useTranslation } from 'react-i18next';
 
 const breadcrumbs = [
     {
@@ -12,6 +13,7 @@ const breadcrumbs = [
 
 const AdminDashboard = () => {
   const [value, setValue] = React.useState('one');
+  const {t} = useTranslation();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -19,7 +21,7 @@ const AdminDashboard = () => {
 
   return (
     <Box>
-        <Banner title="Dashboard" crumbs={breadcrumbs} />
+        <Banner title={t('common.dashboard')} crumbs={breadcrumbs} />
         <Container maxWidth="xl">
             <TabContext value={value}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -80,11 +82,9 @@ const AdminDashboard = () => {
                             banner
                         </Button>
                     </Box>
-
-                    
                 </TabPanel>
-                <TabPanel value="two" sx={{py: 1, px: 0}}>Question Bank</TabPanel>
-                <TabPanel value="three" sx={{py: 1, px: 0}}>Question Bank Report</TabPanel>
+                <TabPanel value="two" sx={{py: 1, px: 0}}>{t('common.category')}</TabPanel>
+                <TabPanel value="three" sx={{py: 1, px: 0}}>{t('common.categories')}</TabPanel>
                 <TabPanel value="four" sx={{py: 1, px: 0}}>Question Performance</TabPanel>
                 <TabPanel value="five" sx={{py: 1, px: 0}}>Assessments and Tenants</TabPanel>
             </TabContext>

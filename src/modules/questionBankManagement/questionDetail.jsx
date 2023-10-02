@@ -8,7 +8,6 @@ import {
     LineElement, Title, Tooltip, Legend, ArcElement
 } from 'chart.js';
 import { Line, Doughnut } from 'react-chartjs-2';
-import { generalConstants } from "../../helpers/constants";
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import LaptopWindowsOutlinedIcon from '@mui/icons-material/LaptopWindowsOutlined';
 import AnalyticsOutlinedIcon from '@mui/icons-material/AnalyticsOutlined';
@@ -17,6 +16,7 @@ import ScoreboardOutlinedIcon from '@mui/icons-material/ScoreboardOutlined';
 import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
 import HourglassTopOutlinedIcon from '@mui/icons-material/HourglassTopOutlined';
 import Banner from "../../components/banner/banner";
+import { useTranslation } from 'react-i18next';
 import './questionDetail.scss';
 
 const questionStats = {
@@ -138,10 +138,12 @@ const breadcrumbs = [
 ]
 
 const QuestionDetail = () => {
+    const {t} = useTranslation();
+
     return (
         <>
             <Box>
-                <Banner title={generalConstants.multipleChoiceOptions} crumbs={breadcrumbs} />
+                <Banner title={t('common.multipleChoiceOptions')} crumbs={breadcrumbs} />
 
                 <Container maxWidth="xl">
                     <Grid container spacing={2} sx={{my:1}}>
@@ -153,7 +155,7 @@ const QuestionDetail = () => {
                                             <LaptopWindowsOutlinedIcon className="icon-style"/>
                                             <Box className="d-flex flex-column">
                                                 <Typography variant='caption' sx={{fontSize: '16px', lineHeight: '1.2', color: '#7a7a7a'}}>{questionStats.proficiency}</Typography>
-                                                <Typography sx={{fontSize:'12px', color: '#849cb0'}}>{generalConstants.proficiency}</Typography>
+                                                <Typography sx={{fontSize:'12px', color: '#849cb0'}}>{t('common.proficiency')}</Typography>
                                             </Box>
                                         </Box>
                                     </Grid>
@@ -163,7 +165,7 @@ const QuestionDetail = () => {
                                             <AnalyticsOutlinedIcon className="icon-style"/>
                                             <Box className="d-flex flex-column">
                                                 <Typography variant='caption' sx={{fontSize: '16px', lineHeight: '1.2', color: '#7a7a7a'}}>{questionStats.assessments}</Typography>
-                                                <Typography sx={{fontSize:'12px', color: '#849cb0'}}>{generalConstants.assessments}</Typography>
+                                                <Typography sx={{fontSize:'12px', color: '#849cb0'}}>{t('common.assessments')}</Typography>
                                             </Box>
                                         </Box>
                                     </Grid>
@@ -173,7 +175,7 @@ const QuestionDetail = () => {
                                             <PeopleAltOutlinedIcon className="icon-style"/>
                                             <Box className="d-flex flex-column">
                                                 <Typography variant='caption' sx={{fontSize: '16px', lineHeight: '1.2', color: '#7a7a7a'}}>{questionStats.userAttempted}</Typography>
-                                                <Typography sx={{fontSize:'12px', color: '#849cb0'}}>{generalConstants.userAttempted}</Typography>
+                                                <Typography sx={{fontSize:'12px', color: '#849cb0'}}>{t('common.userAttempted')}</Typography>
                                             </Box>
                                         </Box>
                                     </Grid>
@@ -183,7 +185,7 @@ const QuestionDetail = () => {
                                             <ScoreboardOutlinedIcon className="icon-style"/>
                                             <Box className="d-flex flex-column">
                                                 <Typography variant='caption' sx={{fontSize: '16px', lineHeight: '1.2', color: '#7a7a7a'}}>{questionStats.score}</Typography>
-                                                <Typography sx={{fontSize:'12px', color: '#849cb0'}}>{generalConstants.score}</Typography>
+                                                <Typography sx={{fontSize:'12px', color: '#849cb0'}}>{t('common.score')}</Typography>
                                             </Box>
                                         </Box>
                                     </Grid>
@@ -193,7 +195,7 @@ const QuestionDetail = () => {
                                             <AccessTimeOutlinedIcon className="icon-style"/>
                                             <Box className="d-flex flex-column">
                                                 <Typography variant='caption' sx={{fontSize: '16px', lineHeight: '1.2', color: '#7a7a7a'}}>{questionStats.duration}</Typography>
-                                                <Typography sx={{fontSize:'12px', color: '#849cb0'}}>{generalConstants.duration}</Typography>
+                                                <Typography sx={{fontSize:'12px', color: '#849cb0'}}>{t('common.duration')}</Typography>
                                             </Box>
                                         </Box>
                                     </Grid>
@@ -203,7 +205,7 @@ const QuestionDetail = () => {
                                             <HourglassTopOutlinedIcon className="icon-style"/>
                                             <Box className="d-flex flex-column">
                                                 <Typography variant='caption' sx={{fontSize: '16px', lineHeight: '1.2', color: '#7a7a7a'}}>{questionStats.avgTimeTaken}</Typography>
-                                                <Typography sx={{fontSize:'12px', color: '#849cb0'}}>{generalConstants.avgTimeTaken}</Typography>
+                                                <Typography sx={{fontSize:'12px', color: '#849cb0'}}>{t('common.avgTimeTaken')}</Typography>
                                             </Box>
                                         </Box>
                                     </Grid>
@@ -213,7 +215,7 @@ const QuestionDetail = () => {
                                             <Avatar sx={{mr: 1}} alt={questionStats.author} src={questionStats.authorAvatar} />
                                             <Box className="d-flex flex-column">
                                                 <Typography variant='caption' sx={{fontSize: '16px', lineHeight: '1.2', color: '#7a7a7a'}}>{questionStats.author}</Typography>
-                                                <Typography sx={{fontSize:'12px', color: '#849cb0'}}>{generalConstants.author}</Typography>
+                                                <Typography sx={{fontSize:'12px', color: '#849cb0'}}>{t('common.author')}</Typography>
                                             </Box>
                                         </Box>
                                     </Grid>
@@ -223,7 +225,7 @@ const QuestionDetail = () => {
                                             <CalendarMonthOutlinedIcon className="icon-style"/>
                                             <Box className="d-flex flex-column">
                                                 <Typography variant='caption' sx={{fontSize: '16px', lineHeight: '1.2', color: '#7a7a7a'}}>{questionStats.createdOn}</Typography>
-                                                <Typography sx={{fontSize:'12px', color: '#849cb0'}}>{generalConstants.createdOn}</Typography>
+                                                <Typography sx={{fontSize:'12px', color: '#849cb0'}}>{t('common.createdOn')}</Typography>
                                             </Box>
                                         </Box>
                                     </Grid>
@@ -233,7 +235,7 @@ const QuestionDetail = () => {
                                             <CalendarMonthOutlinedIcon className="icon-style"/>
                                             <Box className="d-flex flex-column">
                                                 <Typography variant='caption' sx={{fontSize: '16px', lineHeight: '1.2', color: '#7a7a7a'}}>{questionStats.publishedDate}</Typography>
-                                                <Typography sx={{fontSize:'12px', color: '#849cb0'}}>{generalConstants.publishedDate}</Typography>
+                                                <Typography sx={{fontSize:'12px', color: '#849cb0'}}>{t('common.publishedDate')}</Typography>
                                             </Box>
                                         </Box>
                                     </Grid>
@@ -242,7 +244,7 @@ const QuestionDetail = () => {
                                         <Box className="d-flex align-start">
                                             <Box className="d-flex flex-column align-end">
                                                 <Typography variant='caption' sx={{fontSize: '16px', lineHeight: '1.2', color: '#7a7a7a', textAlign: 'right'}}>{questionStats.reviewer}</Typography>
-                                                <Typography sx={{fontSize:'12px', color: '#849cb0'}}>{generalConstants.reviewer}</Typography>
+                                                <Typography sx={{fontSize:'12px', color: '#849cb0'}}>{t('common.reviewer')}</Typography>
                                             </Box>
                                             <Avatar sx={{ml: 1}} alt={questionStats.reviewer} src={questionStats.reviewerAvatar} />
                                         </Box>
@@ -251,12 +253,12 @@ const QuestionDetail = () => {
                             </Box>
 
                             <Box sx={{borderTop: 'solid 2px #e6e6e6', mt: 2, pt: 4}}>
-                                <Typography variant="h6" sx={{color:'#676767'}}>{generalConstants.questionAge}</Typography>
+                                <Typography variant="h6" sx={{color:'#676767'}}>{t('common.questionAge')}</Typography>
                                 <Line options={chartOptions} data={questionAgeData} />
                             </Box>
 
                             <Box sx={{borderTop: 'solid 2px #e6e6e6', mt: 4, pt: 4}}>
-                                <Typography variant="h6" sx={{color:'#676767'}}>{generalConstants.attemptSummary}</Typography>
+                                <Typography variant="h6" sx={{color:'#676767'}}>{t('common.attemptSummary')}</Typography>
                                 <Box sx={{position: 'relative'}}>
                                     <Doughnut options={doughnutOptions} data={attemptSummaryData} radius="10" />
                                     <Typography sx={{fontSize: '16px', color:'#676767', position: 'absolute', top: '196px', left: '98px', width: '100px', textAlign: 'center'}}>4534</Typography>
@@ -265,7 +267,7 @@ const QuestionDetail = () => {
                         </Grid>
                         <Grid item xs={8} sx={{paddingLeft: '20px !important'}}>
                             <Box>
-                                <Typography variant="h6" sx={{color:'#676767'}}>{generalConstants.description}</Typography>
+                                <Typography variant="h6" sx={{color:'#676767'}}>{t('common.description')}</Typography>
                                 <Typography variant="body2" sx={{mt: 1, lineHeight: '27px'}}>
                                     Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
                                 </Typography>
@@ -285,7 +287,7 @@ const QuestionDetail = () => {
                             </Box>
 
                             <Box sx={{mt: 3, pt: 2, borderTop: 'solid 1px #d6d6d6'}}>
-                                <Typography variant="h6" sx={{color:'#676767', mb: 2}}>{generalConstants.multipleChoiceOptions}</Typography>
+                                <Typography variant="h6" sx={{color:'#676767', mb: 2}}>{t('common.multipleChoiceOptions')}</Typography>
                                 <Grid container spacing={3} className="mco-list">
                                     {
                                         mcoList.map((list) => (
@@ -298,7 +300,7 @@ const QuestionDetail = () => {
                             </Box>
 
                             <Box sx={{mt: 3, pt: 2, borderTop: 'solid 1px #d6d6d6'}}>
-                                <Typography variant="h6" sx={{color:'#676767', mb: 2}}>{generalConstants.hints}</Typography>
+                                <Typography variant="h6" sx={{color:'#676767', mb: 2}}>{t('common.hints')}</Typography>
                                 <Grid container spacing={3}>
                                     {
                                         hintList.map((hint) => (

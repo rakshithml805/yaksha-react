@@ -17,6 +17,7 @@ import {
     Checkbox,
     ListItemText,
     } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import Banner from '../../../components/banner/banner';
 
@@ -50,6 +51,7 @@ const breadcrumbs = [
 const button = ['Create Tags', "/create-tags"];
 
 const createTags = () => {
+    const {t} = useTranslation();
     const imgUpload = useRef(null);
     const tagsImg = event => {
         imgUpload.current.click();
@@ -80,11 +82,11 @@ const createTags = () => {
             <Banner title="Create Tags" crumbs={breadcrumbs} />
             <Container maxWidth="xl">
                 <Box className="d-flex align-center" sx={{my: 3}}>
-                    <Typography variant='h1' sx={{mr: 5}}>Create</Typography>
+                    <Typography variant='h1' sx={{mr: 5}}>{t('common.create')}</Typography>
                     <FormControl>
                         <RadioGroup row name="tags" defaultValue="Category" className='d-flex align-center' value={tagValue} onChange={selectTag}>
-                            <FormControlLabel  control={<Radio />} value="category" label="Category" sx={{mr:5}} />                               
-                            <FormControlLabel value="skill" control={<Radio />} label="Skill" />
+                            <FormControlLabel  control={<Radio />} value="category" label={t('common.category')} sx={{mr:5}} />                               
+                            <FormControlLabel value="skill" control={<Radio />} label={t('common.skill')} />
                         </RadioGroup>
                     </FormControl>
                 </Box>
@@ -94,24 +96,24 @@ const createTags = () => {
                         <Box sx={{mr:3, py: 3, width: 350}} className="upload-img d-flex flex-column align-center justify-center">
                             <Button variant='text' color="secondary" onClick={tagsImg}>
                                 <FileUploadOutlinedIcon color='error'/>
-                                <Typography variant="subtitle1" color='primary'>Upload Category Image</Typography>
+                                <Typography variant="subtitle1" color='primary'>{t('commonForm.uploadCategoryImage')}</Typography>
                             </Button>
                             <Box sx={{mt:2}} className="d-flex flex-column align-center justify-center">
-                                <Typography variant="caption" color='grey'>File size less than 1MB</Typography>
-                                <Typography variant="caption" color="grey">Supported Format: png, jepg, jpg</Typography>
-                                <Typography variant="caption" color='grey'>Max Resolution 120px width 90px height</Typography>
+                                <Typography variant="caption" color='grey'>{t('commonForm.imgFileSize')}</Typography>
+                                <Typography variant="caption" color="grey">{t('commonForm.imgSupportFormat')}</Typography>
+                                <Typography variant="caption" color='grey'>{t('commonForm.maxResolution')}</Typography>
                             </Box>
                             <input type="file" accept='.jpg , .png , .jpeg' onChange={uploadFiles} ref={imgUpload} hidden></input>
                         </Box>
                         <Box className="d-flex flex-column justify-space-between" sx={{width: 380}}>
-                            <TextField label="Category Name" variant="outlined" fullWidth />
+                            <TextField label={t('commonForm.categoryName')} variant="outlined" fullWidth required/>
                             <FormControl fullWidth>
-                                <InputLabel>Assign Skills</InputLabel>
+                                <InputLabel>{t('commonForm.assignSkills')}</InputLabel>
                                 <Select
                                     multiple
                                     value={selectedSkill}
                                     onChange={selectSkill}
-                                    input={<OutlinedInput label="Assign Skills" />}
+                                    input={<OutlinedInput label={t('commonForm.assignSkills')} />}
                                     renderValue={(selected) => selected.join(', ')}
                                     MenuProps={MenuProps}
                                 >
@@ -132,28 +134,28 @@ const createTags = () => {
                         <Box sx={{mr:3, py: 3, width: 350}} className="upload-img d-flex flex-column align-center justify-center">
                             <Button variant='text' color="secondary" onClick={tagsImg}>
                                 <FileUploadOutlinedIcon color='error'/>
-                                <Typography variant="subtitle1" color='primary'>Upload Skill Image</Typography>
+                                <Typography variant="subtitle1" color='primary'>{t('commonForm.uploadSkillImage')}</Typography>
                             </Button>
                             <Box sx={{mt:2}} className="d-flex flex-column align-center justify-center">
-                                <Typography variant="caption" color='grey'>File size less than 1MB</Typography>
-                                <Typography variant="caption" color="grey">Supported Format: png, jepg, jpg</Typography>
-                                <Typography variant="caption" color='grey'>Max Resolution 120px width 90px height</Typography>
+                                <Typography variant="caption" color='grey'>{t('commonForm.imgFileSize')}</Typography>
+                                <Typography variant="caption" color="grey">{t('commonForm.imgSupportFormat')}</Typography>
+                                <Typography variant="caption" color='grey'>{t('commonForm.maxResolution')}</Typography>
                             </Box>
                             <input type="file" accept='.jpg , .png , .jpeg' onChange={uploadFiles} ref={imgUpload} hidden></input>
                         </Box>
                         <Box className="d-flex flex-column justify-space-between" sx={{width: 'calc(100% - 400px)'}}>
                             <Box className="d-flex">
-                                <TextField label="Skill Name" variant="outlined" sx={{width: 380, mr: 2}} />
-                                <TextField label="Sub Skill Name" variant="outlined" sx={{width: 380, mr: 2}} />
-                                <TextField label="Sub Skill Name" variant="outlined" sx={{width: 380}} />
+                                <TextField label={t('commonForm.skillName')} variant="outlined" required sx={{width: 380, mr: 2}} />
+                                <TextField label={t('commonForm.subSkillName')} variant="outlined" sx={{width: 380, mr: 2}} />
+                                <TextField label={t('commonForm.subSkillName')} variant="outlined" sx={{width: 380}} />
                             </Box>
                             <FormControl sx={{width: 360}}>
-                                <InputLabel>Assign Categories</InputLabel>
+                                <InputLabel>{t('commonForm.assignCategories')}</InputLabel>
                                 <Select
                                     multiple
                                     value={selectedCate}
                                     onChange={selectCategory}
-                                    input={<OutlinedInput label="Assign Categories" />}
+                                    input={<OutlinedInput label={t('commonForm.assignCategories')} />}
                                     renderValue={(selected) => selected.join(', ')}
                                     MenuProps={MenuProps}
                                 >
@@ -170,8 +172,8 @@ const createTags = () => {
                 )}
                 <Divider sx={{mt: 4, mb: 2}} />
                 <Box className='d-flex justify-end'>
-                    <Button variant='contained' color='secondary' sx={{mr:3}}>Cancel</Button>
-                    <Button variant='contained' color='primary'>Create</Button>
+                    <Button variant='contained' color='secondary' sx={{mr:3}}>{t('common.cancel')}</Button>
+                    <Button variant='contained' color='primary'>{t('common.create')}</Button>
                 </Box>
             </Container>
         </Box>

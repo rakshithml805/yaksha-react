@@ -1,11 +1,10 @@
 import React from "react";
 import { 
-    Box, Container, Breadcrumbs, Typography, TextField, Grid,
+    Box, Container, Typography, TextField, Grid,
     Autocomplete, FormControl, InputLabel, OutlinedInput,
     InputAdornment, Card, CardContent, List, ListItem, ListItemText, IconButton
 } from '@mui/material';
 import { NavLink } from 'react-router-dom';
-import { generalConstants } from "../../helpers/constants";
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import QuestionMarkOutlinedIcon from '@mui/icons-material/QuestionMarkOutlined';
 import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
@@ -15,9 +14,12 @@ import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutl
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import LoopOutlinedIcon from '@mui/icons-material/LoopOutlined';
 import Banner from "../../components/banner/banner";
+import { useTranslation } from 'react-i18next';
 import './questionBankDetail.scss';
 
 const QuestionBankDetails = () => {
+    const {t} = useTranslation();
+    
     const questionTypeList = [
         {id: 0, type: 'All Types'},
         {id: 1, type: 'Objective Questions'},
@@ -146,7 +148,6 @@ const QuestionBankDetails = () => {
     return (
         <Box>
             <Banner title="Default Question Bank" crumbs={breadcrumbs} />
-
             <Container maxWidth="xl">
                 <Box sx={{my:4}} className="form-holder">
                     <Grid container spacing={3}>
@@ -157,7 +158,7 @@ const QuestionBankDetails = () => {
                                 getOptionLabel={(option) => option.type}
                                 fullWidth
                                 defaultValue={questionTypeList[0]}
-                                renderInput={(params) => <TextField {...params} label={generalConstants.selectType} />}
+                                renderInput={(params) => <TextField {...params} label={t('commonForm.selectType')} />}
                             />
                         </Grid>
                         <Grid item xs={3}>
@@ -167,7 +168,7 @@ const QuestionBankDetails = () => {
                                 getOptionLabel={(option) => option.name}
                                 fullWidth
                                 defaultValue={proficiencyList[0]}
-                                renderInput={(params) => <TextField {...params} label={generalConstants.selectProficiency} />}
+                                renderInput={(params) => <TextField {...params} label={t('commonForm.selectProficiency')} />}
                             />
                         </Grid>
                         <Grid item xs={3}>
@@ -177,7 +178,7 @@ const QuestionBankDetails = () => {
                                 getOptionLabel={(option) => option.name}
                                 fullWidth
                                 defaultValue={categoryList[0]}
-                                renderInput={(params) => <TextField {...params} label={generalConstants.selectCategory} />}
+                                renderInput={(params) => <TextField {...params} label={t('commonForm.selectCategory')} />}
                             />
                         </Grid>
                         <Grid item xs={3}>
@@ -187,7 +188,7 @@ const QuestionBankDetails = () => {
                                 getOptionLabel={(option) => option.name}
                                 fullWidth
                                 defaultValue={skillList[0]}
-                                renderInput={(params) => <TextField {...params} label={generalConstants.selectSkill} />}
+                                renderInput={(params) => <TextField {...params} label={t('commonForm.selectSkill')} />}
                             />
                         </Grid>
                         <Grid item xs={3}>
@@ -197,7 +198,7 @@ const QuestionBankDetails = () => {
                                 getOptionLabel={(option) => option.name}
                                 fullWidth
                                 defaultValue={skillList[0]}
-                                renderInput={(params) => <TextField {...params} label={generalConstants.selectSubSkill} />}
+                                renderInput={(params) => <TextField {...params} label={t('commonForm.selectSubSkill')} />}
                             />
                         </Grid>
                         <Grid item xs={3}>
@@ -207,12 +208,12 @@ const QuestionBankDetails = () => {
                                 getOptionLabel={(option) => option.name}
                                 fullWidth
                                 defaultValue={skillList[0]}
-                                renderInput={(params) => <TextField {...params} label={generalConstants.selectSubSkill} />}
+                                renderInput={(params) => <TextField {...params} label={t('commonForm.selectSubSkill')} />}
                             />
                         </Grid>
                         <Grid item xs={6}>
                             <FormControl variant="outlined" fullWidth>
-                                <InputLabel htmlFor="search">{generalConstants.search}</InputLabel>
+                                <InputLabel htmlFor="search">{t('commonForm.search')}</InputLabel>
                                 <OutlinedInput
                                     id="search"
                                     type={'text'}
@@ -221,7 +222,7 @@ const QuestionBankDetails = () => {
                                             <SearchOutlinedIcon />
                                         </InputAdornment>
                                     }
-                                    label={generalConstants.search}
+                                    label={t('commonForm.search')}
                                 />
                             </FormControl>
                         </Grid>
@@ -229,7 +230,7 @@ const QuestionBankDetails = () => {
                 </Box>
 
                 <Box className="d-flex justify-end align-center" sx={{my:2}}>
-                    <Typography variant="subtitle1">{generalConstants.total}</Typography>
+                    <Typography variant="subtitle1">{t('common.total')}</Typography>
                     <List className="d-flex list" sx={{p: 0}}>
                         {
                             questionBankStatistics.map((stats) => (
@@ -261,9 +262,7 @@ const QuestionBankDetails = () => {
                                                 </IconButton>
                                             </Box> 
                                         </Box>
-
                                         <NavLink className='question-link' to="/question-detail">{question.name}</NavLink>
-
                                         <Box sx={{ flexGrow: 1 }}>
                                             <Grid container spacing={2}>
                                                 <Grid item xs={4}>
@@ -271,7 +270,7 @@ const QuestionBankDetails = () => {
                                                         <QuestionMarkOutlinedIcon className="icon-style"/>
                                                         <Box className="d-flex flex-column">
                                                             <Typography variant='caption' sx={{fontSize: '14px', color: '#7a7a7a'}}>{question.type}</Typography>
-                                                            <Typography sx={{fontSize:'12px', color: '#849cb0'}}>{generalConstants.type}</Typography>
+                                                            <Typography sx={{fontSize:'12px', color: '#849cb0'}}>{t('common.type')}</Typography>
                                                         </Box>
                                                     </Box>
                                                 </Grid>
@@ -280,7 +279,7 @@ const QuestionBankDetails = () => {
                                                         <TimerOutlinedIcon className="icon-style"/>
                                                         <Box className="d-flex flex-column">
                                                             <Typography variant='caption' sx={{fontSize: '14px', color: '#7a7a7a'}}>{question.proficiency}</Typography>
-                                                            <Typography sx={{fontSize:'12px', color: '#849cb0'}}>{generalConstants.proficiency}</Typography>
+                                                            <Typography sx={{fontSize:'12px', color: '#849cb0'}}>{t('common.proficiency')}</Typography>
                                                         </Box>                                                            
                                                     </Box>
                                                 </Grid>
@@ -289,7 +288,7 @@ const QuestionBankDetails = () => {
                                                         <ScoreboardOutlinedIcon className="icon-style"/>
                                                         <Box className="d-flex flex-column">
                                                             <Typography variant='caption' sx={{fontSize: '14px', color: '#7a7a7a'}}>{question.score}</Typography>
-                                                            <Typography sx={{fontSize:'12px', color: '#849cb0'}}>{generalConstants.score}</Typography>
+                                                            <Typography sx={{fontSize:'12px', color: '#849cb0'}}>{t('common.score')}</Typography>
                                                         </Box>
                                                     </Box>
                                                 </Grid>
@@ -298,7 +297,7 @@ const QuestionBankDetails = () => {
                                                         <CalendarMonthOutlinedIcon className="icon-style"/>
                                                         <Box className="d-flex flex-column">
                                                             <Typography variant='caption' sx={{fontSize: '14px', color: '#7a7a7a'}}>{question.createdOn}</Typography>
-                                                            <Typography sx={{fontSize:'12px', color: '#849cb0'}}>{generalConstants.createdOn}</Typography>
+                                                            <Typography sx={{fontSize:'12px', color: '#849cb0'}}>{t('common.createdOn')}</Typography>
                                                         </Box>
                                                     </Box>
                                                 </Grid>
@@ -307,7 +306,7 @@ const QuestionBankDetails = () => {
                                                         <CalendarMonthOutlinedIcon className="icon-style"/>
                                                         <Box className="d-flex flex-column">
                                                             <Typography variant='caption' sx={{fontSize: '14px', color: '#7a7a7a'}}>{question.modifiedOn}</Typography>
-                                                            <Typography sx={{fontSize:'12px', color: '#849cb0'}}>{generalConstants.modifiedOn}</Typography>
+                                                            <Typography sx={{fontSize:'12px', color: '#849cb0'}}>{t('common.modifiedOn')}</Typography>
                                                         </Box>                                                            
                                                     </Box>
                                                 </Grid>
@@ -320,7 +319,7 @@ const QuestionBankDetails = () => {
                     }
                 </Grid>
                 <Box className="d-flex justify-center align-center" sx={{mt:4}}>
-                    <Typography variant='subtitle1' sx={{mr:1}} color='primary'>{generalConstants.loadMore}</Typography>
+                    <Typography variant='subtitle1' sx={{mr:1}} color='primary'>{t('common.loadMore')}</Typography>
                     <LoopOutlinedIcon color='error'/>
                 </Box> 
             </Container>

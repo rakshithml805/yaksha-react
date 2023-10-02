@@ -9,9 +9,23 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import PropTypes from 'prop-types';
 import { visuallyHidden } from '@mui/utils';
-import './bulkUploadHistory.scss'
+import './bulkUploadHistory.scss';
+import Banner from '../../components/banner/banner';
+import { useTranslation } from 'react-i18next';
 
 export default function BulkUploadHistory() {
+
+    const {t} = useTranslation();
+    const breadcrumbs = [
+        {
+            name: "Dashboard",
+            url: "/dashboard"
+        },
+        {
+            name: "Bulk Upload History",
+            url: ""
+        }
+    ]
     const tenants = [
         {
             id: 101,
@@ -204,27 +218,7 @@ export default function BulkUploadHistory() {
   
   return (
     <Box>
-        <Box className="banner">
-            <Container maxWidth="xl">
-                <Box  sx={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
-                    <Box>
-                        <Breadcrumbs sx={{mb:1}}>
-                        <Typography sx={{ display: 'flex', alignItems: 'center' }} fontSize="small" color="secondary">
-                                <NavLink color="inherit" to="/dashboard" >
-                                    Dashboard
-                                </NavLink>
-                            </Typography>
-                            <Typography sx={{ display: 'flex', alignItems: 'center' }} fontSize="small" color="secondary">
-                                <NavLink color="secondary" to="/bulk-upload-history">
-                                    Question Upload History
-                                </NavLink>
-                            </Typography>
-                        </Breadcrumbs>
-                        <Typography variant='h5'>Question Upload History</Typography>
-                    </Box>          
-                </Box>            
-            </Container>
-        </Box>
+        <Banner title={t('bulkUploadHistory.bulkUploadHistory')} crumbs={breadcrumbs} />
         <Container maxWidth="xl">
                 <Box sx={{mt:4}}>
                     <Grid container columnGap={1}>
@@ -233,27 +227,27 @@ export default function BulkUploadHistory() {
                             disablePortal
                             options={tenants}
                             getOptionLabel={(option) => option.name}
-                            renderInput={(params) => <TextField {...params} label="Select Tenant" />}
+                            renderInput={(params) => <TextField {...params} label={t('commonForm.selectTenant')} />}
                             />
                         </Grid>
                         <Grid item xs={2}>
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                                 <DemoContainer components={['DatePicker']}>
-                                    <DatePicker label="Start Date" />
+                                    <DatePicker label={t('commonForm.startDate')} />
                                 </DemoContainer>
                             </LocalizationProvider>
                         </Grid>
                         <Grid item xs={2}>
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                                 <DemoContainer components={['DatePicker']}>
-                                    <DatePicker label="End Date" />
+                                    <DatePicker label={t('commonForm.endDate')} />
                                 </DemoContainer>
                             </LocalizationProvider>
                         </Grid>
                         <Grid item xs={4}>
                             <FormControl  variant="outlined" fullWidth>
-                                <InputLabel>Search</InputLabel>
-                                <OutlinedInput  placeholder="Search"
+                                <InputLabel>{t('commonForm.search')}</InputLabel>
+                                <OutlinedInput  placeholder={t('commonForm.search')}
                                     endAdornment={
                                     <InputAdornment position="end">
                                         <IconButton edge="end">
@@ -261,7 +255,7 @@ export default function BulkUploadHistory() {
                                         </IconButton>
                                     </InputAdornment>
                                     }
-                                    label="Search"
+                                    label={t('commonForm.search')}
                                 />
                             </FormControl>
                         </Grid>
@@ -272,7 +266,7 @@ export default function BulkUploadHistory() {
                                     234
                                 </Typography>
                                 <Typography color="#b1b1b1" fontSize="12px">
-                                    Total Uploads
+                                {t('bulkUploadHistory.totalUploads')}
                                 </Typography>
                         </Grid>
                         <Grid item sx>
@@ -280,7 +274,7 @@ export default function BulkUploadHistory() {
                                     234
                                 </Typography>
                                 <Typography color="#b1b1b1" fontSize="12px">
-                                Objective Questions
+                                {t('bulkUploadHistory.objectiveQuestions')}
                                 </Typography>
                         </Grid>
                         <Grid item sx>
@@ -288,7 +282,7 @@ export default function BulkUploadHistory() {
                                     234
                                 </Typography>
                                 <Typography color="#b1b1b1" fontSize="12px">
-                                Subjective Questions
+                                {t('bulkUploadHistory.subjectiveQuestions')}
                                 </Typography>
                         </Grid>
                         <Grid item sx>
@@ -296,23 +290,23 @@ export default function BulkUploadHistory() {
                                 234
                             </Typography>
                             <Typography color="#b1b1b1" fontSize="12px">
-                            Coding Questions
+                            {t('bulkUploadHistory.codingQuestions')}
                             </Typography>
                         </Grid>
                         <Grid item sx>
-                                <Typography variant="subtitle1">
-                                    234
-                                </Typography>
-                                <Typography  color="#b1b1b1" fontSize="12px">
-                                Stack Questions
-                                </Typography>
+                            <Typography variant="subtitle1">
+                                234
+                            </Typography>
+                            <Typography  color="#b1b1b1" fontSize="12px">
+                            {t('bulkUploadHistory.stackQuestions')}
+                            </Typography>
                         </Grid>
                         <Grid item sx>
                                 <Typography variant="subtitle1" >
                                     234
                                 </Typography>
                                 <Typography  color="#b1b1b1" fontSize="12px">
-                                    Total Uploads
+                                {t('bulkUploadHistory.totalUploads')}
                                 </Typography>
                         </Grid>
                     </Grid>
@@ -338,35 +332,35 @@ export default function BulkUploadHistory() {
                                                     id={labelId}
                                                     scope="row"
                                                 >
-                                                         <Typography color="#808080">{fileList.fileName}</Typography>
+                                                         <Typography variant='body2' color="text.disabled">{fileList.fileName}</Typography>
                                                 </TableCell>
                                                 <TableCell align="left">
-                                                    <Typography color="#808080">{fileList.userName}</Typography>
-                                                    <Typography color="#808080">{fileList.userEmail}</Typography>
+                                                    <Typography variant='body2' color="text.disabled">{fileList.userName}</Typography>
+                                                    <Typography variant='body2' color="text.disabled">{fileList.userEmail}</Typography>
                                                 </TableCell>
                                                 <TableCell align="center">                                               
-                                                    <Typography color="#808080">
+                                                    <Typography variant='body2' color="text.disabled">
                                                         {fileList.categories}
                                                     </Typography>
                                                 </TableCell>
-                                                <TableCell align="center">                                               
-                                                    <Typography color="#808080">
+                                                <TableCell  align="center">                                               
+                                                    <Typography variant='body2' color="text.disabled">
                                                         {fileList.skills}
                                                     </Typography>
                                                 </TableCell>
-                                                <TableCell align="center">                                               
-                                                    <Typography color="#808080">
+                                                <TableCell variant='body2' align="center">                                               
+                                                    <Typography color="text.disabled">
                                                         {fileList.questions}
                                                     </Typography>
                                                 </TableCell>
                                                 <TableCell align="left">                                               
-                                                    <Typography color="#808080">
+                                                    <Typography variant='body2' color="text.disabled">
                                                         {fileList.type}
                                                     </Typography>
                                                 </TableCell>
                                                 <TableCell align="left">                                               
-                                                    <Typography color="#808080">{fileList.uploadedOn}</Typography> 
-                                                    <Typography color="#808080">{fileList.uploadedTime}</Typography> 
+                                                    <Typography color="text.disabled" variant='body2'>{fileList.uploadedOn}</Typography> 
+                                                    <Typography color="text.disabled" variant='body2'>{fileList.uploadedTime}</Typography> 
                                                 </TableCell>
                                             </TableRow>
                                         );

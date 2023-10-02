@@ -6,7 +6,7 @@ import { useLocation } from 'react-router-dom';
 
 function Footer(){
     const location = useLocation();
-    const hideFooterForPaths = ['/','/forgotPassword'];
+    const hideFooterForPaths = ['/','/forgotPassword', '/resetPassword'];
     if(hideFooterForPaths.includes(location.pathname)) {
       return <></>;
     }

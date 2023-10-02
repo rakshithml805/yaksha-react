@@ -4,9 +4,10 @@ import loginBanner from '../../assets/Yaksha-Login.png'
 import logo from "../../assets/yaksha.png";
 import {Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from "react-router-dom";
-
+import { useTranslation } from 'react-i18next';
 
 export default function Login() {
+    const {t} = useTranslation();
     let navigate = useNavigate();
     const routeChange = () =>{ 
         let path = '/dashboard'; 
@@ -28,10 +29,10 @@ export default function Login() {
                     <img src={logo} />
                 </Box>
                 <Box sx={{width: '85%'}}>
-                    <TextField sx={{ mb: 4 }} type='email' label="Username" variant="outlined" required fullWidth/>
+                    <TextField sx={{ mb: 4 }} type='email' label={t('preLogin.username')} variant="outlined" required fullWidth/>
                     <FormControl fullWidth variant="outlined" required sx={{ mb: 4 }}>
-                        <InputLabel htmlFor="password">Password</InputLabel>
-                        <OutlinedInput id="password" type={showPassword ? 'text' : 'password'} label="Password"
+                        <InputLabel htmlFor="password">{t('preLogin.password')}</InputLabel>
+                        <OutlinedInput id="password" type={showPassword ? 'text' : 'password'} label={t('preLogin.password')}
                             endAdornment={
                             <InputAdornment position="end">
                                 <IconButton onClick={handleClickShowPassword} onMouseDown={handleMouseDownPassword}>
@@ -41,14 +42,14 @@ export default function Login() {
                             }/>
                     </FormControl>
                     <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4}}>
-                        <FormControlLabel control={<Switch defaultChecked />} label="Remember Me"/>
-                        <Link href="/forgotPassword" underline="none">Forgot password?</Link>
+                        <FormControlLabel control={<Switch defaultChecked />} label={t('preLogin.rememberMe')}/>
+                        <Link href="/forgotPassword" underline="none">{t('preLogin.forgotPassword')}</Link>
                     </Box>
-                    <Button color='primary' onClick={routeChange} variant="contained" sx={{width:'100%'}}>Login</Button>
+                    <Button color='primary' onClick={routeChange} variant="contained" sx={{width:'100%'}}>{t('preLogin.login')}</Button>
                 </Box>
             </Box>
         </Box>
-    </Container>    
+    </Container>
   )
 }
 

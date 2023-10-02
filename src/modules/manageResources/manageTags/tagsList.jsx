@@ -1,37 +1,34 @@
 import React, { useState } from 'react';
-import {
-    Container, 
-    Box, 
-    Typography, 
-    Tab, 
-    Button, 
-    IconButton, 
-    FormControl, 
-    InputLabel, 
-    OutlinedInput, 
-    InputAdornment, 
-    Grid, 
-    Card, 
-    CardContent, 
-    Select,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    Slide,
-    Divider,
-    } from '@mui/material';
+import { Container, Box, Typography, Tab, IconButton, FormControl, InputLabel, OutlinedInput, InputAdornment, Grid, Card, CardContent, Select } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import MenuItem from '@mui/material/MenuItem';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import LoopOutlinedIcon from '@mui/icons-material/LoopOutlined';
-import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import { TabContext, TabList, TabPanel } from '@mui/lab/';
-
-// Temp Data Start
-import cardImg from '../../../assets/card-image.jpeg'
+import { useNavigate } from 'react-router-dom';
 import Banner from '../../../components/banner/banner';
+import cardImg from '../../../assets/card-image.jpeg';
+import DeleteDialog from '../../../components/deleteDialog/DeleteDialog';
+
+const breadcrumbs = [
+    {
+        name: "Dashboard",
+        url: "/dashboard"
+    },
+    {
+        name: "Manage Tags",
+        url: ""
+    }
+]
+const button = ['Create Tags', "/create-tags"];
+const tagImg = {
+    width: "112px",
+    height: "77px",
+    borderRadius: "5px"
+}
+
 const categoriesList = [
     {
         name:'Web Development',
@@ -108,30 +105,9 @@ const skillsList = [
         questions:45
     },
 ]
-// Temp Data End
-
-const breadcrumbs = [
-    {
-        name: "Dashboard",
-        url: "/dashboard"
-    },
-    {
-        name: "Manage Tags",
-        url: ""
-    }
-]
-const button = ['Create Tags', "/create-tags"];
-
-const tagImg = {
-    width: "112px",
-    height: "77px",
-    borderRadius: "5px"
-}
-const Transition = React.forwardRef(function Transition(props, ref) {
-    return <Slide direction="down" ref={ref} {...props} />;
-});
-
 const TagLists = () => {
+    const {t} = useTranslation();
+    const navigate = useNavigate();
 
     const [value, setValue] = useState('categories');
     const tabChange = (event, newValue) => {
@@ -161,7 +137,7 @@ const TagLists = () => {
 
     return (
         <Box>
-            <Banner title="Manage Tags" crumbs={breadcrumbs} bannerButton={button} />
+            <Banner title={t('manageTags.manageTags')} crumbs={breadcrumbs} bannerButton={button} />
             <Container maxWidth="xl">
                 <TabContext value={value}>
                     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -177,27 +153,29 @@ const TagLists = () => {
                                     color: "#AC0521"
                                 },
                             }}>
-                            <Tab value="categories" label="Categories" />
-                            <Tab value="skills" label="Skills" />
+                            <Tab value="categories" label={t('common.categories')} />
+                            <Tab value="skills" label={t('common.skills')} />
                         </TabList>
                     </Box>
                     <TabPanel value="categories" sx={{py: 1, px: 0}}>
-                        <Box sx={{my: 3}}>
-                            <FormControl variant="outlined" sx={{width: 400}}>
-                                <InputLabel htmlFor="outlined-adornment-password">Search</InputLabel>
-                                <OutlinedInput placeholder="Search"
-                                    id="outlined-adornment-password"
-                                    endAdornment={
-                                        <InputAdornment position="end">
-                                            <IconButton edge="end">
-                                                <SearchOutlinedIcon color='primary'/>
-                                            </IconButton>
-                                        </InputAdornment>
-                                    }
-                                    label="Search"
-                                />
-                            </FormControl>
-                        </Box>
+                        <Grid container spacing={3} sx={{mb:3, pt:2}}>
+                            <Grid item xs={12} md={6} lg={4}>
+                                <FormControl variant="outlined" fullWidth>
+                                    <InputLabel htmlFor="outlined-search">{t('commonForm.search')}</InputLabel>
+                                    <OutlinedInput placeholder={t('commonForm.search')}
+                                        id="outlined-search"
+                                        endAdornment={
+                                            <InputAdornment position="end">
+                                                <IconButton edge="end">
+                                                    <SearchOutlinedIcon color='primary'/>
+                                                </IconButton>
+                                            </InputAdornment>
+                                        }
+                                        label={t('commonForm.search')}
+                                    />
+                                </FormControl>
+                            </Grid>
+                        </Grid>
                         <Grid container spacing={3}>
                             {categoriesList.map((each, index) => (
                                 <Grid item key={index} xs={12} md={6} lg={4}>
@@ -211,20 +189,20 @@ const TagLists = () => {
                                                 <Box className="d-flex" sx={{mt:2}}>
                                                     <Box sx={{mr: 6}}>
                                                         <Typography variant='body1'>{each.skills}</Typography>
-                                                        <Typography variant='caption' color="text.disabled">Skills</Typography>
+                                                        <Typography variant='caption' color="text.disabled">{t('common.skills')}</Typography>
                                                     </Box>
                                                     <Box sx={{mr: 6}}>
                                                         <Typography variant='body1'>{each.assessments}</Typography>
-                                                        <Typography variant='caption' color="text.disabled">Assessments</Typography>
+                                                        <Typography variant='caption' color="text.disabled">{t('common.assessments')}</Typography>
                                                     </Box>
                                                     <Box>
                                                         <Typography variant='body1'>{each.questions}</Typography>
-                                                        <Typography variant='caption' color="text.disabled">Questions</Typography>
+                                                        <Typography variant='caption' color="text.disabled">{t('common.questions')}</Typography>
                                                     </Box>
                                                 </Box>
                                             </Box>
                                             <Box className="p-absolute d-flex" sx={{top: 5, right: 5, zIndex: 1000}}>
-                                                <EditOutlinedIcon color='warning' sx={{cursor:'pointer'}}/>
+                                                <EditOutlinedIcon color='warning' sx={{cursor:'pointer'}} onClick={() => navigate('/create-tags')}/>
                                                 {(each.skills===0 && each.questions===0 && each.assessments===0 ) && (
                                                     <DeleteForeverOutlinedIcon color='error' onClick={() => dialogOpen(each.name)} sx={{cursor:'pointer', ml:2}}/>
                                                 )}
@@ -235,44 +213,48 @@ const TagLists = () => {
                             ))}
                         </Grid>
                         <Box className="d-flex align-center justify-center" sx={{width: "100%", my: 3}}>
-                            <Typography variant='caption' sx={{mr:1}} color='primary'>Load More</Typography>
+                            <Typography variant='caption' sx={{mr:1}} color='primary'>{t('common.loadMore')}</Typography>
                             <LoopOutlinedIcon color='error'  fontSize='small'/>
                         </Box>
                     </TabPanel>
                     <TabPanel value="skills" sx={{py: 1, px: 0}}>
-                        <Box sx={{my: 3}}>
-                            <FormControl sx={{width: 400, mr: 3}}>
-                                <InputLabel id="categories">Select Categories</InputLabel>
-                                <Select
-                                    labelId="categories"
-                                    id="demo-simple-select"
-                                    value={selectCategory}
-                                    label="Select Categories"
-                                    onChange={cateSelect}
-                                >
-                                    <MenuItem value={0}>Select Category</MenuItem>
-                                    <MenuItem value={1}>Web Development</MenuItem>
-                                    <MenuItem value={2}>Stack</MenuItem>
-                                    <MenuItem value={3}>Application Development Programing</MenuItem>
-                                    <MenuItem value={4}>Software Development</MenuItem>
-                                    <MenuItem value={5}>Programing Language</MenuItem>
-                                </Select>
-                            </FormControl>
-                            <FormControl variant="outlined" sx={{width: 400}}>
-                                <InputLabel htmlFor="outlined-adornment-password">Search</InputLabel>
-                                <OutlinedInput placeholder="Search"
-                                    id="outlined-adornment-password"
-                                    endAdornment={
-                                        <InputAdornment position="end">
-                                            <IconButton edge="end">
-                                                <SearchOutlinedIcon color='primary'/>
-                                            </IconButton>
-                                        </InputAdornment>
-                                    }
-                                    label="Search"
-                                />
-                            </FormControl>
-                        </Box>
+                        <Grid container spacing={3} sx={{mb:3, pt:2}}>
+                            <Grid item xs={12} md={6} lg={4}>
+                                <FormControl fullWidth>
+                                    <InputLabel id="selectCategory">{t('commonForm.selectCategory')}</InputLabel>
+                                    <Select
+                                        labelId="categories"
+                                        id="selectCaetgory"
+                                        value={selectCategory}
+                                        label={t('commonForm.selectCategory')}
+                                        onChange={cateSelect}
+                                    >
+                                        <MenuItem value={0}>{t('commonForm.selectCategory')}</MenuItem>
+                                        <MenuItem value={1}>Web Development</MenuItem>
+                                        <MenuItem value={2}>Stack</MenuItem>
+                                        <MenuItem value={3}>Application Development Programing</MenuItem>
+                                        <MenuItem value={4}>Software Development</MenuItem>
+                                        <MenuItem value={5}>Programing Language</MenuItem>
+                                    </Select>
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={12} md={6} lg={4}>
+                                <FormControl variant="outlined" fullWidth>
+                                    <InputLabel htmlFor="outlined-search">{t('commonForm.search')}</InputLabel>
+                                    <OutlinedInput placeholder={t('commonForm.search')}
+                                        id="outlined-search"
+                                        endAdornment={
+                                            <InputAdornment position="end">
+                                                <IconButton edge="end">
+                                                    <SearchOutlinedIcon color='primary'/>
+                                                </IconButton>
+                                            </InputAdornment>
+                                        }
+                                        label={t('commonForm.search')}
+                                    />
+                                </FormControl>
+                            </Grid>
+                        </Grid>
                         <Grid container spacing={3}>
                             {skillsList.map((each, index) => (
                                 <Grid item key={index} xs={12} md={6} lg={4}>
@@ -286,20 +268,20 @@ const TagLists = () => {
                                                 <Box className="d-flex" sx={{mt:2}}>
                                                     <Box sx={{mr: 6}}>
                                                         <Typography variant='body1'>{each.categories}</Typography>
-                                                        <Typography variant='caption' color="text.disabled">Categories</Typography>
+                                                        <Typography variant='caption' color="text.disabled">{t('common.categories')}</Typography>
                                                     </Box>
                                                     <Box sx={{mr: 6}}>
                                                         <Typography variant='body1'>{each.assessments}</Typography>
-                                                        <Typography variant='caption' color="text.disabled">Assessments</Typography>
+                                                        <Typography variant='caption' color="text.disabled">{t('common.assessments')}</Typography>
                                                     </Box>
                                                     <Box>
                                                         <Typography variant='body1'>{each.questions}</Typography>
-                                                        <Typography variant='caption' color="text.disabled">Questions</Typography>
+                                                        <Typography variant='caption' color="text.disabled">{t('common.questions')}</Typography>
                                                     </Box>
                                                 </Box>
                                             </Box>
                                             <Box className="p-absolute d-flex" sx={{top: 5, right: 5, zIndex: 1000}}>
-                                                <EditOutlinedIcon color='warning' sx={{cursor:'pointer'}}/>
+                                                <EditOutlinedIcon color='warning' sx={{cursor:'pointer'}} onClick={() => navigate('/create-tags')}/>
                                                 {(each.categories===0 && each.questions===0 && each.assessments===0 ) && (
                                                     <DeleteForeverOutlinedIcon color='error' onClick={() => dialogOpen(each.name)} sx={{cursor:'pointer', ml:2}}/>
                                                 )}
@@ -310,48 +292,19 @@ const TagLists = () => {
                             ))}
                         </Grid>
                         <Box className="d-flex align-center justify-center" sx={{width: "100%", my: 3}}>
-                            <Typography variant='caption' sx={{mr:1}} color='primary'>Load More</Typography>
+                            <Typography variant='caption' sx={{mr:1}} color='primary'>{t('common.loadMore')}</Typography>
                             <LoopOutlinedIcon color='error' fontSize='small'/>
                         </Box>
                     </TabPanel>
                 </TabContext>
             </Container>
-            <Dialog
+            <DeleteDialog
                 open={dialog}
-                TransitionComponent={Transition}
-                keepMounted
-                onClose={dialogClose}
-                aria-describedby="delete-tag-dialog"
-            >
-                <DialogContent className='d-flex justify-center align-center flex-column' sx={{minWidth: 500}}>
-                    {!tagDelete && (
-                    <>
-                        <ErrorOutlineIcon color="warning" sx={{fontSize: "4rem"}} />
-                        <Typography variant='body1' color='primary'>Are you Sure?</Typography>
-                        <Typography variant='body1' color="text.disabled">You want to delete</Typography>
-                        <Typography variant='body1' color="text.disabled" fontWeight={700}>{`"${deleteItem}"`}</Typography>
-                    </>
-                    )}
-                    {tagDelete && (
-                    <>
-                        <CheckCircleOutlineIcon color="success" sx={{fontSize: "4rem"}} />
-                        <Typography variant='body1' color='primary'>Tag Deleted Successfully!</Typography>
-                    </>
-                    )}
-                </DialogContent>
-                <Divider />
-                <DialogActions>
-                    {!tagDelete && (
-                    <>
-                        <Button variant='contained' color="secondary" onClick={dialogClose}>Cancel</Button>
-                        <Button variant='contained' color="primary" onClick={deleteTag}>Delete</Button>
-                    </>
-                    )}
-                    {tagDelete && (
-                        <Button variant='contained' color="primary" onClick={dialogClose}>OK</Button>
-                    )}
-                </DialogActions>
-            </Dialog>
+                item={deleteItem}
+                deleteStatus={tagDelete}
+                handleClose={dialogClose}
+                handleDelete={deleteTag}
+            />
         </Box>
     )
 }

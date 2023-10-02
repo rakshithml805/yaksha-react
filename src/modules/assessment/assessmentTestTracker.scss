@@ -1,0 +1,172 @@
+.assessment-header {
+    background-color: #153776;
+    color: #ffffff;
+    padding: 15px 0px;
+
+    .right-control-holder {
+        > .MuiButtonBase-root {
+            svg {
+                width: 36px;
+                height: 36px;
+                fill: #ffffff;
+            }
+        }
+
+        > .MuiBox-root {
+            margin: 0px 20px;
+
+            > .MuiTypography-root {
+                opacity: 0.7;
+            }
+
+            > .MuiList-root {
+                margin-left: 10px;
+                .MuiListItem-root {
+                    border: solid 1px #ffffff;
+                    border-radius: 6px;
+                    margin: 0px 5px;
+                    padding: 3px 5px;
+                    width: 40px;
+                    text-align: center;
+                }
+            }
+        }
+    }
+}
+
+.test-list {
+    padding-top: 0px !important;
+
+    li {
+        padding: 0px;
+        width: auto;
+        text-align: center;
+
+        .MuiListItemText-root {
+            margin-top: 0px !important;
+        }
+
+        .primary {
+            .MuiListItemText-primary {
+                background-color: #153776;
+            }    
+        }
+
+        .success {
+            .MuiListItemText-primary {
+                background-color: #4caf50;
+            }    
+        }
+
+        .warn {
+            .MuiListItemText-primary {
+                background-color: #ff9d00;
+            }    
+        }
+
+        .danger {
+            .MuiListItemText-primary {
+                background-color: #ad0521;
+            }    
+        }
+
+        .MuiListItemText-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #e5e5e5;
+            color: #ffffff;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+        }
+
+        .MuiListItemText-secondary {
+            color: #7e97ac;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+    }
+}
+
+.assessment-left-bar {
+    > .MuiBox-root {
+        margin: 15px 0px;
+        border-right: solid 1px #dadada;
+        padding-right: 24px;
+        height: calc(100% - 30px);
+    }
+    
+    .section-accordion {
+        .MuiAccordion-root {
+            border: solid 1px #cbd2dc;
+            box-shadow: 0px 0px 5px rgba(0,0,0,0.2);
+    
+            .MuiAccordionSummary-root {
+                min-height: 60px;
+    
+                .MuiAccordionSummary-content {
+                    margin: 0px;
+    
+                    .section-name {
+                        display: flex;
+                        align-items: center;
+                        color: #696969;
+                        font-size: 16px;
+                        font-weight: 500;
+    
+                        svg {
+                            margin-right: 5px;
+                        }
+                    }
+                }
+            }
+    
+            ul {
+                margin: -10px 0px 0px;
+                border-top: solid 1px #d6d6d6;
+                padding: 15px 0px 0px;
+                list-style: none;
+                display: flex;
+                flex-wrap: wrap;
+    
+                li {
+                    p {
+                        width: 36px;
+                        height: 36px;
+                        border-radius: 50%;
+                        color: #ffffff;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        margin: 0px 20px 20px 0px;
+    
+                        &.not-started {
+                            color: #7c7c7c;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.assessment-right-section {
+    > .MuiBox-root {
+        margin: 15px 0px;
+    }
+
+    .MuiButton-root {
+        + .MuiButton-root {
+            margin-left: 20px;
+        }
+    }
+
+    .test-holder {
+        border-top: solid 1px #dadada;
+        border-bottom: solid 1px #dadada;
+        min-height: 200px;
+        margin: 20px 0px;
+        padding: 20px 0px;
+    }
+}

@@ -1,6 +1,6 @@
 import React from 'react'
-import { Box, Container, Breadcrumbs, Typography, Autocomplete, Grid, TextField, Button, Card, CardContent } from '@mui/material'
-import { NavLink,useNavigate } from 'react-router-dom';
+import { Box, Container,  Typography, Autocomplete, Grid, TextField, List,ListItem,ListItemText, Button, Card, CardContent } from '@mui/material'
+import {useNavigate } from 'react-router-dom';
 import cardImg from '../../assets/card-image.jpeg';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import LoopOutlinedIcon from '@mui/icons-material/LoopOutlined';
@@ -9,8 +9,22 @@ import QuestionMarkOutlinedIcon from '@mui/icons-material/QuestionMarkOutlined';
 import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 import ScoreboardOutlinedIcon from '@mui/icons-material/ScoreboardOutlined';
 import './createQuestionBank.scss';
+import Banner from '../../components/banner/banner';
+import { useTranslation } from 'react-i18next';
 
 export default function CreateQuestionBank() {
+
+    const breadcrumbs = [
+        {
+            name: "Dashboard",
+            url: "/dashboard"
+        },
+        {
+            name: "Create Question Banks",
+            url: ""
+        }
+    ];
+    const {t} = useTranslation();
     const tenants=['Yaksha','CA','NSEIT','Cognizant'];
     const category = ['Web Development','Front End','Back End','AI']
     const skills=['HTML','JAVASCRIPT','CSS','PYTHON'];
@@ -191,7 +205,7 @@ export default function CreateQuestionBank() {
             questions:50
         }
 
-    ]
+    ];
     const questions = [
         {   
             id:101,
@@ -247,7 +261,7 @@ export default function CreateQuestionBank() {
             proficency:'Advanced',
             score:10
         },
-    ]
+    ];
     const selectedQuestionList = [
         {   
             id:501,
@@ -303,58 +317,37 @@ export default function CreateQuestionBank() {
             proficency:'Advanced',
             score:10
         },
-    ]
+    ];
+    const questionBankStatistics = [
+        {id:1, primary: '234', secondary: 'Categories'},
+        {id:2, primary: '45', secondary: 'Skills'},
+        {id:3, primary: '3234', secondary: 'Questions'}
+    ];
     const [showSkills,setShowSkills] = React.useState(false);
     const viewSkills = () =>{
         setShowSkills(true);
         setShowQuestions(false);
-    }
+    };
     const [showQuestions,setShowQuestions] = React.useState(false);
     const viewQuestions = () =>{
         setShowSkills(false);
         setShowQuestions(true);
-    }
+    };
     const [viewSelected,setViewSelected] = React.useState(false);
     const showSelected =()=>{
         setViewSelected(!viewSelected);
         setShowSkills(false);
         setShowQuestions(false);
-
-    }
+    };
     let navigate = useNavigate();
     const navigateToBanks =() => {
         let path = '/question-banks'; 
         navigate(path);
-    }
+    };
 
   return (
     <Box>
-        <Box className="banner">
-            <Container maxWidth="xl">
-                <Box  sx={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
-                    <Box>
-                        <Breadcrumbs sx={{mb:1}}>
-                        <Typography sx={{ display: 'flex', alignItems: 'center' }} fontSize="small" color="secondary">
-                                <NavLink color="inherit" to="/dashboard" >
-                                    Dashboard
-                                </NavLink>
-                            </Typography>
-                            <Typography sx={{ display: 'flex', alignItems: 'center' }} fontSize="small" color="secondary">
-                                <NavLink color="inherit" to="/question-banks">
-                                    Question Bank
-                                </NavLink>
-                            </Typography>
-                            <Typography sx={{ display: 'flex', alignItems: 'center' }} fontSize="small" color="secondary">
-                                <NavLink color="secondary" to="/create-question-bank">
-                                    Create Question Bank
-                                </NavLink>
-                            </Typography>
-                        </Breadcrumbs>
-                        <Typography variant='h5'>Create Question Bank</Typography>
-                    </Box>          
-                </Box>            
-            </Container>
-        </Box>
+        <Banner title={t('createQuestion.createQuestion')} crumbs={breadcrumbs} />
         <Container maxWidth="xl">
             <Box sx={{my:4,border:'dashed',borderColor:'#cbd2dc',padding:'20px',backgroundColor:"#f4f4f4",borderRadius:'7px'}}>
                 <Grid container columnGap={5}>
@@ -366,51 +359,34 @@ export default function CreateQuestionBank() {
                         disablePortal
                         required
                         options={tenants}
-                        renderInput={(params) => <TextField {...params} label="Assign to Tenant" className='form-control'/>
+                        renderInput={(params) => <TextField {...params} label={t('commonForm.assignToTenant')} className='form-control'/>
                         }
                         />
                     </Grid>
                     <Grid item xs={3} sx={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
-                        <Button variant='contained' onClick={navigateToBanks}>CREATE</Button>
+                        <Button variant='contained' onClick={navigateToBanks}>{t('common.create')}</Button>
                         <Button variant="outlined" sx={{backgroundColor:"white"}} onClick={showSelected} >{  !viewSelected ? "VIEW SELECTED":"ADD MORE"}</Button>
-                        <Button variant='contained' color='secondary' onClick={navigateToBanks}>CANCEL</Button>
+                        <Button variant='contained' color='secondary' onClick={navigateToBanks}>{t('common.cancel')}</Button>
                     </Grid>
                 </Grid>
             </Box>
             <Box sx={{display:'flex',justifyContent:'space-between',mb:4}}>
-                <Typography variant='h6' color="grey">
+                <Typography variant="subtitle1" color="grey">
                     {!viewSelected ? "Add Questions" :"Selected Categories, Skills and Questions"}
                 </Typography>
                 <Box sx={{display:'flex',justifyContent:'space-between'}}>
                     <Typography variant="subtitle1" sx={{mr:2,fontWeight:'500'}}>
-                        Total Selected
+                    {t('common.totalSelected')}
                     </Typography>
-                    <Box sx={{display:'flex',justifyContent:'space-between'}}>
-                        <Box sx={{mr:3}}>
-                            <Typography variant="subtitle1" sx={{fontWeight:'500'}}>
-                                234
-                            </Typography>
-                            <Typography fontSize="12px" color="#aaaaaa">
-                                Categories
-                            </Typography>
-                        </Box>
-                        <Box sx={{mr:3}}>
-                            <Typography variant="subtitle1" sx={{fontWeight:'500'}}>
-                                234
-                            </Typography>
-                            <Typography fontSize="12px" color="#aaaaaa">
-                                Skills
-                            </Typography>
-                        </Box>
-                        <Box>
-                            <Typography variant="subtitle1" sx={{fontWeight:'500'}}> 
-                                234
-                            </Typography>
-                            <Typography fontSize="12px" color="#aaaaaa">
-                                Questions
-                            </Typography>
-                        </Box>
-                    </Box>        
+                    <List className="d-flex list" sx={{p: 0}}>
+                        {
+                            questionBankStatistics.map((stats) => (
+                                <ListItem key={stats.id} sx={{p: 0, ml: 3}}>
+                                    <ListItemText primary={stats.primary} secondary={stats.secondary} sx={{m: 0}} />
+                                </ListItem>
+                            ))
+                        }
+                    </List> 
                 </Box>
             </Box>
             {!viewSelected && 
@@ -423,7 +399,7 @@ export default function CreateQuestionBank() {
                                         disablePortal
                                         options={category}
                                         fullWidth
-                                        renderInput={(params) => <TextField {...params} label="Select Category" />}
+                                        renderInput={(params) => <TextField {...params} label={t('commonForm.selectCategory')} />}
                                     />
                                 </Grid>
                                 <Grid item xs>
@@ -431,7 +407,7 @@ export default function CreateQuestionBank() {
                                         disablePortal
                                         options={skills}
                                         fullWidth
-                                        renderInput={(params) => <TextField {...params} label="Select Skill" />}
+                                        renderInput={(params) => <TextField {...params} label={t('commonForm.selectSkill')} />}
                                     />
                                 </Grid>
                                 <Grid item xs>
@@ -439,7 +415,7 @@ export default function CreateQuestionBank() {
                                         disablePortal
                                         options={subskills1}
                                         fullWidth
-                                        renderInput={(params) => <TextField {...params} label="Select Sub Skill" />}
+                                        renderInput={(params) => <TextField {...params} label={t('commonForm.selectSubSkill')} />}
                                     />
                                 </Grid>
                                 <Grid item xs>
@@ -447,7 +423,7 @@ export default function CreateQuestionBank() {
                                         disablePortal
                                         options={subskills2}
                                         fullWidth
-                                        renderInput={(params) => <TextField {...params} label="Select Sub Skill"  />}
+                                        renderInput={(params) => <TextField {...params} label={t('commonForm.selectSubSkill')}  />}
                                     />
                                 </Grid>
                             </Grid>
@@ -467,21 +443,21 @@ export default function CreateQuestionBank() {
                                                             <Typography onClick={viewSkills} variant='subtitle2' sx={{fontWeight:'500',maxHeight:'44px',overflow:'hidden',width:'78%',cursor:'pointer'}}>{category.name}</Typography>
                                                             <Box sx={{position: 'absolute', top: 10, right: 10, zIndex: 10}}>
                                                                 <Button variant="text" color='error'><AddOutlinedIcon sx={{ cursor:'pointer'}}/>
-                                                                <Typography variant='subtitle2' >Add</Typography></Button>      
+                                                                <Typography variant='subtitle2' >{t('common.add')}</Typography></Button>      
                                                             </Box> 
                                                         </Box>
                                                         <Box sx={{display:'flex',justifyContent:'space-between'}}>
                                                             <Box>
                                                                 <Typography variant='caption' sx={{fontWeight:'500'}}>{category.skills}</Typography>
-                                                                <Typography color='#aaaaaa' sx={{fontSize:'10px',}}>Skills</Typography>
+                                                                <Typography color='#aaaaaa' sx={{fontSize:'10px',}}>{t('common.skills')}</Typography>
                                                             </Box>
                                                             <Box>
                                                                 <Typography variant='caption' sx={{fontWeight:'500'}}>{category.assessments}</Typography>
-                                                                <Typography color='#aaaaaa' sx={{fontSize:'10px'}}>Assessments</Typography>
+                                                                <Typography color='#aaaaaa' sx={{fontSize:'10px'}}>{t('common.assessments')}</Typography>
                                                             </Box>
                                                             <Box>
                                                                 <Typography variant='caption' sx={{fontWeight:'500'}}>{category.questions}</Typography>
-                                                                <Typography color='#aaaaaa' sx={{fontSize:'10px'}}>Questions</Typography>
+                                                                <Typography color='#aaaaaa' sx={{fontSize:'10px'}}>{t('common.questions')}</Typography>
                                                             </Box>
                                                         </Box>
                                                     </Box>
@@ -505,21 +481,21 @@ export default function CreateQuestionBank() {
                                                             <Typography variant='subtitle2' onClick={viewQuestions} sx={{fontWeight:'500',maxHeight:'44px',overflow:'hidden',width:'78%',cursor:'pointer'}}>{skill.name}</Typography>
                                                             <Box sx={{position: 'absolute', top: 10, right: 10, zIndex: 10}}>
                                                                 <Button variant="text" color='error'><RemoveOutlinedIcon sx={{ cursor:'pointer'}}/>
-                                                                <Typography variant='subtitle2' >Remove</Typography></Button>      
+                                                                <Typography variant='subtitle2' >{t('common.remove')}</Typography></Button>      
                                                             </Box> 
                                                         </Box>
                                                         <Box sx={{display:'flex',justifyContent:'space-between'}}>
                                                             <Box>
                                                                 <Typography variant='caption' sx={{fontWeight:'500'}}>{skill.categories}</Typography>
-                                                                <Typography color='#aaaaaa' sx={{fontSize:'10px'}}>Categories</Typography>
+                                                                <Typography color='#aaaaaa' sx={{fontSize:'10px'}}>{t('common.categories')}</Typography>
                                                             </Box>
                                                             <Box>
                                                                 <Typography variant='caption' sx={{fontWeight:'500'}}>{skill.assessments}</Typography>
-                                                                <Typography  color='#aaaaaa' sx={{fontSize:'10px'}}>Assessments</Typography>
+                                                                <Typography  color='#aaaaaa' sx={{fontSize:'10px'}}>{t('common.assessments')}</Typography>
                                                             </Box>
                                                             <Box>
                                                                 <Typography variant='caption' sx={{fontWeight:'500'}}>{skill.questions}</Typography>
-                                                                <Typography  color='#aaaaaa' sx={{fontSize:'10px'}}>Questions</Typography>
+                                                                <Typography  color='#aaaaaa' sx={{fontSize:'10px'}}>{t('common.questions')}</Typography>
                                                             </Box>
                                                         </Box>
                                                     </Box>
@@ -541,7 +517,7 @@ export default function CreateQuestionBank() {
                                                     </Box>
                                                     <Box sx={{position:'absolute', top: 10, right: 10, zIndex: 10}}>
                                                         <Button variant="text" color='error'><RemoveOutlinedIcon sx={{ cursor:'pointer'}}/>
-                                                        <Typography variant='subtitle2' >Remove</Typography></Button>      
+                                                        <Typography variant='subtitle2' >{t('common.remove')}</Typography></Button>      
                                                     </Box> 
                                                 </Box>
                                                 <Typography variant='subtitle2' sx={{fontWeight:'500',maxHeight:'44px',overflow:'hidden',my:1}}>{question.name}</Typography>
@@ -550,7 +526,7 @@ export default function CreateQuestionBank() {
                                                         <QuestionMarkOutlinedIcon fontSize='12px' color='error'/>
                                                         <Box sx={{display:'flex',flexDirection:'column'}}>
                                                             <Typography variant='caption' sx={{fontWeight:'500'}}>{question.type}</Typography>
-                                                            <Typography color='#aaaaaa' sx={{fontSize:'10px'}}>Type</Typography>
+                                                            <Typography color='#aaaaaa' sx={{fontSize:'10px'}}>{t('common.type')}</Typography>
                                                         </Box>
                                                         
                                                     </Box>
@@ -558,14 +534,14 @@ export default function CreateQuestionBank() {
                                                         <TimerOutlinedIcon fontSize='12px' color='error'/>
                                                         <Box sx={{display:'flex',flexDirection:'column'}}>
                                                             <Typography variant='caption' sx={{fontWeight:'500'}}>{question.proficency}</Typography>
-                                                            <Typography color='#aaaaaa' sx={{fontSize:'10px'}}>Proficency</Typography>
+                                                            <Typography color='#aaaaaa' sx={{fontSize:'10px'}}>{t('common.proficency')}</Typography>
                                                         </Box>                                                            
                                                     </Box>
                                                     <Box sx={{display:'flex',alignItems:'flex-start'}}>
                                                         <ScoreboardOutlinedIcon fontSize='12px' color='error'/>
                                                         <Box sx={{display:'flex',flexDirection:'column'}}>
                                                             <Typography variant='caption' sx={{fontWeight:'500'}}>{question.score}</Typography>
-                                                            <Typography  color='#aaaaaa' sx={{fontSize:'10px'}}>Score</Typography>
+                                                            <Typography  color='#aaaaaa' sx={{fontSize:'10px'}}>{t('common.score')}</Typography>
                                                         </Box>
                                                     </Box>
                                                 </Box>
@@ -576,7 +552,7 @@ export default function CreateQuestionBank() {
                             }
                         </Grid>
                         <Box sx={{display:'flex',justifyContent:'center',alignItems:'center',mt:4}}>
-                            <Typography variant='subtitle1' sx={{mr:1}} color='primary'> Load More</Typography>
+                            <Typography variant='subtitle1' sx={{mr:1}} color='primary'> {t('common.loadMore')}</Typography>
                             <LoopOutlinedIcon color='error'/>
                         </Box> 
                     </Box>
@@ -589,7 +565,7 @@ export default function CreateQuestionBank() {
                     <Box>
                         <Box>
                             <Box sx={{display:'flex',alignItems:'baseline'}}>
-                                <Typography variant='h6' sx={{mr:1,mb:1}}>Categories</Typography>
+                                <Typography variant='h6' sx={{mr:1,mb:1}}>{t('common.categories')}</Typography>
                                 <Typography variant='subtitle2' color="grey">- (12)</Typography>
                             </Box> 
                             <Grid container spacing={3}>
@@ -607,21 +583,21 @@ export default function CreateQuestionBank() {
                                                                 <Typography variant='subtitle2' sx={{fontWeight:'500',maxHeight:'44px',overflow:'hidden',width:'78%',cursor:'pointer'}}>{category.name}</Typography>
                                                                 <Box sx={{position: 'absolute', top: 10, right: 10, zIndex: 10}}>
                                                                     <Button variant="text" color='error'><RemoveOutlinedIcon sx={{ cursor:'pointer'}}/>
-                                                                    <Typography variant='subtitle2' >Remove</Typography></Button>      
+                                                                    <Typography variant='subtitle2' >{t('common.remove')}</Typography></Button>      
                                                                 </Box> 
                                                             </Box>
                                                             <Box sx={{display:'flex',justifyContent:'space-between'}}>
                                                                 <Box>
                                                                     <Typography variant='caption' sx={{fontWeight:'500'}}>{category.skills}</Typography>
-                                                                    <Typography color='#aaaaaa' sx={{fontSize:'10px'}}>Skills</Typography>
+                                                                    <Typography color='#aaaaaa' sx={{fontSize:'10px'}}>{t('common.skills')}</Typography>
                                                                 </Box>
                                                                 <Box>
                                                                     <Typography variant='caption' sx={{fontWeight:'500'}}>{category.assessments}</Typography>
-                                                                    <Typography color='#aaaaaa' sx={{fontSize:'10px'}}>Assessments</Typography>
+                                                                    <Typography color='#aaaaaa' sx={{fontSize:'10px'}}>{t('common.assessments')}</Typography>
                                                                 </Box>
                                                                 <Box>
                                                                     <Typography variant='caption' sx={{fontWeight:'500'}}>{category.questions}</Typography>
-                                                                    <Typography color='#aaaaaa' sx={{fontSize:'10px'}}>Questions</Typography>
+                                                                    <Typography color='#aaaaaa' sx={{fontSize:'10px'}}>{t('common.questions')}</Typography>
                                                                 </Box>
                                                             </Box>
                                                         </Box>
@@ -635,7 +611,7 @@ export default function CreateQuestionBank() {
                         </Box>
                         <Box sx={{my:5}}>
                             <Box sx={{display:'flex',alignItems:'baseline'}}>
-                                <Typography variant='h6' sx={{mr:1,mb:1}}>Skills</Typography>
+                                <Typography variant='h6' sx={{mr:1,mb:1}}>{t('common.skills')}</Typography>
                                 <Typography variant='subtitle2' color="grey">- (12)</Typography>
                             </Box> 
                             <Grid container spacing={3}>
@@ -653,21 +629,21 @@ export default function CreateQuestionBank() {
                                                                 <Typography variant='subtitle2' sx={{fontWeight:'500',maxHeight:'44px',overflow:'hidden',width:'78%',cursor:'pointer'}}>{skill.name}</Typography>
                                                                 <Box sx={{position: 'absolute', top: 10, right: 10, zIndex: 10}}>
                                                                     <Button variant="text" color='error'><RemoveOutlinedIcon sx={{ cursor:'pointer'}}/>
-                                                                    <Typography variant='subtitle2'>Remove</Typography></Button>      
+                                                                    <Typography variant='subtitle2'>{t('common.remove')}</Typography></Button>      
                                                                 </Box> 
                                                             </Box>
                                                             <Box sx={{display:'flex',justifyContent:'space-between'}}>
                                                                 <Box>
                                                                     <Typography variant='caption' sx={{fontWeight:'500'}}>{skill.categories}</Typography>
-                                                                    <Typography color='#aaaaaa' sx={{fontSize:'10px'}}>Categories</Typography>
+                                                                    <Typography color='#aaaaaa' sx={{fontSize:'10px'}}>{t('common.categories')}</Typography>
                                                                 </Box>
                                                                 <Box>
                                                                     <Typography variant='caption' sx={{fontWeight:'500'}}>{skill.assessments}</Typography>
-                                                                    <Typography color='#aaaaaa' sx={{fontSize:'10px'}}>Assessments</Typography>
+                                                                    <Typography color='#aaaaaa' sx={{fontSize:'10px'}}>{t('common.assessments')}</Typography>
                                                                 </Box>
                                                                 <Box>
                                                                     <Typography variant='caption' sx={{fontWeight:'500'}}>{skill.questions}</Typography>
-                                                                    <Typography color='#aaaaaa' sx={{fontSize:'10px'}}>Questions</Typography>
+                                                                    <Typography color='#aaaaaa' sx={{fontSize:'10px'}}>{t('common.questions')}</Typography>
                                                                 </Box>
                                                             </Box>
                                                         </Box>
@@ -681,7 +657,7 @@ export default function CreateQuestionBank() {
                         </Box> 
                         <Box sx={{my:5}}>
                             <Box sx={{display:'flex',alignItems:'baseline'}}>
-                                <Typography variant='h6' sx={{mr:1,mb:1}}>Questions</Typography>
+                                <Typography variant='h6' sx={{mr:1,mb:1}}>{t('common.questions')}</Typography>
                                 <Typography variant='subtitle2' color="grey">- (12)</Typography>
                             </Box> 
                             <Grid container spacing={3}>
@@ -697,7 +673,7 @@ export default function CreateQuestionBank() {
                                                         </Box>
                                                         <Box sx={{position: 'absolute', top: 10, right: 10, zIndex: 10}}>
                                                             <Button variant="text" color='error'><RemoveOutlinedIcon sx={{ cursor:'pointer'}}/>
-                                                            <Typography variant='subtitle2' >Remove</Typography></Button>      
+                                                            <Typography variant='subtitle2' >{t('common.remove')}</Typography></Button>      
                                                         </Box> 
                                                     </Box>
                                                     <Typography variant='subtitle2' sx={{fontWeight:'500',maxHeight:'44px',overflow:'hidden',my:1}}>{question.name}</Typography>
@@ -707,7 +683,7 @@ export default function CreateQuestionBank() {
                                                             <QuestionMarkOutlinedIcon fontSize='12px' color='error'/>
                                                             <Box sx={{display:'flex',flexDirection:'column'}}>
                                                                 <Typography variant='caption' sx={{fontWeight:'500'}}>{question.type}</Typography>
-                                                                <Typography color='#aaaaaa' sx={{fontSize:'10px'}}>Type</Typography>
+                                                                <Typography color='#aaaaaa' sx={{fontSize:'10px'}}>{t('common.type')}</Typography>
                                                             </Box>
                                                             
                                                         </Box>
@@ -715,14 +691,14 @@ export default function CreateQuestionBank() {
                                                             <TimerOutlinedIcon fontSize='12px' color='error'/>
                                                             <Box sx={{display:'flex',flexDirection:'column'}}>
                                                                 <Typography variant='caption' sx={{fontWeight:'500'}}>{question.proficency}</Typography>
-                                                                <Typography color='#aaaaaa' sx={{fontSize:'10px'}}>Proficency</Typography>
+                                                                <Typography color='#aaaaaa' sx={{fontSize:'10px'}}>{t('common.proficency')}</Typography>
                                                             </Box>                                                            
                                                         </Box>
                                                         <Box sx={{display:'flex',alignItems:'flex-start'}}>
                                                             <ScoreboardOutlinedIcon fontSize='12px' color='error'/>
                                                             <Box sx={{display:'flex',flexDirection:'column'}}>
                                                                 <Typography variant='caption' sx={{fontWeight:'500'}}>{question.score}</Typography>
-                                                                <Typography color='#aaaaaa' sx={{fontSize:'10px'}}>Score</Typography>
+                                                                <Typography color='#aaaaaa' sx={{fontSize:'10px'}}>{t('common.score')}</Typography>
                                                             </Box>
                                                         </Box>
                                                     </Box>
@@ -734,7 +710,7 @@ export default function CreateQuestionBank() {
                             </Grid> 
                         </Box> 
                         <Box sx={{display:'flex',justifyContent:'center',alignItems:'center',mt:4}}>
-                            <Typography variant='subtitle1' sx={{mr:1}} color='primary'> Load More</Typography>
+                            <Typography variant='subtitle1' sx={{mr:1}} color='primary'> {t('common.loadMore')}</Typography>
                             <LoopOutlinedIcon color='error'/>
                         </Box>          
                     </Box>

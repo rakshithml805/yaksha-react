@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { 
-    Box, Container, Breadcrumbs, Typography, Button, Switch, TextField, Grid,
+    Box, Container, Typography, Switch, TextField, Grid,
     Autocomplete, FormControl, InputLabel, TablePagination, OutlinedInput,
     InputAdornment, TableRow, TableCell, TableBody, TableFooter, Checkbox, IconButton, Table, TableContainer, 
     TableHead, TableSortLabel, Stack
@@ -18,13 +18,24 @@ import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
+import Banner from '../../components/banner/banner';
+import { useTranslation } from 'react-i18next';
+import DeleteDialog from '../../components/deleteDialog/DeleteDialog';
 
 export default function QuestionBankList() {
-    let navigate = useNavigate();
-    const navigateToCreateBank = () => {
-        let path = '/create-question-bank'; 
-        navigate(path);
-    }
+
+    const breadcrumbs = [
+        {
+            name: "Dashboard",
+            url: "/dashboard"
+        },
+        {
+            name: "Question Banks",
+            url: ""
+        }
+    ];
+    const {t} = useTranslation();
+    const button = ['Create Question Bank', "/create-question-bank"];
     
     const tenants = [
         {
@@ -380,31 +391,26 @@ export default function QuestionBankList() {
         ),
       [order, orderBy, page, rowsPerPage],
     );
+
+    const [deleteItem, setDeleteItem] = React.useState('');
+    const [dialog, setDialog] = React.useState(false);
+    const [questionDelete, setQuestionDelete] = React.useState(false);
+    const dialogOpen = (item) => {
+        setDeleteItem(item)
+        setDialog(true);
+    };
+    const dialogClose = () => {
+        setDeleteItem('')
+        setDialog(false);
+        setQuestionDelete(false);
+    };
+    const deleteQuestion = () => {
+        setQuestionDelete(true);
+    }
     
     return (
         <Box>
-            <Box className="banner">
-                <Container maxWidth="xl">
-                    <Box  sx={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
-                        <Box>
-                            <Breadcrumbs sx={{mb:1}}>
-                                <Typography sx={{ display: 'flex', alignItems: 'center' }} fontSize="small" color="secondary">
-                                    <NavLink color="inherit" to="/dashboard" >
-                                        Dashboard
-                                    </NavLink>
-                                </Typography>
-                                <Typography sx={{ display: 'flex', alignItems: 'center' }} fontSize="small" color="secondary">
-                                    <NavLink color="inherit" to="/question-banks">
-                                        Question Banks
-                                    </NavLink>
-                                </Typography>
-                            </Breadcrumbs>
-                            <Typography variant='h5'>Question Banks</Typography>
-                        </Box>   
-                        <Button variant="outlined"  color='secondary' onClick={navigateToCreateBank}>CREATE QUESTION BANK</Button>       
-                    </Box>           
-                </Container>
-            </Box>
+            <Banner title={t('questionBanks.questionBanks')} crumbs={breadcrumbs} bannerButton={button} />
             <Container maxWidth="xl">
                 <Box sx={{my:4}}>
                     <Grid container spacing={2}>
@@ -413,13 +419,13 @@ export default function QuestionBankList() {
                             disablePortal
                             options={tenants}
                             getOptionLabel={(option) => option.name}
-                            renderInput={(params) => <TextField {...params} label="Select Tenant" />}
+                            renderInput={(params) => <TextField {...params} label={t('commonForm.selectTenant')} />}
                             />
                         </Grid>
                         <Grid item xs={4}>
                             <FormControl  variant="outlined" fullWidth>
-                                <InputLabel>Search</InputLabel>
-                                <OutlinedInput  placeholder="Search"
+                                <InputLabel>{t('commonForm.search')}</InputLabel>
+                                <OutlinedInput  placeholder={t('commonForm.search')}
                                     endAdornment={
                                     <InputAdornment position="end">
                                         <IconButton edge="end">
@@ -427,7 +433,7 @@ export default function QuestionBankList() {
                                         </IconButton>
                                     </InputAdornment>
                                     }
-                                    label="Search"
+                                    label={t('commonForm.search')}
                                 />
                             </FormControl>
                         </Grid>
@@ -485,7 +491,7 @@ export default function QuestionBankList() {
                                                             {questionBank.objectiveQuestion}
                                                         </Typography>
                                                         <Typography className='question-type'>
-                                                            Objective
+                                                            {t('questionBanks.objective')}
                                                         </Typography>
                                                     </Box>
                                                     <Box>
@@ -493,7 +499,7 @@ export default function QuestionBankList() {
                                                             {questionBank.codingQuestion}
                                                         </Typography>
                                                         <Typography className='question-type'>
-                                                            Coding
+                                                            {t('questionBanks.coding')}
                                                         </Typography>
                                                     </Box>
                                                     <Box>
@@ -501,7 +507,7 @@ export default function QuestionBankList() {
                                                             {questionBank.subjectiveQuestion}
                                                         </Typography>
                                                         <Typography className='question-type'>
-                                                            Subjective
+                                                            {t('questionBanks.subjective')}
                                                         </Typography>
                                                     </Box>
                                                     <Box>
@@ -509,7 +515,7 @@ export default function QuestionBankList() {
                                                             {questionBank.stackQuestion}
                                                         </Typography>
                                                         <Typography className='question-type'>
-                                                            Stack
+                                                            {t('questionBanks.stack')}
                                                         </Typography>
                                                     </Box>
                                                 </Box>
@@ -519,17 +525,18 @@ export default function QuestionBankList() {
                                             </TableCell>
                                             <TableCell align="left">
                                                 <Stack direction="row" spacing={1} justifyContent={'flex-end'}>
-                                                    <IconButton aria-label="delete">
+                                                    <IconButton aria-label="clone">
                                                         <ContentCopyOutlinedIcon /> 
                                                     </IconButton>
-                                                    <IconButton aria-label="delete" color="primary">
+                                                    <IconButton aria-label="detail" color="primary">
                                                         <FindInPageOutlinedIcon />
                                                     </IconButton>
-                                                    <IconButton color="warning" aria-label="add an alarm">
+                                                    <IconButton color="warning" aria-label="edit">
                                                         <EditOutlinedIcon />
                                                     </IconButton>
-                                                    <IconButton color="error" aria-label="add to shopping cart"
+                                                    <IconButton color="error" aria-label="delete"
                                                         disabled={questionBank.name === 'Default Question Bank'}
+                                                        onClick={() => dialogOpen(questionBank.name)}
                                                         sx={{visibility: questionBank.name === 'Default Question Bank' ? 'hidden' : 'visible'}}>
                                                         <DeleteForeverOutlinedIcon />
                                                     </IconButton>
@@ -568,6 +575,13 @@ export default function QuestionBankList() {
                     </TableContainer>
                 </Box>
             </Container>
+            <DeleteDialog
+                open={dialog}
+                item={deleteItem}
+                deleteStatus={questionDelete}
+                handleClose={dialogClose}
+                handleDelete={deleteQuestion}
+            />
         </Box>
     )
 }

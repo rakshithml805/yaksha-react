@@ -55,7 +55,7 @@ const Header = () => {
     setProfile(null);
   };
   const location = useLocation();
-    const hideHeaderForPaths = ['/','/forgotPassword'];
+    const hideHeaderForPaths = ['/','/forgotPassword', '/resetPassword'];
     if(hideHeaderForPaths.includes(location.pathname)) {
       return <></>;
     }

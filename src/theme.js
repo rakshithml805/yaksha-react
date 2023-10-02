@@ -61,6 +61,7 @@ const theme = createTheme({
             secondary: "#777777",
             disabled: "#AAAAAA",
             offwhite: "#9cb6e7",
+            red: "#AC0521",
         }
     },
     components: {

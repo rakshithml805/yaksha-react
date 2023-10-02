@@ -14,7 +14,7 @@ const Banner = (props) => {
                     <Box className="d-flex flex-column justify-space-between" sx={{height: "65px", pb: 1}}>
                         <Breadcrumbs sx={{mb:1}}>
                             {crumbs.map((each, index) => (
-                                <Typography key={index} fontSize="small" color={(total === index) ? 'white' : "text.offwhite" }>
+                                <Typography variant="caption" key={index} color={(total === index) ? 'white' : "text.offwhite" }>
                                     {(each.url !== "") && (
                                         <NavLink underline="hover" to={each.url} >
                                             {each.name}

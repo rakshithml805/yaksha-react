@@ -11,7 +11,7 @@ const router = createBrowserRouter([
         element: <Login />,
     },    
     {
-      path: "/login",
+      path: ":tenancyName/login",
       element: <Login />,
     },    
     // routes as per persona

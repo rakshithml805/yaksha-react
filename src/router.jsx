@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Layout from "./_shared/components/_layout/layout";
 import Login from "./containers/Account/Login/Login";
 import AdminDashboard from './containers/dashboard/AdminDashboard';
+import TagsLists from './containers/manageResources/manageTags/tagsList';
 
 const router = createBrowserRouter([
     // common
@@ -17,6 +18,12 @@ const router = createBrowserRouter([
     {
       path: "/dashboard",
       element: (<Layout><AdminDashboard /></Layout> ),
+    },
+    // ::TODO:: 
+    // 
+    {
+      path: "/tags",
+      element: (<Layout><TagsLists /></Layout> ),
     },
     {
       path: "*",

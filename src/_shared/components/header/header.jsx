@@ -2,8 +2,8 @@ import React from 'react'
 import { AppBar, Container, Box, Menu, MenuItem, Avatar, Button, IconButton, Typography } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
-import logo from "../../assets/yaksha.png";
-import avatar from "../../assets/2.jpg";
+import logo from "../../../assets/yaksha.png";
+import avatar from "../../../assets/2.jpg";
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 
 const Header = () => {

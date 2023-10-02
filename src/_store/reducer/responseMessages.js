@@ -1,11 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-export interface IResponseMessageStore {
-  msg: string;
-  type: "error" | "warning" | "info" | "success";
-  isEnabled: boolean;
-  status?: number;
-}
-const initialState: IResponseMessageStore = {
+
+
+const initialState = {
   msg: "",
   type: "success",
   isEnabled: false

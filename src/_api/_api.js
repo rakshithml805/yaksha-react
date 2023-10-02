@@ -1,7 +1,7 @@
 import axios from "axios";
 import { baseURL } from "./_urls";
 import store from "../_store/store";
-import { IResponseMessageStore, handleResponse } from "../_store/reducer/responseMessages";
+import { handleResponse } from "../_store/reducer/responseMessages";
 
 // This is for authorized routes
 const axiosApi = axios.create({
@@ -14,8 +14,8 @@ const handleLogout = () => {
 axiosApi.interceptors.request.use(
     function (config) {
         // add loader
-        const accessToken: any = sessionStorage.getItem("accessToken");
-        const sessionToken: any = sessionStorage.getItem("sessionToken");
+        const accessToken = sessionStorage.getItem("accessToken");
+        const sessionToken = sessionStorage.getItem("sessionToken");
         if (accessToken && accessToken !== "undefined" && accessToken !== null && accessToken !== undefined) {
             if (config.headers) {
                 config.headers.Authorization = `Bearer ${accessToken}`;
@@ -47,7 +47,7 @@ axiosApi.interceptors.response.use(
     }
 )
 
-export const getApi = async (url : string) => {
+export const getApi = async (url) => {
     try {
         const result = await axiosApi.get(`${url}`, {
             headers: {
@@ -58,14 +58,14 @@ export const getApi = async (url : string) => {
             status: result.status, body: result.data 
         }
     }
-    catch (err: any) {
+    catch (err) {
         console.log(err);
         const body = err?.response?.data ? err?.response?.data : 'Failed to connect';
         const status = err?.response?.status ? err?.response?.status : 500;
         return { status, body }
     }
 }
-export const getApiForDownload = async (url : string) => {
+export const getApiForDownload = async (url) => {
     try {
         const result = await axiosApi.get(`${url}`, {
             responseType: "blob"
@@ -75,7 +75,7 @@ export const getApiForDownload = async (url : string) => {
             status: result.status, body: result.data 
         }
     }
-    catch (err: any) {
+    catch (err) {
         console.log(err);
         const body = err?.response?.data ? err?.response?.data : 'Failed to connect';
         const status = err?.response?.status ? err?.response?.status : 500;
@@ -84,111 +84,111 @@ export const getApiForDownload = async (url : string) => {
 }
 
 
-export const getByIdApi = async (url : string, id: string) => {
+export const getByIdApi = async (url, id) => {
     try {
         const result = await axiosApi.get(`${url}/${id}`);
         return {
             status: result.status, body: result.data   
         }
     }
-    catch (err: any) {
+    catch (err) {
         const body = err?.response?.data ? err?.response?.data : 'Failed to connect';
         const status = err?.response?.status ? err?.response?.status : 500;
         return { status, body }
     }
 }
 
-export const putApi = async (url : string , request: any) => {
+export const putApi = async (url , request) => {
     try {
         const result = await axiosApi.put(`${url}`, request );
         if (result.status >= 400 && result.status <= 599) {
-            store.dispatch(handleResponse({ status: result.status, msg: "Something Went Wrong!!", isEnabled: true, type: "error"} as IResponseMessageStore));
+            store.dispatch(handleResponse({ status: result.status, msg: "Something Went Wrong!!", isEnabled: true, type: "error"}));
         }
         return {
             status: result.status, body: result.data   
         }
     }
-    catch (err: any) {
+    catch (err) {
         const body = err?.response?.data ? err?.response?.data : 'Failed to connect';
         const status = err?.response?.status ? err?.response?.status : 500;
-        store.dispatch(handleResponse({ status: 500, msg: "Something Went Wrong!!", isEnabled: true, type: "error"} as IResponseMessageStore));
+        store.dispatch(handleResponse({ status: 500, msg: "Something Went Wrong!!", isEnabled: true, type: "error"}));
         return { status, body }
     }
 }
 
-export const putApiFormData = async (url : string , request: any, id: any) => {
+export const putApiFormData = async (url , request, id) => {
     try {
         const result = await axiosApi.put(`${url}/${id}`, request );
         if (result.status >= 400 && result.status <= 599) {
-            store.dispatch(handleResponse({ status: result.status, msg: "Something Went Wrong!!", isEnabled: true, type: "error"} as IResponseMessageStore));
+            store.dispatch(handleResponse({ status: result.status, msg: "Something Went Wrong!!", isEnabled: true, type: "error"}));
         }
         return {
             status: result.status, body: result.data   
         }
     }
-    catch (err: any) {
+    catch (err) {
         const body = err?.response?.data ? err?.response?.data : 'Failed to connect';
         const status = err?.response?.status ? err?.response?.status : 500;
-        store.dispatch(handleResponse({ status: 500, msg: "Something Went Wrong!!", isEnabled: true, type: "error"} as IResponseMessageStore));
+        store.dispatch(handleResponse({ status: 500, msg: "Something Went Wrong!!", isEnabled: true, type: "error"}));
         return { status, body }
     }
 }
 
-export const deleteApi = async (url: string, id: string) => {
+export const deleteApi = async (url, id) => {
     try {
         const result = await axiosApi.delete(`${url}/${id}`);
         if (result.status >= 400 && result.status <= 599) {
-            store.dispatch(handleResponse({ status: result.status, msg: "Something Went Wrong!!", isEnabled: true, type: "error"} as IResponseMessageStore));
+            store.dispatch(handleResponse({ status: result.status, msg: "Something Went Wrong!!", isEnabled: true, type: "error"}));
         }
         return {
             status: result.status, body: result.data   
         }
     }
-    catch (err: any) {
+    catch (err) {
         const body = err?.response?.data ? err?.response?.data : 'Failed to connect';
-        store.dispatch(handleResponse({ status: 500, msg: "Something Went Wrong!!", isEnabled: true, type: "error"} as IResponseMessageStore));
+        store.dispatch(handleResponse({ status: 500, msg: "Something Went Wrong!!", isEnabled: true, type: "error"}));
         return { status: body.status ? body.status : 500, body }
     }
 }
 
-export const postApi = async (url : string, request: any) => {
+export const postApi = async (url, request) => {
     try {
         const result = await axiosApi.post(`${url}`, request);
         if (!result) {
             return
         }
         if (result.status >= 400 && result.status <= 599) {
-            store.dispatch(handleResponse({ status: result.status, msg: "Something Went Wrong!!", isEnabled: true, type: "error"} as IResponseMessageStore));
+            store.dispatch(handleResponse({ status: result.status, msg: "Something Went Wrong!!", isEnabled: true, type: "error"}));
         }
         return {
             status: result.status, body: result.data
         }
     }
-    catch (err: any) {
+    catch (err) {
         const resp = err.response;
         const body = resp.data?.Message ? resp.data?.Message : 'Failed to connect';
-        store.dispatch(handleResponse({ status: 500, msg:err.response.status === 409 ? "Email ID is already exist!" : err.response.status === 403 ? "You don't have access" : "Something Went Wrong!!", isEnabled: true, type: "error"} as IResponseMessageStore));        
+        store.dispatch(handleResponse({ status: 500, msg:err.response.status === 409 ? "Email ID is already exist!" : err.response.status === 403 ? "You don't have access" : "Something Went Wrong!!", isEnabled: true, type: "error"}));        
         return { status: resp.status, body }
     }
 }
 
-export const patchApi = async (url : string, request: any) => {
+export const patchApi = async (url, request) => {
     try {
         const result = await axiosApi.patch(`${url}`, request);
         if (!result) {
             return
         }
         if (result.status >= 400 && result.status <= 599) {
-            store.dispatch(handleResponse({ status: result.status, msg: "Something Went Wrong!!", isEnabled: true, type: "error"} as IResponseMessageStore));
+            store.dispatch(handleResponse({ status: result.status, msg: "Something Went Wrong!!", isEnabled: true, type: "error"}));
         }
         return {
             status: result.status, body: result.data
         }
     }
-    catch (err: any) {
+    catch (err) {
         const resp = err.response;
         const body = resp.data ? resp.data : 'Failed to connect';
-        store.dispatch(handleResponse({ status: 500, msg: "Something Went Wrong!!", isEnabled: true, type: "error"} as IResponseMessageStore));        
+        store.dispatch(handleResponse({ status: 500, msg: "Something Went Wrong!!", isEnabled: true, type: "error"}));        
         return { status: resp.status, body }
     }
 }

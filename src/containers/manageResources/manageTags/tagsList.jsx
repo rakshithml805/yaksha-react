@@ -22,7 +22,7 @@ const breadcrumbs = [
         url: ""
     }
 ]
-const button = ['Create Tags', "/create-tags"];
+const button = ['Create Tags', "/tags/create-tag"];
 const tagImg = {
     width: "112px",
     height: "77px",

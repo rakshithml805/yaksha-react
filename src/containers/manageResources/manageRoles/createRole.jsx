@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Banner from '../../../components/banner/banner';
 import { Box } from '@mui/material';
+import Banner from '../../../_shared/components/banner/banner';
 
 const breadcrumbs = [
     {

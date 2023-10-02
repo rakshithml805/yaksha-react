@@ -17,7 +17,7 @@ import Banner from "../../components/banner/banner";
 import { useTranslation } from 'react-i18next';
 import './questionBankDetail.scss';
 
-const QuestionBankDetails = () => {
+const QuestionBankDetail = () => {
     const {t} = useTranslation();
     
     const questionTypeList = [
@@ -327,4 +327,4 @@ const QuestionBankDetails = () => {
     )
 }
 
-export default QuestionBankDetails;
+export default QuestionBankDetail;

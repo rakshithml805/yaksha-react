@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 import loginBanner from '../../../assets/Yaksha-Login.png';
 import logo from "../../../assets/yaksha.png";
 import { useFormik, FormikProvider, Field } from "formik";
-import { postApi } from "../../../_api/_api";
+import { getApi, postApi } from "../../../_api/_api";
 import { apiIdentityUrl } from './../../../_api/_urls';
 
 const Login = () => {
@@ -20,7 +20,7 @@ const Login = () => {
     const { tenancyName } = useParams();
     const {t} = useTranslation();
     let navigate = useNavigate();
-    
+
     const routeChange = () =>{ 
         let path = '/dashboard'; 
         navigate(path);
@@ -39,10 +39,14 @@ const Login = () => {
         },
         onSubmit: async () => {
             try {
+                resetErrorMessage();
                 const req = {...formik.values};
                 const { status, body } = await postApi(`${apiIdentityUrl}/TokenAuth/Authenticate`, req);
                 if (status === 200) {
-                    setState(prev => ({...prev, errorMessage: body.errorMessage}));
+                    if (body.errorMessage) {
+                        setState(prev => ({...prev, errorMessage: body.errorMessage}));
+                        return;
+                    }
                     // dispatch
                 }
             } catch (error) {
@@ -50,11 +54,20 @@ const Login = () => {
             }
         }
     });
+    const getCurrentLoginInfo = async () => {
+        try {
+           const { status, body } = await getApi(`${apiIdentityUrl}/services/platform/Session/GetCurrentLoginInformations`); 
+        } catch (error) {
+            
+        }
+    }
     useEffect(() => {
         if (tenancyName) {
             formik.setFieldValue("tenancyName", tenancyName);
         }
-    }, [tenancyName])
+    }, [tenancyName]);
+
+    const resetErrorMessage = () => setState(prev => ({...prev, errorMessage: null }));
   return (
     <Container maxWidth="xl">
         

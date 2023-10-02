@@ -1,5 +1,8 @@
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { Box, Button, Container, FormControl, FormControlLabel, IconButton, InputAdornment, InputLabel, Link, OutlinedInput, Switch, TextField } from '@mui/material';
+import {
+    Box, Button, Container, FormControl, FormControlLabel, IconButton, InputAdornment,
+    InputLabel, Link, OutlinedInput, Switch, TextField
+} from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from "react-router-dom";

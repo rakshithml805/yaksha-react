@@ -8,9 +8,9 @@ import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined
 import LoopOutlinedIcon from '@mui/icons-material/LoopOutlined';
 import { TabContext, TabList, TabPanel } from '@mui/lab/';
 import { useNavigate } from 'react-router-dom';
-import Banner from '../../../components/banner/banner';
+import Banner from '../../../_shared/components/banner/banner';
 import cardImg from '../../../assets/card-image.jpeg';
-import DeleteDialog from '../../../components/deleteDialog/DeleteDialog';
+import DeleteDialog from '../../../_shared/components/deleteDialog/DeleteDialog';
 
 const breadcrumbs = [
     {

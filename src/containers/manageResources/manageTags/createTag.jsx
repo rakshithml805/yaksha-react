@@ -19,7 +19,7 @@ import {
     } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
-import Banner from '../../../components/banner/banner';
+import Banner from '../../../_shared/components/banner/banner';
 
 const MenuProps = {
     PaperProps: {
@@ -47,10 +47,7 @@ const breadcrumbs = [
     }
 ];
 
-
-const button = ['Create Tags', "/create-tags"];
-
-const createTags = () => {
+const CreateTag = () => {
     const {t} = useTranslation();
     const imgUpload = useRef(null);
     const tagsImg = event => {
@@ -179,4 +176,4 @@ const createTags = () => {
         </Box>
     )
 }
-export default createTags;
+export default CreateTag;

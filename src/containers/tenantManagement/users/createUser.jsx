@@ -2,8 +2,8 @@ import React from 'react'
 import { Box, Container, Typography, Grid, TextField, Switch, FormControlLabel, Button, Divider, Autocomplete } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
-import Banner from '../../../components/banner/banner';
 import { useTranslation } from 'react-i18next';
+import Banner from '../../../_shared/components/banner/banner';
 
 const breadcrumbs = [
     {

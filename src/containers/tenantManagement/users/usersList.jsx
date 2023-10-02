@@ -20,9 +20,9 @@ import { useTheme } from '@mui/material/styles';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import { visuallyHidden } from '@mui/utils';
-import Banner from '../../../components/banner/banner';
 import { useTranslation } from 'react-i18next';
-import DeleteDialog from '../../../components/deleteDialog/DeleteDialog';
+import Banner from '../../../_shared/components/banner/banner';
+import DeleteDialog from '../../../_shared/components/deleteDialog/DeleteDialog';
 
 export default function UsersList() {
     const { t } = useTranslation();

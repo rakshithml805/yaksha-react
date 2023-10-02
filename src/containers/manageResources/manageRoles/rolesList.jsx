@@ -1,9 +1,9 @@
 import React from 'react';
-import Banner from '../../../components/banner/banner';
 import { Box, Typography, Card, CardContent, Grid } from '@mui/material';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import Banner from '../../../_shared/components/banner/banner';
 
 const breadcrumbs = [
     {

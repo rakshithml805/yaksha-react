@@ -2,7 +2,7 @@ import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { Box, Button, Container, Tab, Typography } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-// import Banner from '../../_shared/components/banner';
+import Banner from '../../_shared/components/banner/banner';
 
 const breadcrumbs = [
     {
@@ -21,7 +21,7 @@ const AdminDashboard = () => {
 
   return (
     <Box>
-        {/* <Banner title={t('common.dashboard')} crumbs={breadcrumbs} /> */}
+        <Banner title={t('common.dashboard')} crumbs={breadcrumbs} />
         <Container maxWidth="xl">
             <TabContext value={value}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>

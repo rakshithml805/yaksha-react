@@ -13,10 +13,14 @@ const router = createBrowserRouter([
       path: "/login",
       element: <Login />,
     },    
-    // persona routes
+    // routes as per persona
     {
       path: "/dashboard",
       element: (<Layout><AdminDashboard /></Layout> ),
+    },
+    {
+      path: "*",
+      element: (<>Page Not Found</>),
     },
   ]);
   export default router;

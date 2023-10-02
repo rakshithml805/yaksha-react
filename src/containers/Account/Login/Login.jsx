@@ -32,9 +32,11 @@ const Login = () => {
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
-    const emailValidate = Yup.string().matches(commonYupValidations.emailR, 'Enter valid Email').required('Email is required')
-    .min(8, 'Atleast 8 characters')
-    .max(50, 'Only 50 characters are allowed')
+    // const emailValidate = Yup.string().matches(commonYupValidations.emailR, 'Enter valid Email').required('Email is required')
+    // .min(8, 'Atleast 8 characters')
+    // .max(50, 'Only 50 characters are allowed')
+
+    const emailValidate = Yup.string().required('Email is required')
 
     const loginSchema = Yup.object().shape({
         userNameOrEmailAddress: emailValidate,
@@ -56,11 +58,17 @@ const Login = () => {
                 resetErrorMessage();
                 const req = {...formik.values};
                 const { status, body } = await postApi(`${apiIdentityUrl}/TokenAuth/Authenticate`, req);
+                if (status >= 400 && status <= 599) {
+                    console.log("Something went wrong..!!!");
+                    return;
+                }
                 if (status === 200) {
                     if (body.errorMessage) {
                         setState(prev => ({...prev, errorMessage: body.errorMessage}));
                         return;
                     }
+                    sessionStorage.setItem("accessToken", body.accessToken);
+                    getCurrentLoginInfo()
                     // dispatch
                 }
             } catch (error) {
@@ -71,8 +79,12 @@ const Login = () => {
     const getCurrentLoginInfo = async () => {
         try {
            const { status, body } = await getApi(`${apiIdentityUrl}/services/platform/Session/GetCurrentLoginInformations`); 
+           if (status === 200) {
+            console.info(`user details===`,body)
+            setState(prev => ({...prev, logInInfo: body}));
+           }
         } catch (error) {
-            
+            console.error(error); 
         }
     }
     useEffect(() => {

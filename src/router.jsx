@@ -1,8 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "./_shared/components/_layout/layout";
 import Login from "./containers/Account/Login/Login";
-import ForgotPassword from './containers/Account/ForgotPassword';
-import ResetPassword from './containers/Account/ResetPassword';
+import ForgotPassword from './containers/Account/ForgotPassword/ForgotPassword';
+import ResetPassword from './containers/Account/ResetPassword/ResetPassword';
 import AdminDashboard from './containers/dashboard/AdminDashboard';
 import TagsLists from './containers/manageResources/manageTags/tagsList';
 import CreateTag from './containers/manageResources/manageTags/createTag';

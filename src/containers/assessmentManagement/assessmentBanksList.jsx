@@ -21,7 +21,7 @@ import FindInPageOutlinedIcon from '@mui/icons-material/FindInPageOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
-import DeleteDialog from '../../components/deleteDialog/DeleteDialog';
+import DeleteDialog from '../../_shared/components/deleteDialog/DeleteDialog';
 
 export default function AssessmentBanksList() {
   const { t } = useTranslation();

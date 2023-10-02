@@ -4,7 +4,7 @@ import {
     Card, CardContent, InputAdornment, IconButton
 } from '@mui/material'
 
-import Banner from '../../../_shared/components/banner/banner';
+import Banner from '../../_shared/components/banner/banner';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';

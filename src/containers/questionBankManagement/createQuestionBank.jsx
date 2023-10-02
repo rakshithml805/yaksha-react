@@ -10,7 +10,7 @@ import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 import ScoreboardOutlinedIcon from '@mui/icons-material/ScoreboardOutlined';
 import './createQuestionBank.scss';
 
-import Banner from '../../../_shared/components/banner/banner';
+import Banner from '../../_shared/components/banner/banner';
 import { useTranslation } from 'react-i18next';
 
 export default function CreateQuestionBank() {

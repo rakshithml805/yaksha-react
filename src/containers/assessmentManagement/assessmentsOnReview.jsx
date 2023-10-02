@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Container, Grid, Autocomplete, TextField, FormControl,InputLabel, OutlinedInput, InputAdornment, IconButton, Card, CardContent,
         Typography, Select, MenuItem  } from "@mui/material";
 
-import Banner from '../../../_shared/components/banner/banner';
+import Banner from '../../_shared/components/banner/banner';
 import { useTranslation } from 'react-i18next';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import EventOutlinedIcon from '@mui/icons-material/EventOutlined';

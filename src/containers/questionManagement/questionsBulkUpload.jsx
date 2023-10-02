@@ -1,13 +1,12 @@
-import React from 'react'
-import { Box, Container, Typography, Button, FormControl,FormLabel, Grid, RadioGroup, FormControlLabel, Radio, Chip } from '@mui/material';
-import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
-import { FileUploader } from "react-drag-drop-files";
-import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
-import './questionsBulkUpload.scss';
-
-import Banner from '../../../_shared/components/banner/banner';
+import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
+import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
+import { Box, Button, Chip, Container, FormControl, FormControlLabel, Grid, Radio, RadioGroup, Typography } from '@mui/material';
+import React from 'react';
+import { FileUploader } from "react-drag-drop-files";
 import { useTranslation } from 'react-i18next';
+import Banner from '../../_shared/components/banner/banner';
+import './questionsBulkUpload.scss';
 
 export default function QuestionsBulkUpload() {
 

@@ -1,27 +1,45 @@
-import React, { useState } from 'react'
-import { 
-    Box, Container, Typography, Switch, TextField, Grid,
-    Autocomplete, FormControl, InputLabel, TablePagination, OutlinedInput,
-    InputAdornment, TableRow, TableCell, TableBody, TableFooter, Checkbox, IconButton, Table, TableContainer, 
-    TableHead, TableSortLabel, Stack
-} from '@mui/material';
-import { NavLink, useNavigate } from 'react-router-dom';
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import { visuallyHidden } from '@mui/utils';
 import ContentCopyOutlinedIcon from '@mui/icons-material/ContentCopyOutlined';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
-import FindInPageOutlinedIcon from '@mui/icons-material/FindInPageOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import PropTypes from 'prop-types';
-import { useTheme } from '@mui/material/styles';
+import FindInPageOutlinedIcon from '@mui/icons-material/FindInPageOutlined';
 import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
-
-import Banner from '../../../_shared/components/banner/banner';
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import {
+    Autocomplete,
+    Box,
+    Checkbox,
+    Container,
+    FormControl,
+    Grid,
+    IconButton,
+    InputAdornment,
+    InputLabel,
+    OutlinedInput,
+    Stack,
+    Switch,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableFooter,
+    TableHead,
+    TablePagination,
+    TableRow,
+    TableSortLabel,
+    TextField,
+    Typography
+} from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import { visuallyHidden } from '@mui/utils';
+import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import DeleteDialog from '../../components/deleteDialog/DeleteDialog';
+import { NavLink } from 'react-router-dom';
+import Banner from '../../_shared/components/banner/banner';
+import DeleteDialog from '../../_shared/components/deleteDialog/DeleteDialog';
 
 export default function QuestionBankList() {
 

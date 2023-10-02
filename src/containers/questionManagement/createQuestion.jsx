@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box,Container,Typography,Button,Grid,FormControl,InputLabel,Select,Divider,MenuItem, TextField } from '@mui/material';
 
-import Banner from '../../../_shared/components/banner/banner';
+import Banner from '../../_shared/components/banner/banner';
 import MultipleChoiceQuesions from './Questions/multipleChoiceQuestions';
 import SelectFromDropdown from './Questions/selectFromDropdown';
 import FillIntheBlanks from './Questions/fillIntheBlanks';

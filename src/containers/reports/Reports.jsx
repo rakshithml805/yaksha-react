@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Container, Box, Divider, Select, Button, MenuItem, InputLabel, Grid, TextField, FormControl } from '@mui/material';
-
-import Banner from '../../../_shared/components/banner/banner';
+import Banner from '../../_shared/components/banner/banner';
 import { useTranslation } from 'react-i18next';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';

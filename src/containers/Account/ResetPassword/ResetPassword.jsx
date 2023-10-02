@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box,Container, Button, Typography, FormControl, InputLabel, OutlinedInput, InputAdornment, IconButton } from '@mui/material'
-import loginBanner from '../../assets/Yaksha-Login.png'
-import logo from "../../assets/yaksha.png";
+import loginBanner from '../../../assets/Yaksha-Login.png'
+import logo from "../../../assets/yaksha.png";
 import DoneOutlinedIcon from '@mui/icons-material/DoneOutlined';
 import { useTranslation } from 'react-i18next';
 import { Visibility, VisibilityOff } from '@mui/icons-material';

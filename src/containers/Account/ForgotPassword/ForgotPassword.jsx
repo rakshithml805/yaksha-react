@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box,Container, Button, TextField, Typography } from '@mui/material'
-import loginBanner from '../../assets/Yaksha-Login.png'
-import logo from "../../assets/yaksha.png";
+import loginBanner from '../../../assets/Yaksha-Login.png'
+import logo from "../../../assets/yaksha.png";
 import DoneOutlinedIcon from '@mui/icons-material/DoneOutlined';
 import { useTranslation } from 'react-i18next';
 

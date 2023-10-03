@@ -137,7 +137,7 @@ const Header = () => {
               <NavLink to={`/${tenancyName}/question-banks`}>
                 <MenuItem onClick={handleClose}>Question Banks</MenuItem>
               </NavLink>
-              <NavLink to={`/${tenancyName}/create-question-bank`}>
+              <NavLink to={`/${tenancyName}/question-banks/create-question-bank`}>
                 <MenuItem onClick={handleClose}>Create Question Banks</MenuItem>
               </NavLink>
               <NavLink to={`/${tenancyName}/create-question`}>

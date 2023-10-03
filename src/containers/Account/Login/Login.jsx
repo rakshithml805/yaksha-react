@@ -126,7 +126,22 @@ const Login = () => {
         if (loggedInUserDetailsStore) {
             routeChange()    
         }
-    }, [loggedInUserDetailsStore])
+    }, [loggedInUserDetailsStore]);
+
+    useEffect(() => {
+        const listener = event => {
+          if (event.code === "Enter" || event.code === "NumpadEnter") {
+            formik.handleSubmit()
+            event.preventDefault();
+          }
+        };
+        document.addEventListener("keydown", listener);
+        return () => {
+          document.removeEventListener("keydown", listener);
+        };
+      }, []);
+
+
   return (
     <Container maxWidth="xl">
         

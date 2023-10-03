@@ -3,7 +3,7 @@ import Layout from "./_shared/components/_layout/layout";
 import Login from "./containers/Account/Login/Login";
 import ForgotPassword from './containers/Account/ForgotPassword/ForgotPassword';
 import ResetPassword from './containers/Account/ResetPassword/ResetPassword';
-import AdminDashboard from './containers/dashboard/AdminDashboard';
+import Dashboard from './containers/dashboard/dashboard';
 import TagsLists from './containers/manageResources/manageTags/tagsList';
 import CreateTag from './containers/manageResources/manageTags/createTag';
 import RoleList from './containers/manageResources/manageRoles/rolesList';
@@ -45,8 +45,8 @@ const router = createBrowserRouter([
     },
     // routes as per persona
     {
-      path: "/dashboard",
-      element: (<Layout><AdminDashboard /></Layout> ),
+      path: ":tenancyName/dashboard",
+      element: (<Layout><Dashboard /></Layout> ),
     },
     {
       path: "/tags",

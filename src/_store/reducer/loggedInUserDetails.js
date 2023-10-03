@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
+  loading: true,
   data: null
 };
 export const loggedInUserDetails = createSlice({
@@ -10,11 +11,13 @@ export const loggedInUserDetails = createSlice({
     handleLoggedInUserData: (state, action) => {
       localStorage.setItem("loggedInUserDetails", JSON.stringify(action.payload));
       state.data = action.payload;
+      state.loading = false;
     },
     handleClearLoginState: (state, action) => {
       localStorage.clear();
       sessionStorage.clear();
       state.data = null;
+      state.loading = true;
     }
   },
 })

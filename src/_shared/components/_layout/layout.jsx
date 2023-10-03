@@ -1,16 +1,24 @@
-
+ 
 import { Box } from '@mui/material';
-import Header from "../../components/header/header";
-import Footer from "../../components/footer/footer";
+import React from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
+import Footer from "../../components/footer/footer";
+import Header from "../../components/header/header";
+import useAuthGuard from '../../useAuthGuard';
 
 const Layout = (props) => {
-    const navigate = useNavigate();
-    const loggedInUserDetailsStore = useSelector((state) => state.loggedInUserDetails.data);
-    if (!loggedInUserDetailsStore) {
-        navigate('/default/login')
+    const loggedInUserDetailsStore = useSelector((state) => state.loggedInUserDetails);
+    const state = useAuthGuard();
+    
+    if (loggedInUserDetailsStore.loading) {
+        return <>Loading...</>
     }
+    if (!loggedInUserDetailsStore.data) {
+        return <Navigate to="/default/login" replace={true} />
+    }
+    
+
     return (
         <Box sx={{height:'100vh', display: 'flex', flexDirection:'column', justifyContent: 'space-between'}}>
             <Header />

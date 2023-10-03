@@ -10,11 +10,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from "react-router-dom";
 import * as Yup from "yup";
 import { getApi, postApi } from "../../../_api/_api";
+import { Role } from '../../../_shared/helper';
 import { FETCH_USER_DETAILS } from "../../../_store/actions/actions";
 import loginBanner from '../../../assets/Yaksha-Login.png';
 import logo from "../../../assets/yaksha.png";
 import { apiIdentityUrl, apiYakshaUrl } from './../../../_api/_urls';
-import { Role } from '../../../_shared/helper';
 
 const Login = () => {
     const loggedInUserDetailsStore = useSelector((state) => state.loggedInUserDetails.data);
@@ -31,7 +31,7 @@ const Login = () => {
         const { userRole } = loggedInUserDetailsStore.userRolePermissions.result;
         switch (userRole) {
             case Role.superAdmin:
-                navigate('/dashboard');
+                navigate(`/${tenancyName}/dashboard`);
                 break;
         
             default:
@@ -79,6 +79,7 @@ const Login = () => {
                         return;
                     }
                     sessionStorage.setItem("accessToken", body.accessToken);
+                    localStorage.setItem('tenancyName', tenancyName);
                     dispatch({ type: FETCH_USER_DETAILS })
                     // loadInitialData();
                 }

@@ -1,17 +1,24 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = null;
+const initialState = {
+  data: null
+};
 export const loggedInUserDetails = createSlice({
   name: 'loggedInUserDetails',
   initialState,
   reducers: {
     handleLoggedInUserData: (state, action) => {
       localStorage.setItem("loggedInUserDetails", JSON.stringify(action.payload));
-      state = {...action.payload};
+      state.data = action.payload;
+    },
+    handleClearLoginState: (state, action) => {
+      localStorage.clear();
+      sessionStorage.clear();
+      state.data = null;
     }
   },
 })
 
-export const { handleLoggedInUserData } = loggedInUserDetails.actions
+export const { handleLoggedInUserData, handleClearLoginState } = loggedInUserDetails.actions
 
 export default loggedInUserDetails.reducer

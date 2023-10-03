@@ -1,24 +1,23 @@
-import { useEffect, useState } from "react";
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { useNavigate, useParams } from "react-router-dom";
 import {
     Box, Button, Container, FormControl, FormControlLabel, IconButton, InputAdornment,
     InputLabel, Link, OutlinedInput, Switch, TextField, Typography
 } from '@mui/material';
-import React from 'react';
+import { Field, FormikProvider, useFormik } from "formik";
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useParams } from "react-router-dom";
+import * as Yup from "yup";
+import { getApi, postApi } from "../../../_api/_api";
+import { FETCH_USER_DETAILS } from "../../../_store/actions/actions";
 import loginBanner from '../../../assets/Yaksha-Login.png';
 import logo from "../../../assets/yaksha.png";
-import { useFormik, FormikProvider, Field } from "formik";
-import { getApi, postApi } from "../../../_api/_api";
 import { apiIdentityUrl, apiYakshaUrl } from './../../../_api/_urls';
-import { useDispatch, useSelector } from 'react-redux';
-import * as Yup from "yup";
-import * as commonYupValidations from "../../../_shared/yupObjects";
-import { FETCH_USER_DETAILS } from "../../../_store/actions/actions";
+import { Role } from '../../../_shared/helper';
 
 const Login = () => {
-    const loggedInUserDetailsStore = useSelector((state) => state.loggedInUserDetails);
+    const loggedInUserDetailsStore = useSelector((state) => state.loggedInUserDetails.data);
     const dispatch = useDispatch();
     const [state, setState] = useState({
         errorMessage: null,
@@ -28,9 +27,16 @@ const Login = () => {
     const {t} = useTranslation();
     let navigate = useNavigate();
 
-    const routeChange = () =>{ 
-        let path = '/dashboard'; 
-        navigate(path);
+    const routeChange = () => {
+        const { userRole } = loggedInUserDetailsStore.userRolePermissions.result;
+        switch (userRole) {
+            case Role.superAdmin:
+                navigate('/dashboard');
+                break;
+        
+            default:
+                break;
+        }
       }
     const [showPassword, setShowPassword] = React.useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -73,8 +79,8 @@ const Login = () => {
                         return;
                     }
                     sessionStorage.setItem("accessToken", body.accessToken);
-                    // dispatch({ type: FETCH_USER_DETAILS })
-                    loadInitialData();
+                    dispatch({ type: FETCH_USER_DETAILS })
+                    // loadInitialData();
                 }
             } catch (error) {
               console.error(error);
@@ -101,7 +107,6 @@ const Login = () => {
             console.error(error); 
         }
     }
-
     
     const fetchUserRolePermissions = async () => {
         try {
@@ -132,7 +137,7 @@ const Login = () => {
     const resetErrorMessage = () => setState(prev => ({...prev, errorMessage: null }));
     useEffect(() => {
         if (loggedInUserDetailsStore) {
-            {console.info(`======loggedInUserDetailsStore====`, loggedInUserDetailsStore)}
+            routeChange()    
         }
     }, [loggedInUserDetailsStore])
   return (

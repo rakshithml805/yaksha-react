@@ -1,14 +1,18 @@
-import React from 'react'
-import { AppBar, Container, Box, Menu, MenuItem, Avatar, Button, IconButton, Typography } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
-import logo from "../../../assets/yaksha.png";
-import avatar from "../../../assets/2.jpg";
+import { AppBar, Avatar, Box, Button, Container, IconButton, Menu, MenuItem, Typography } from '@mui/material';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { postApi } from '../../../_api/_api';
 import { apiIdentityUrl } from '../../../_api/_urls';
+import avatar from "../../../assets/2.jpg";
+import logo from "../../../assets/yaksha.png";
+import { handleClearLoginState } from '../../../_store/reducer/loggedInUserDetails';
 
 const Header = () => {
+  const dispatch = useDispatch();
+  const loggedInUserDetailsStore = useSelector((state) => state.loggedInUserDetails.data);
   const [assessment, setAssessment] = React.useState(null);
   const [question, setQuestion] = React.useState(null);
   const [tenant, setTenant] = React.useState(null);
@@ -56,18 +60,19 @@ const Header = () => {
     setResourse(null);
     setProfile(null);
   };
-  const location = useLocation();
-    const hideHeaderForPaths = ['/','/forgotPassword', '/resetPassword'];
-    if(hideHeaderForPaths.includes(location.pathname)) {
-      return <></>;
-    }
+  // const location = useLocation();
+  //   const hideHeaderForPaths = ['/','/forgotPassword', '/resetPassword'];
+  //   if(hideHeaderForPaths.includes(location.pathname)) {
+  //     return <></>;
+  //   }
   const handleLogout = async () => {
     try {
-      const { status, body } = await postApi(`${apiIdentityUrl}/services/platform/UserLogout/UserLogout`, {});
+      handleClose();
+      const { status } = await postApi(`${apiIdentityUrl}/services/platform/UserLogout/UserLogout`, {});
       if (status === 200) {
-          // clear redux 
-          localStorage.clear();
-          sessionStorage.clear();
+          // clear redux          
+          dispatch(handleClearLoginState());
+          navigate('/default/login');
           return;
       } 
     } catch (error) {
@@ -181,9 +186,9 @@ const Header = () => {
               <NavLink to="/account-settings">
                 <MenuItem onClick={handleClose}>Account Settings</MenuItem>
               </NavLink>
-              <NavLink to="/">
-                <MenuItem onClick={handleLogout}>Logout</MenuItem>
-              </NavLink>
+              {/* <NavLink to="/default/login"> */}
+                <MenuItem onClick={() => handleLogout()}>Logout</MenuItem>
+              {/* </NavLink> */}
               
           </Menu>
       </Container>

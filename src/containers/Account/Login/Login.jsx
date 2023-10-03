@@ -92,10 +92,6 @@ const Login = () => {
         const userRolePermissions = await fetchUserRolePermissions();
         const allRoles = await fetchAllRoles();
         setState(prev => ({...prev, currentLoginInfo, userRolePermissions, allRoles }));
-        // dispatch
-        // TODO::Added for testing routes
-        routeChange();
-
     }
     const fetchCurrentLoginInfo = async () => {
         try {

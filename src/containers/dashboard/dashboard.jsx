@@ -1,5 +1,11 @@
 import React from 'react';
-import AdminDashboard from './AdminDashboard';
+import Admin from './Admin';
+import TenantAdmin from './TenantAdmin';
+import TenantUser from './TenantUser';
+import Reviewer from './Reviewer';
+import Evaluator from './Evaluator';
+import Candidate from './Candidate';
+import Author from './Author';
 import { useSelector } from 'react-redux';
 import { Role } from '../../_shared/helper';
 
@@ -15,19 +21,19 @@ const Dashboard = () => {
         }
         switch (userRole) {
             case Role.superAdmin:
-                return <AdminDashboard />;
+                return <Admin />;
             case Role.tenantAdmin:
-                return <AdminDashboard /> ;           
+                return <TenantAdmin /> ;           
             case Role.tenantUser:
-                return <AdminDashboard />;        
+                return <TenantUser />;        
             case Role.reviewer:
-                return <AdminDashboard />;    
+                return <Reviewer />;    
             case Role.evaluator:
-                return <AdminDashboard />;
+                return <Evaluator />;
             case Role.candidate:
-                return <AdminDashboard /> 
+                return <Candidate /> 
             case Role.author:
-                return <AdminDashboard /> 
+                return <Author /> 
             default:
                 return <>Role is not Present</>;            
         }

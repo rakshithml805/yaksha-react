@@ -8,6 +8,7 @@ const axiosApi = axios.create({
     baseURL,
 })
 const handleLogout = () => {
+    localStorage.clear();
     sessionStorage.clear();
     window.location.href = "/";
 };

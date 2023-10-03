@@ -15,7 +15,7 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/api-identity/, 'api'),
       },
       '/api-yaksha': {
-        target: 'https://yaksha-staging-core-api.azurewebsites.net',
+        target: 'https://yaksha-staging-core-api-s2.azurewebsites.net',
         changeOrigin: true,
         secure: false,
         rewrite: (path) => path.replace(/^\/api-yaksha/, 'api'),

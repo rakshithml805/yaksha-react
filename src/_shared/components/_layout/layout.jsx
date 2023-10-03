@@ -6,9 +6,9 @@ const Layout = (props) => {
     return (
         <Box sx={{height:'100vh', display: 'flex', flexDirection:'column', justifyContent: 'space-between'}}>
             <Header />
-                <div>
-                    {props.children}
-                </div>
+            <div>
+                {props.children}
+            </div>
             <Footer />
         </Box>
     )

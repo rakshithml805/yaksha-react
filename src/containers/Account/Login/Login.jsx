@@ -11,13 +11,14 @@ import loginBanner from '../../../assets/Yaksha-Login.png';
 import logo from "../../../assets/yaksha.png";
 import { useFormik, FormikProvider, Field } from "formik";
 import { getApi, postApi } from "../../../_api/_api";
-import { apiIdentityUrl } from './../../../_api/_urls';
+import { apiIdentityUrl, apiYakshaUrl } from './../../../_api/_urls';
 import * as Yup from "yup";
 import * as commonYupValidations from "../../../_shared/yupObjects";
 
 const Login = () => {
     const [state, setState] = useState({
-        errorMessage: null
+        errorMessage: null,
+        currentLoginInfo: null, userRolePermissions: null, allRoles: null
     });
     const { tenancyName } = useParams();
     const {t} = useTranslation();
@@ -47,8 +48,8 @@ const Login = () => {
 
     const formik = useFormik({
         initialValues: {
-            userNameOrEmailAddress: "",
-            password: "",
+            userNameOrEmailAddress: "admin",
+            password: "123qwe",
             rememberClient: true,
             tenancyName: tenancyName
         },
@@ -67,23 +68,54 @@ const Login = () => {
                         setState(prev => ({...prev, errorMessage: body.errorMessage}));
                         return;
                     }
-                    // TODO::Added for testing routes
-                    routeChange();
                     sessionStorage.setItem("accessToken", body.accessToken);
-                    getCurrentLoginInfo()
-                    // dispatch
+                    loadInitialData();
                 }
             } catch (error) {
               console.error(error);
             }
         }
     });
-    const getCurrentLoginInfo = async () => {
+    const loadInitialData = async () => {
+        const currentLoginInfo = await fetchCurrentLoginInfo();
+        const userRolePermissions = await fetchUserRolePermissions();
+        const allRoles = await fetchAllRoles();
+        setState(prev => ({...prev, currentLoginInfo, userRolePermissions, allRoles }));
+        // dispatch
+        // TODO::Added for testing routes
+        // routeChange();
+
+    }
+    const fetchCurrentLoginInfo = async () => {
         try {
            const { status, body } = await getApi(`${apiIdentityUrl}/services/platform/Session/GetCurrentLoginInformations`); 
            if (status === 200) {
             console.info(`user details===`,body)
-            setState(prev => ({...prev, logInInfo: body}));
+            return body;
+           }
+        } catch (error) {
+            console.error(error); 
+        }
+    }
+
+    
+    const fetchUserRolePermissions = async () => {
+        try {
+           const { status, body } = await getApi(`${apiYakshaUrl}/services/yaksha/User/GetUserRolePermissions`); 
+           if (status === 200) {
+            console.info(`user details===`,body)
+            return body;
+           }
+        } catch (error) {
+            console.error(error); 
+        }
+    }
+    const fetchAllRoles = async () => {
+        try {
+           const { status, body } = await getApi(`${apiYakshaUrl}/services/yaksha/Role/GetAllRoles`); 
+           if (status === 200) {
+            console.info(`user details===`,body)
+            return body;
            }
         } catch (error) {
             console.error(error); 

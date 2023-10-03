@@ -9,10 +9,14 @@ import { apiIdentityUrl } from '../../../_api/_urls';
 import avatar from "../../../assets/2.jpg";
 import logo from "../../../assets/yaksha.png";
 import { handleClearLoginState } from '../../../_store/reducer/loggedInUserDetails';
+import { useParams } from 'react-router-dom';
 
 const Header = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch();  
+  const { tenancyName } = useParams();
   const loggedInUserDetailsStore = useSelector((state) => state.loggedInUserDetails.data);
+  const { currentLoginInfo, userRolePermissions } = loggedInUserDetailsStore;
+  const { result } = userRolePermissions;
   const [assessment, setAssessment] = React.useState(null);
   const [question, setQuestion] = React.useState(null);
   const [tenant, setTenant] = React.useState(null);
@@ -72,7 +76,7 @@ const Header = () => {
       if (status === 200) {
           // clear redux          
           dispatch(handleClearLoginState());
-          navigate('/default/login');
+          navigate(`/${tenancyName}/login`);
           return;
       } 
     } catch (error) {
@@ -99,8 +103,8 @@ const Header = () => {
               <Button variant="text" onClick={handleClick} value="profile">
                 <Avatar alt="" src={avatar} />
                 <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'start', ml:1, mt:1}}>
-                  <Typography variant='body1' color="text.primary" sx={{lineHeight: 1}}>Firstname Lastname</Typography>
-                  <Typography variant='caption' color="text.disabled">Super Admin</Typography>
+                  <Typography variant='body1' color="text.primary" sx={{lineHeight: 1}}>{currentLoginInfo?.user?.name} {currentLoginInfo?.user?.surname}</Typography>
+                  <Typography variant='caption' color="text.disabled">{result && result.userRole}</Typography>
                 </Box>
               </Button>
               </Box>

@@ -6,24 +6,26 @@ import { Navigate } from "react-router-dom";
 import Footer from "../../components/footer/footer";
 import Header from "../../components/header/header";
 import useAuthGuard from '../../useAuthGuard';
+import { useParams } from 'react-router-dom';
 
 const Layout = (props) => {
+    const { tenancyName } = useParams();
+    const localUserDetails = JSON.parse(localStorage.getItem("loggedInUserDetails"));
     const loggedInUserDetailsStore = useSelector((state) => state.loggedInUserDetails);
     const state = useAuthGuard();
     
+    if (loggedInUserDetailsStore.loading && !localUserDetails && !loggedInUserDetailsStore.data) {
+        return <Navigate to={`/${tenancyName}/login`} replace={true} />
+    }
     if (loggedInUserDetailsStore.loading) {
         return <>Loading...</>
-    }
-    if (!loggedInUserDetailsStore.data) {
-        return <Navigate to="/default/login" replace={true} />
-    }
-    
+    }    
 
     return (
         <Box sx={{height:'100vh', display: 'flex', flexDirection:'column', justifyContent: 'space-between'}}>
             <Header />
             <div>
-                {props.children}
+                {loggedInUserDetailsStore.loading ? <>Loading...</> : <>{props.children}</>}
             </div>
             <Footer />
         </Box>

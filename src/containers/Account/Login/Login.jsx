@@ -27,17 +27,7 @@ const Login = () => {
     const {t} = useTranslation();
     let navigate = useNavigate();
 
-    const routeChange = () => {
-        const { userRole } = loggedInUserDetailsStore.userRolePermissions.result;
-        switch (userRole) {
-            case Role.superAdmin:
-                navigate(`/${tenancyName}/dashboard`);
-                break;
-        
-            default:
-                break;
-        }
-      }
+    const routeChange = () => navigate(`/${tenancyName}/dashboard`);
     const [showPassword, setShowPassword] = React.useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     const handleMouseDownPassword = (event) => {
@@ -58,8 +48,8 @@ const Login = () => {
 
     const formik = useFormik({
         initialValues: {
-            userNameOrEmailAddress: "admin",
-            password: "123qwe",
+            userNameOrEmailAddress: "rakshith.ml@techademy.com",
+            password: "35ee8dcb7e9a4f80",
             rememberClient: true,
             tenancyName: tenancyName
         },

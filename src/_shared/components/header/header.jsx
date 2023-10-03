@@ -5,6 +5,8 @@ import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import logo from "../../../assets/yaksha.png";
 import avatar from "../../../assets/2.jpg";
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { postApi } from '../../../_api/_api';
+import { apiIdentityUrl } from '../../../_api/_urls';
 
 const Header = () => {
   const [assessment, setAssessment] = React.useState(null);
@@ -59,6 +61,19 @@ const Header = () => {
     if(hideHeaderForPaths.includes(location.pathname)) {
       return <></>;
     }
+  const handleLogout = async () => {
+    try {
+      const { status, body } = await postApi(`${apiIdentityUrl}/services/platform/UserLogout/UserLogout`, {});
+      if (status === 200) {
+          // clear redux 
+          localStorage.clear();
+          sessionStorage.clear();
+          return;
+      } 
+    } catch (error) {
+      console.error(error);
+    }
+  }
   return (
     <AppBar position="fixed" sx={{backgroundColor: 'white', minHeight:'64px', display: 'flex', flexDirection: "column", justifyContent: "center"}}>
       <Container maxWidth="xl">
@@ -167,7 +182,7 @@ const Header = () => {
                 <MenuItem onClick={handleClose}>Account Settings</MenuItem>
               </NavLink>
               <NavLink to="/">
-                <MenuItem onClick={handleClose}>Logout</MenuItem>
+                <MenuItem onClick={handleLogout}>Logout</MenuItem>
               </NavLink>
               
           </Menu>

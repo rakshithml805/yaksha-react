@@ -48,8 +48,8 @@ const Login = () => {
 
     const formik = useFormik({
         initialValues: {
-            userNameOrEmailAddress: "rakshith.ml@techademy.com",
-            password: "35ee8dcb7e9a4f80",
+            userNameOrEmailAddress: "",
+            password: "",
             rememberClient: true,
             tenancyName: tenancyName
         },

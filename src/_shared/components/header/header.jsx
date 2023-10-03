@@ -16,7 +16,8 @@ const Header = () => {
   const { tenancyName } = useParams();
   const loggedInUserDetailsStore = useSelector((state) => state.loggedInUserDetails.data);
   const { currentLoginInfo, userRolePermissions } = loggedInUserDetailsStore;
-  const { result } = userRolePermissions;
+  const { result: userRolePermission } = userRolePermissions;
+  console.info(`=====userRolePermission.rolePermissions========`, userRolePermission.rolePermissions)
   const [assessment, setAssessment] = React.useState(null);
   const [question, setQuestion] = React.useState(null);
   const [tenant, setTenant] = React.useState(null);
@@ -49,10 +50,10 @@ const Header = () => {
         setProfile(event.currentTarget);
         break;
       case "dashboard":
-        navigate('/dashboard');
+        navigate(`/${tenancyName}/dashboard`);
         break;
       case "reports":
-        navigate('/reports');
+        navigate(`/${tenancyName}/reports`);
         break;
       default:
     }
@@ -104,7 +105,7 @@ const Header = () => {
                 <Avatar alt="" src={avatar} />
                 <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'start', ml:1, mt:1}}>
                   <Typography variant='body1' color="text.primary" sx={{lineHeight: 1}}>{currentLoginInfo?.user?.name} {currentLoginInfo?.user?.surname}</Typography>
-                  <Typography variant='caption' color="text.disabled">{result && result.userRole}</Typography>
+                  <Typography variant='caption' color="text.disabled">{userRolePermission && userRolePermission.userRole}</Typography>
                 </Box>
               </Button>
               </Box>
@@ -113,19 +114,19 @@ const Header = () => {
             anchorEl={assessment}
             open={openAssessment}
             onClick={handleClose}>
-              <NavLink to="/assessment-banks">
+              <NavLink to={`/${tenancyName}/assessment-banks`}>
                 <MenuItem onClick={handleClose}>Assessment Banks</MenuItem>
               </NavLink>
-              <NavLink to="/create-assessment-bank">
+              <NavLink to={`/${tenancyName}/assessment-bank/create-assessment-bank`}>
                 <MenuItem onClick={handleClose}>Create Assessment Banks</MenuItem>
               </NavLink>
-              <NavLink to="/create-assessment">
+              <NavLink to={`/${tenancyName}/create-assessment`}>
                 <MenuItem onClick={handleClose}>Create Assessment</MenuItem>
               </NavLink>
-              <NavLink to="/assessments-on-review">
+              <NavLink to={`/${tenancyName}/assessments-on-review`}>
                 <MenuItem onClick={handleClose}>Assessments on Review</MenuItem>
               </NavLink>
-              <NavLink to="/proctoring-configuration">
+              <NavLink to={`/${tenancyName}/proctoring-configuration`}>
                 <MenuItem onClick={handleClose}>Proctoring Configuration</MenuItem>
               </NavLink>
           </Menu>
@@ -133,22 +134,22 @@ const Header = () => {
             anchorEl={question}
             open={openQuestion}
             onClick={handleClose}>
-              <NavLink to="/question-banks">
+              <NavLink to={`/${tenancyName}/question-banks`}>
                 <MenuItem onClick={handleClose}>Question Banks</MenuItem>
               </NavLink>
-              <NavLink to="/create-question-bank">
+              <NavLink to={`/${tenancyName}/create-question-bank`}>
                 <MenuItem onClick={handleClose}>Create Question Banks</MenuItem>
               </NavLink>
-              <NavLink to="/create-question">
+              <NavLink to={`/${tenancyName}/create-question`}>
                 <MenuItem onClick={handleClose}>Create Question</MenuItem>
               </NavLink>
-              <NavLink to="/bulk-upload-questions">
+              <NavLink to={`/${tenancyName}/bulk-upload-questions`}>
                 <MenuItem onClick={handleClose}>Bulk Upload Questions</MenuItem>
               </NavLink>
-              <NavLink to="/bulk-upload-history">
+              <NavLink to={`/${tenancyName}/bulk-upload-history`}>
                 <MenuItem onClick={handleClose}>Bulk Upload History</MenuItem>
               </NavLink>
-              <NavLink to="/questions-on-review">
+              <NavLink to={`/${tenancyName}/questions-on-review`}>
                 <MenuItem onClick={handleClose}>Questions on Review</MenuItem>
               </NavLink>
           </Menu>
@@ -156,16 +157,16 @@ const Header = () => {
             anchorEl={tenant}
             open={openTenant}
             onClick={handleClose}>
-              <NavLink to="/tenants">
+              <NavLink to={`/${tenancyName}/tenants`}>
                 <MenuItem onClick={handleClose}>Tenants</MenuItem>
               </NavLink>
-              <NavLink to="/create-tennant">
+              <NavLink to={`/${tenancyName}/create-tennant`}>
                 <MenuItem onClick={handleClose}>Create Tenant</MenuItem>
               </NavLink>
-              <NavLink to="/users">
+              <NavLink to={`/${tenancyName}/users`}>
                 <MenuItem onClick={handleClose}>Users</MenuItem>
               </NavLink>
-              <NavLink to="/create-upload-users">
+              <NavLink to={`/${tenancyName}/create-upload-users`}>
                 <MenuItem onClick={handleClose}>Create / Upload Users</MenuItem>
               </NavLink>
           </Menu>
@@ -173,10 +174,10 @@ const Header = () => {
             anchorEl={resourse}
             open={openResourse}
             onClick={handleClose}>
-              <NavLink to="/tags">
+              <NavLink to={`/${tenancyName}/tags`}>
                 <MenuItem onClick={handleClose}>Manage Tags</MenuItem>
               </NavLink>
-              <NavLink to="/roles">
+              <NavLink to={`/${tenancyName}/roles`}>
                 <MenuItem onClick={handleClose}>Manage Roles</MenuItem>
               </NavLink>
           </Menu>
@@ -184,10 +185,10 @@ const Header = () => {
             anchorEl={profile}
             open={openProfile}
             onClick={handleClose}>
-              <NavLink to="/profile">
+              <NavLink to={`/${tenancyName}/profile`}>
                 <MenuItem>My Profile</MenuItem>
               </NavLink>
-              <NavLink to="/account-settings">
+              <NavLink to={`/${tenancyName}/account-settings`}>
                 <MenuItem onClick={handleClose}>Account Settings</MenuItem>
               </NavLink>
               {/* <NavLink to="/default/login"> */}

@@ -12,10 +12,14 @@ import logo from "../../../assets/yaksha.png";
 import { useFormik, FormikProvider, Field } from "formik";
 import { getApi, postApi } from "../../../_api/_api";
 import { apiIdentityUrl, apiYakshaUrl } from './../../../_api/_urls';
+import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from "yup";
 import * as commonYupValidations from "../../../_shared/yupObjects";
+import { FETCH_USER_DETAILS } from "../../../_store/actions/actions";
 
 const Login = () => {
+    const loggedInUserDetailsStore = useSelector((state) => state.loggedInUserDetails);
+    const dispatch = useDispatch();
     const [state, setState] = useState({
         errorMessage: null,
         currentLoginInfo: null, userRolePermissions: null, allRoles: null
@@ -69,6 +73,7 @@ const Login = () => {
                         return;
                     }
                     sessionStorage.setItem("accessToken", body.accessToken);
+                    // dispatch({ type: FETCH_USER_DETAILS })
                     loadInitialData();
                 }
             } catch (error) {
@@ -83,14 +88,13 @@ const Login = () => {
         setState(prev => ({...prev, currentLoginInfo, userRolePermissions, allRoles }));
         // dispatch
         // TODO::Added for testing routes
-        // routeChange();
+        routeChange();
 
     }
     const fetchCurrentLoginInfo = async () => {
         try {
            const { status, body } = await getApi(`${apiIdentityUrl}/services/platform/Session/GetCurrentLoginInformations`); 
            if (status === 200) {
-            console.info(`user details===`,body)
             return body;
            }
         } catch (error) {
@@ -103,7 +107,6 @@ const Login = () => {
         try {
            const { status, body } = await getApi(`${apiYakshaUrl}/services/yaksha/User/GetUserRolePermissions`); 
            if (status === 200) {
-            console.info(`user details===`,body)
             return body;
            }
         } catch (error) {
@@ -114,7 +117,6 @@ const Login = () => {
         try {
            const { status, body } = await getApi(`${apiYakshaUrl}/services/yaksha/Role/GetAllRoles`); 
            if (status === 200) {
-            console.info(`user details===`,body)
             return body;
            }
         } catch (error) {
@@ -128,6 +130,11 @@ const Login = () => {
     }, [tenancyName]);
 
     const resetErrorMessage = () => setState(prev => ({...prev, errorMessage: null }));
+    useEffect(() => {
+        if (loggedInUserDetailsStore) {
+            {console.info(`======loggedInUserDetailsStore====`, loggedInUserDetailsStore)}
+        }
+    }, [loggedInUserDetailsStore])
   return (
     <Container maxWidth="xl">
         

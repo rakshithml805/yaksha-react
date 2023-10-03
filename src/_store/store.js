@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import exampleDetails from './reducer/example'
+import loggedInUserDetails from './reducer/loggedInUserDetails'
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from "./saga/rootSaga";
 
@@ -10,7 +11,8 @@ const middleware = [sagaMiddleware]
 
 const store = configureStore({
   reducer: {
-    exampleDetails
+    exampleDetails,
+    loggedInUserDetails,
   },
   // devTools: process.env.NODE_ENV !== 'production',
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(middleware),

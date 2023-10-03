@@ -36,7 +36,7 @@ const router = createBrowserRouter([
       element: <Login />,
     },
     {
-      path: "/forgot-password",
+      path: ":tenancyName/forgot-password",
       element: <ForgotPassword />,
     },
     {
@@ -65,7 +65,7 @@ const router = createBrowserRouter([
       element: (<Layout><CreateRole /></Layout> ),
     },
     {
-      path: "/users",
+      path: ":tenancyName/users",
       element: (<Layout><UsersList /></Layout> ),
     },
     {
@@ -99,7 +99,7 @@ const router = createBrowserRouter([
       element: (<Layout><QuestionDetail /></Layout> ),
     },
     {
-      path: ":tenancyName/question-banks/create-question-bank",
+      path: ":tenancyName/create-question-bank",
       element: (<Layout><CreateQuestionBank /></Layout> ),
     },
     {
@@ -115,7 +115,7 @@ const router = createBrowserRouter([
       element: (<Layout><BulkUploadHistory /></Layout> ),
     },
     {
-      path: ":tenancyName/question-on-review",
+      path: ":tenancyName/questions-on-review",
       element: (<Layout><QuestionReview /></Layout> ),
     },
     {
@@ -128,7 +128,7 @@ const router = createBrowserRouter([
       element: (<Layout><AssessmentBankDetail /></Layout> ),
     },
     {
-      path: ":tenancyName/assessment-bank/create-assessment-bank",
+      path: ":tenancyName/create-assessment-bank",
       element: (<Layout><CreateAssessmentBank /></Layout> ),
     },
     {

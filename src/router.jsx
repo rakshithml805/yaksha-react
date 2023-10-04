@@ -129,7 +129,7 @@ const router = createBrowserRouter([
       element: (<Layout><AssessmentBankDetail /></Layout> ),
     },
     {
-      path: ":tenancyName/create-assessment-bank",
+      path: ":tenancyName/assessment-bank/create-assessment-bank",
       element: (<Layout><CreateAssessmentBank /></Layout> ),
     },
     {

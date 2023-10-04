@@ -20,7 +20,7 @@ const Admin = () => {
   };
 
   return (
-    <Box>
+    <>
         <Banner title={t('common.dashboard')} crumbs={breadcrumbs} />
         <Container maxWidth="xl">
             <TabContext value={value}>
@@ -89,7 +89,7 @@ const Admin = () => {
                 <TabPanel value="five" sx={{py: 1, px: 0}}>Assessments and Tenants</TabPanel>
             </TabContext>
         </Container>
-    </Box>
+    </>
   )
 }
 export default Admin;

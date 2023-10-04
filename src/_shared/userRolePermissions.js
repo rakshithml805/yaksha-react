@@ -7,6 +7,7 @@ const useUserRolePermissions = () => {
     {
       to: `/${tenancyName}/assessment-banks`,
       label: "Assessment Banks",
+      roles: []
     },
     {
       to: `/${tenancyName}/create-assessment-bank`,
@@ -27,6 +28,7 @@ const useUserRolePermissions = () => {
     {
       to: `/${tenancyName}/assessments-on-review`,
       label: "Assessments On Review",
+      roles: [Role.superAdmin, Role.reviewer]
     },
     {
       to: `/${tenancyName}/proctoring-configuration`,
@@ -57,6 +59,7 @@ const useUserRolePermissions = () => {
     {
       to: `/${tenancyName}/questions-on-review`,
       label: "Questions on Review",
+      roles: [Role.superAdmin, Role.reviewer]
     },
   ];
   const tenantsMenu = [
@@ -179,8 +182,7 @@ const useUserRolePermissions = () => {
   getMenu.set(Role.author, superAdminPermissions); // we need to set correct object
   return {
     getMenu,
-    assesmentMenu,
-    questionsMenu, tenantsMenu, resoursesMenu, profileMenu, 
+    assesmentMenu, questionsMenu, tenantsMenu, resoursesMenu, profileMenu, 
   };
 };
 export default useUserRolePermissions;

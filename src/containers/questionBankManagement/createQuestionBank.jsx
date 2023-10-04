@@ -342,7 +342,7 @@ export default function CreateQuestionBank() {
     };
     let navigate = useNavigate();
     const navigateToBanks =() => {
-        let path = '/question-banks'; 
+        let path = `/${tenancyName}/question-banks`; 
         navigate(path);
     };
 

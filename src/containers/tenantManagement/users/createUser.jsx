@@ -10,7 +10,7 @@ export default function CreateUser() {
     const { t } = useTranslation();
     let navigate = useNavigate();
     const navigateToUser = () => {
-        let path = '/users';
+        let path = `/${tenancyName}/users`;
         navigate(path);
     }
     const breadcrumbs = [

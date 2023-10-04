@@ -88,11 +88,7 @@ const Header = () => {
   const resoursesMenu =  menuObj.getMenu.get(userRolePermission.userRole).find(ele => ele.menu === "resourses");
   const profileMenu =  menuObj.getMenu.get(userRolePermission.userRole).find(ele => ele.menu === "profile");
   const reportsMenu =  menuObj.getMenu.get(userRolePermission.userRole).find(ele => ele.menu === "reports");
-  console.info(`=====assessmentMenu========`, assessmentMenu)
-  console.info(`=====questionsMenu========`, questionsMenu)
-  // console.info(`=====userRolePermission.rolePermissions========`, userRolePermission)
-  // console.info(`====location========`, location.pathname)
-  // console.info(`====match========`, match)
+  console.info(`=====userRolePermission.rolePermissions========`, userRolePermission)
   return (
     <AppBar position="fixed" sx={{backgroundColor: 'white', minHeight:'64px', display: 'flex', flexDirection: "column", justifyContent: "center"}}>
       <Container maxWidth="xl">

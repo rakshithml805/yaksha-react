@@ -7,7 +7,7 @@ const useUserRolePermissions = () => {
     {
       to: `/${tenancyName}/assessment-banks`,
       label: "Assessment Banks",
-      roles: []
+      roles: [Role.superAdmin]
     },
     {
       to: `/${tenancyName}/create-assessment-bank`,

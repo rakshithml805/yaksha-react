@@ -1,11 +1,11 @@
-import {CssBaseline, ThemeProvider} from '@mui/material';
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
+import { CssBaseline, ThemeProvider } from '@mui/material';
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
+import App from './App.jsx';
 import './i18n';
-import { store } from './store/store'
-import { Provider } from 'react-redux'
-import './index.scss'
+import './index.scss';
+import store from './_store/store.js';
 import theme from './theme';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -16,5 +16,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <App />
       </ThemeProvider>
     </React.StrictMode>
-  </Provider>
+  </Provider>,
 )

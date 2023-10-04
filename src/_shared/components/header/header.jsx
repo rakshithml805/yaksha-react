@@ -163,9 +163,7 @@ const Header = () => {
                 <MenuItem onClick={handleClose}>{item.label}</MenuItem>
               </NavLink>
               </>))}
-              {/* <NavLink to="/default/login"> */}
-                <MenuItem onClick={() => handleLogout()}>Logout</MenuItem>
-              {/* </NavLink> */}
+              <MenuItem onClick={() => handleLogout()}>Logout</MenuItem>
               
           </Menu>
       </Container>

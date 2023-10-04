@@ -8,13 +8,15 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import EventOutlinedIcon from '@mui/icons-material/EventOutlined';
 import QuestionMarkOutlinedIcon from '@mui/icons-material/QuestionMarkOutlined';
 import LoopOutlinedIcon from '@mui/icons-material/LoopOutlined';
+import { useParams } from 'react-router-dom';
 
 
 export default function AssessmentsOnReview(){
+    const { tenancyName } = useParams();
     const breadcrumbs = [
         {
             name: "Dashboard",
-            url: "/dashboard"
+            url: `/${tenancyName}/dashboard`
         },
         {
             name: "Assessments on Review",

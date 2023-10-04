@@ -98,7 +98,7 @@ const useUserRolePermissions = () => {
     {
       permisionKey: "Assessments.Manage.All",
       menu: "assessments",
-      menuItem: assesmentMenu,
+      menuItems: assesmentMenu,
       menuLinks: [
         "/assessment-banks",
         "/create-assessment-bank",
@@ -109,19 +109,49 @@ const useUserRolePermissions = () => {
         "/proctoring-configuration",
       ],
     },
+    {
+        permisionKey: "Question.Manage.All",
+        menu: "questions", 
+        menuItems: questionsMenu
+    },
+    {
+        permisionKey: "Tenants.Manage.All",
+        menu: "tenants", 
+        menuItems: tenantsMenu
+    },
+    {
+        permisionKey: "Assessments.Manage.All",
+        menu: "resourses", 
+        menuItems: resoursesMenu
+    },
+    {
+        permisionKey: "Assessments.Manage.All",
+        menu: "profile", 
+        menuItems: profileMenu
+    },
+    {
+        permisionKey: "Reports.Manage.All",
+        menu: "reports",
+    }
   ];
   const reviewerPermissions = [
+    {
+        permisionKey: "Tenant.Question.Reviewer.Manage.All",
+        menu: "questions",
+        menuItems: [
+            {
+              to: `/${tenancyName}/questions-on-review`,
+              label: "Questions on Review",
+            },
+          ],  
+    },
     {
       permisionKey: "Tenant.Question.Reviewer.Manage.All",
       menu: "assessments",
       menuItems: [
         {
-          to: `/${tenancyName}/assessments-on-review`,
+            to: `/${tenancyName}/assessment-banks/assessments-on-review`,
           label: "Assessments On Review",
-        },
-        {
-          to: `/${tenancyName}/questions-on-review`,
-          label: "Questions on Review",
         },
       ],
       menuLinks: ["/assessments-on-review", "/questions-on-review"],
@@ -139,8 +169,14 @@ const useUserRolePermissions = () => {
     },
   ];
   const getMenu = new Map();
-  getMenu.set(Role.superAdmin, superAdminPermissions);
+  getMenu.set(Role.superAdmin, superAdminPermissions);  
+  getMenu.set(Role.tenantAdmin, superAdminPermissions); // we need to set correct object
+  getMenu.set(Role.tenantUser, superAdminPermissions); // we need to set correct object
   getMenu.set(Role.reviewer, reviewerPermissions);
+  getMenu.set(Role.questionReviewer, superAdminPermissions); // we need to set correct object
+  getMenu.set(Role.evaluator, superAdminPermissions); // we need to set correct object
+  getMenu.set(Role.candidate, superAdminPermissions); // we need to set correct object
+  getMenu.set(Role.author, superAdminPermissions); // we need to set correct object
   return {
     getMenu,
     assesmentMenu,

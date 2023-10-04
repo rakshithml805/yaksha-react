@@ -7,21 +7,22 @@ import { FileUploader } from "react-drag-drop-files";
 import { useTranslation } from 'react-i18next';
 import Banner from '../../_shared/components/banner/banner';
 import './questionsBulkUpload.scss';
+import { useParams } from 'react-router-dom';
 
 export default function QuestionsBulkUpload() {
-
+  const { tenancyName } = useParams();
   const {t} = useTranslation();
   const breadcrumbs = [
     {
-        name: "Dashboard",
-        url: "/dashboard"
+      name: "Dashboard",
+      url: `/${tenancyName}/dashboard`
     },
     {
         name: "Bulk Upload Questions",
         url: ""
     }
 ]
-  const button = ['Upload History', "/bulk-upload-history"];
+  const button = ['Upload History',  `/${tenancyName}/bulk-upload-history`];
 
     const [questionType, setQuestionType] = React.useState('');
 

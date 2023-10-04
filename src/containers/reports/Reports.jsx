@@ -7,18 +7,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import { useNavigate } from 'react-router-dom';
-
-const breadcrumbs = [
-    {
-        name: "Dashboard",
-        url: "/dashboard"
-    },
-    {
-        name: "Reports",
-        url: ""
-    }
-]
+import { useNavigate, useParams } from 'react-router-dom';
 
 const tenantsList = [
     {
@@ -78,11 +67,21 @@ const assessmentStatusList = [
 ]
 
 const Reports = () => {
+    const { tenancyName } = useParams();
     const [tenants, setTenants] = useState('allTenants');
     const [reports, setReportsOn] = useState('objective');
     const [assessmentStatus, setAssessmentStatus] = useState('');
     const { t } = useTranslation();
-    
+    const breadcrumbs = [
+        {
+            name: "Dashboard",
+            url: `/${tenancyName}/dashboard`
+        },
+        {
+            name: "Reports",
+            url: ""
+        }
+    ]
     const handleTenantChange = (event) => {
         setTenants(event.target.value);
     };
@@ -94,7 +93,7 @@ const Reports = () => {
     };
     let navigate = useNavigate();
     const navigateToDashboards = () => {
-        let path = '/dashboard';
+        let path = `/${tenancyName}/dashboard`;
         navigate(path);
     };
 

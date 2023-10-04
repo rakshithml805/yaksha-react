@@ -37,16 +37,16 @@ import { visuallyHidden } from '@mui/utils';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import Banner from '../../_shared/components/banner/banner';
 import DeleteDialog from '../../_shared/components/deleteDialog/DeleteDialog';
 
 export default function QuestionBankList() {
-
+    const { tenancyName } = useParams();
     const breadcrumbs = [
         {
             name: "Dashboard",
-            url: "/dashboard"
+            url: `/${tenancyName}/dashboard`
         },
         {
             name: "Question Banks",
@@ -54,7 +54,7 @@ export default function QuestionBankList() {
         }
     ];
     const {t} = useTranslation();
-    const button = ['Create Question Bank', "/create-question-bank"];
+    const button = ['Create Question Bank', `/${tenancyName}/create-question-bank`];
     
     const tenants = [
         {

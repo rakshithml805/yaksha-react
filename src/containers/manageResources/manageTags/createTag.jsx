@@ -20,6 +20,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import Banner from '../../../_shared/components/banner/banner';
+import { useParams } from 'react-router-dom';
 
 const MenuProps = {
     PaperProps: {
@@ -32,22 +33,10 @@ const MenuProps = {
 const categoriesList = ['Web Development', 'Software Development', 'Artificial Intelligence', 'Application Development Programing', 'AR VR', 'Machine Learning', 'Security & Meta'];
 const skillsList = ['HTML 5.0', 'CSS 3.0', 'JavaScript', 'TypeScript', 'Angular', 'ReactJs', 'NextJs', 'dotNet', 'Java', 'C++', 'C#', 'Python', 'Node'];
 
-const breadcrumbs = [
-    {
-        name: "Dashboard",
-        url: "/dashboard"
-    },
-    {
-        name: "Manage Tags",
-        url: "/tags"
-    },
-    {
-        name: "Create Tags",
-        url: ""
-    }
-];
+
 
 const CreateTag = () => {
+    const { tenancyName } = useParams();
     const {t} = useTranslation();
     const imgUpload = useRef(null);
     const tagsImg = event => {
@@ -57,7 +46,20 @@ const CreateTag = () => {
         const fileUploaded = event.target.files[0];
         tagsImg(fileUploaded);
     };
-
+    const breadcrumbs = [
+        {
+            name: "Dashboard",
+            url: `/${tenancyName}/dashboard`
+        },
+        {
+            name: "Manage Tags",
+            url: `/${tenancyName}/tags`
+        },
+        {
+            name: "Create Tags",
+            url: ""
+        }
+    ];
     const [tagValue, setTagValue] = React.useState('category');
     const [selectedCate, setSelectedCate] = React.useState([]);
     const [selectedSkill, setSelectedSkill] = React.useState([]);

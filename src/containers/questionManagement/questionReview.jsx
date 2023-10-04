@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box,Container,Breadcrumbs,Typography,Menu,MenuItem, Grid ,Autocomplete,TextField,FormControl,InputLabel,OutlinedInput,InputAdornment,IconButton,Card,CardContent,Button} from '@mui/material'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useParams } from 'react-router-dom'
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import QuestionMarkOutlinedIcon from '@mui/icons-material/QuestionMarkOutlined';
 import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
@@ -10,19 +10,20 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import LoopOutlinedIcon from '@mui/icons-material/LoopOutlined';
 import Banner from '../../_shared/components/banner/banner';
 
-const breadcrumbs = [
-    {
-        name: "Dashboard",
-        url: "/dashboard"
-    },
-    {
-        name: "Question on Review",
-        url: ""
-    }
-]
 export default function QuestionReview() {
+    const { tenancyName } = useParams();
     const banks=['Question Bank 1','Question Bank 2','Question Bank 3','Question Bank 4'];
     const status = ['All Status','Acitve','Expired'];
+    const breadcrumbs = [
+        {
+            name: "Dashboard",
+            url: `/${tenancyName}/dashboard`
+        },
+        {
+            name: "Question on Review",
+            url: ""
+        }
+    ]
     const questions = [
         {
             name:'Angular with C#, MSSQL - Assessment title Lorem Ipsom are sample text for',

@@ -19,21 +19,23 @@ import { useTranslation } from 'react-i18next';
 import { visuallyHidden } from '@mui/utils';
 import Banner from '../../../_shared/components/banner/banner';
 import DeleteDialog from '../../../_shared/components/deleteDialog/DeleteDialog';
+import { useParams } from 'react-router-dom';
 
 export default function TenantsList() {
+    const { tenancyName } = useParams();
     const { t } = useTranslation();
 
     const breadcrumbs = [
         {
             name: "Dashboard",
-            url: "/dashboard"
+            url: `/${tenancyName}/dashboard`
         },
         {
             name: "Manage Tenants",
             url: "/"
         }
     ]
-    const button = ['Onboard Tenant', "/create-tennant"];
+    const button = ['Onboard Tenant', "onboard-tenant"];
     const tenantsListArray = [
         {
             id: 1,

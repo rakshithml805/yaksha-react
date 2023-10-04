@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box, Container,  Typography, Autocomplete, Grid, TextField, List,ListItem,ListItemText, Button, Card, CardContent } from '@mui/material'
-import {useNavigate } from 'react-router-dom';
+import {useNavigate, useParams } from 'react-router-dom';
 import cardImg from '../../assets/card-image.jpeg';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import LoopOutlinedIcon from '@mui/icons-material/LoopOutlined';
@@ -14,11 +14,11 @@ import Banner from '../../_shared/components/banner/banner';
 import { useTranslation } from 'react-i18next';
 
 export default function CreateQuestionBank() {
-
+    const { tenancyName } = useParams();
     const breadcrumbs = [
         {
             name: "Dashboard",
-            url: "/dashboard"
+            url: `/${tenancyName}/dashboard`
         },
         {
             name: "Create Question Banks",

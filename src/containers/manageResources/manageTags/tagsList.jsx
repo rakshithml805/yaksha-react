@@ -7,22 +7,12 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import LoopOutlinedIcon from '@mui/icons-material/LoopOutlined';
 import { TabContext, TabList, TabPanel } from '@mui/lab/';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Banner from '../../../_shared/components/banner/banner';
 import cardImg from '../../../assets/card-image.jpeg';
 import DeleteDialog from '../../../_shared/components/deleteDialog/DeleteDialog';
 
-const breadcrumbs = [
-    {
-        name: "Dashboard",
-        url: "/dashboard"
-    },
-    {
-        name: "Manage Tags",
-        url: ""
-    }
-]
-const button = ['Create Tags', "/tags/create-tag"];
+const button = ['Create Tags', "create-tag"];
 const tagImg = {
     width: "112px",
     height: "77px",
@@ -106,8 +96,19 @@ const skillsList = [
     },
 ]
 const TagLists = () => {
+    const { tenancyName } = useParams();
     const {t} = useTranslation();
     const navigate = useNavigate();
+    const breadcrumbs = [
+        {
+            name: "Dashboard",
+            url: `/${tenancyName}/dashboard`
+        },
+        {
+            name: "Manage Tags",
+            url: ""
+        }
+    ]
 
     const [value, setValue] = useState('categories');
     const tabChange = (event, newValue) => {

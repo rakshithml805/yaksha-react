@@ -2,14 +2,14 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import { AppBar, Avatar, Box, Button, Container, IconButton, Menu, MenuItem, Typography } from '@mui/material';
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { NavLink, useLocation, useMatch, useNavigate, useParams } from 'react-router-dom';
 import { postApi } from '../../../_api/_api';
 import { apiIdentityUrl } from '../../../_api/_urls';
+import { handleClearLoginState } from '../../../_store/reducer/loggedInUserDetails';
 import avatar from "../../../assets/2.jpg";
 import logo from "../../../assets/yaksha.png";
-import { handleClearLoginState } from '../../../_store/reducer/loggedInUserDetails';
-import { useParams } from 'react-router-dom';
+import useUserRolePermissions from '../../userRolePermissions';
 
 const Header = () => {
   const dispatch = useDispatch();  
@@ -17,7 +17,6 @@ const Header = () => {
   const loggedInUserDetailsStore = useSelector((state) => state.loggedInUserDetails.data);
   const { currentLoginInfo, userRolePermissions } = loggedInUserDetailsStore;
   const { result: userRolePermission } = userRolePermissions;
-  console.info(`=====userRolePermission.rolePermissions========`, userRolePermission.rolePermissions)
   const [assessment, setAssessment] = React.useState(null);
   const [question, setQuestion] = React.useState(null);
   const [tenant, setTenant] = React.useState(null);
@@ -65,11 +64,7 @@ const Header = () => {
     setResourse(null);
     setProfile(null);
   };
-  // const location = useLocation();
-  //   const hideHeaderForPaths = ['/','/forgotPassword', '/resetPassword'];
-  //   if(hideHeaderForPaths.includes(location.pathname)) {
-  //     return <></>;
-  //   }
+  
   const handleLogout = async () => {
     try {
       handleClose();
@@ -84,6 +79,15 @@ const Header = () => {
       console.error(error);
     }
   }
+  const location = useLocation();
+  const match = useMatch(location.pathname);
+
+  const menuObj = useUserRolePermissions()
+  const permissions = ["Assessments.Manage.All"];
+  console.info(`=====menuObj========`, menuObj.getMenu.get(userRolePermission.userRole))
+  console.info(`=====userRolePermission.rolePermissions========`, userRolePermission)
+  // console.info(`====location========`, location.pathname)
+  // console.info(`====match========`, match)
   return (
     <AppBar position="fixed" sx={{backgroundColor: 'white', minHeight:'64px', display: 'flex', flexDirection: "column", justifyContent: "center"}}>
       <Container maxWidth="xl">
@@ -114,61 +118,31 @@ const Header = () => {
             anchorEl={assessment}
             open={openAssessment}
             onClick={handleClose}>
-              <NavLink to={`/${tenancyName}/assessment-banks`}>
-                <MenuItem onClick={handleClose}>Assessment Banks</MenuItem>
+              {menuObj.assesmentMenu.map(item => (<>
+              <NavLink to={item.to}>
+                <MenuItem onClick={handleClose}>{item.label}</MenuItem>
               </NavLink>
-              <NavLink to={`/${tenancyName}/assessment-bank/create-assessment-bank`}>
-                <MenuItem onClick={handleClose}>Create Assessment Banks</MenuItem>
-              </NavLink>
-              <NavLink to={`/${tenancyName}/create-assessment`}>
-                <MenuItem onClick={handleClose}>Create Assessment</MenuItem>
-              </NavLink>
-              <NavLink to={`/${tenancyName}/assessments-on-review`}>
-                <MenuItem onClick={handleClose}>Assessments on Review</MenuItem>
-              </NavLink>
-              <NavLink to={`/${tenancyName}/proctoring-configuration`}>
-                <MenuItem onClick={handleClose}>Proctoring Configuration</MenuItem>
-              </NavLink>
+              </>))}
           </Menu>
           <Menu id="questions"
             anchorEl={question}
             open={openQuestion}
             onClick={handleClose}>
-              <NavLink to={`/${tenancyName}/question-banks`}>
-                <MenuItem onClick={handleClose}>Question Banks</MenuItem>
+              {menuObj.questionsMenu.map(item => (<>
+              <NavLink to={item.to}>
+                <MenuItem onClick={handleClose}>{item.label}</MenuItem>
               </NavLink>
-              <NavLink to={`/${tenancyName}/question-banks/create-question-bank`}>
-                <MenuItem onClick={handleClose}>Create Question Banks</MenuItem>
-              </NavLink>
-              <NavLink to={`/${tenancyName}/create-question`}>
-                <MenuItem onClick={handleClose}>Create Question</MenuItem>
-              </NavLink>
-              <NavLink to={`/${tenancyName}/bulk-upload-questions`}>
-                <MenuItem onClick={handleClose}>Bulk Upload Questions</MenuItem>
-              </NavLink>
-              <NavLink to={`/${tenancyName}/bulk-upload-history`}>
-                <MenuItem onClick={handleClose}>Bulk Upload History</MenuItem>
-              </NavLink>
-              <NavLink to={`/${tenancyName}/questions-on-review`}>
-                <MenuItem onClick={handleClose}>Questions on Review</MenuItem>
-              </NavLink>
+              </>))}
           </Menu>
           <Menu id="tenants"
             anchorEl={tenant}
             open={openTenant}
             onClick={handleClose}>
-              <NavLink to={`/${tenancyName}/tenants`}>
-                <MenuItem onClick={handleClose}>Tenants</MenuItem>
+              {menuObj.tenantsMenu.map(item => (<>
+              <NavLink to={item.to}>
+                <MenuItem onClick={handleClose}>{item.label}</MenuItem>
               </NavLink>
-              <NavLink to={`/${tenancyName}/create-tennant`}>
-                <MenuItem onClick={handleClose}>Create Tenant</MenuItem>
-              </NavLink>
-              <NavLink to={`/${tenancyName}/users`}>
-                <MenuItem onClick={handleClose}>Users</MenuItem>
-              </NavLink>
-              <NavLink to={`/${tenancyName}/create-upload-users`}>
-                <MenuItem onClick={handleClose}>Create / Upload Users</MenuItem>
-              </NavLink>
+              </>))}
           </Menu>
           <Menu id="resourses"
             anchorEl={resourse}

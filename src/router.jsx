@@ -136,7 +136,7 @@ const router = createBrowserRouter([
       element: (<Layout><AssessmentsOnReview /></Layout> ),
     },
     {
-      path: ":tenancyName/proctoring-settings",
+      path: ":tenancyName/proctoring-configuration",
       element: (<>Proctoring Settings</>),
     },
     {

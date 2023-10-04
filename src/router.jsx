@@ -25,6 +25,7 @@ import AssessmentBanksList from './containers/assessmentManagement/assessmentBan
 import AssessmentBankDetail from './containers/assessmentManagement/assessmentBankDetail';
 import CreateAssessmentBank from './containers/assessmentManagement/createAssessmentBank';
 import AssessmentsOnReview from './containers/assessmentManagement/assessmentsOnReview';
+import PageNotFound from "./containers/pagenotfound/pagenotfound";
 const router = createBrowserRouter([
     // common
     {
@@ -157,7 +158,7 @@ const router = createBrowserRouter([
     },
     {
       path: "*",
-      element: (<>Page Not Found</>),
+      element: (<PageNotFound />),
     },
 ]);
 export default router;

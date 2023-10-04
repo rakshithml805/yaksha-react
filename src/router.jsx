@@ -138,11 +138,11 @@ const router = createBrowserRouter([
     },
     {
       path: ":tenancyName/proctoring-configuration",
-      element: (<>Proctoring Settings</>),
+      element: (<Layout>Proctoring Settings</Layout>),
     },
     {
       path: ":tenancyName/create-assessment",
-      element: (<>Create Assessment</>),
+      element: (<Layout>Create Assessment</Layout>),
     },
     {
       path: ":tenancyName/profile",

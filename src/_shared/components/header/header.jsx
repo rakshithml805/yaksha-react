@@ -10,6 +10,7 @@ import { handleClearLoginState } from '../../../_store/reducer/loggedInUserDetai
 import avatar from "../../../assets/2.jpg";
 import logo from "../../../assets/yaksha.png";
 import useUserRolePermissions from '../../userRolePermissions';
+import { ListItem } from '@mui/material';
 
 const Header = () => {
   const dispatch = useDispatch();  
@@ -79,16 +80,22 @@ const Header = () => {
       console.error(error);
     }
   }
-  const location = useLocation();
-  const match = useMatch(location.pathname);
-  const menuObj = useUserRolePermissions()
-  const assessmentMenu =  menuObj.getMenu.get(userRolePermission.userRole).find(ele => ele.menu === "assessments");
-  const questionsMenu =  menuObj.getMenu.get(userRolePermission.userRole).find(ele => ele.menu === "questions");
-  const tenantsMenu =  menuObj.getMenu.get(userRolePermission.userRole).find(ele => ele.menu === "tenants");
-  const resoursesMenu =  menuObj.getMenu.get(userRolePermission.userRole).find(ele => ele.menu === "resourses");
-  const profileMenu =  menuObj.getMenu.get(userRolePermission.userRole).find(ele => ele.menu === "profile");
-  const reportsMenu =  menuObj.getMenu.get(userRolePermission.userRole).find(ele => ele.menu === "reports");
-  // console.info(`=====userRolePermission.rolePermissions========`, reportsMenu)
+  const menuObj = useUserRolePermissions();
+
+  const hasMenuAccess = (item) => {
+    if (item.roles.find(ele => ele === userRolePermission.userRole)) {
+      return true;
+    }
+    return false;
+  }
+  const renderMenuItems = (item) => {
+    return hasMenuAccess(item) ? <NavLink to={item.to}>
+    <MenuItem onClick={handleClose}>{item.label}</MenuItem>
+  </NavLink> : ""
+  }
+  const hasAccessToMainMenu = (row) => {
+    return row.filter(item => item.roles.find(ele => ele === userRolePermission.userRole)).length ? true : false;
+  }
   return (
     <AppBar position="fixed" sx={{backgroundColor: 'white', minHeight:'64px', display: 'flex', flexDirection: "column", justifyContent: "center"}}>
       <Container maxWidth="xl">
@@ -96,21 +103,27 @@ const Header = () => {
               <Box sx={{mt:"5px"}}><img src={logo} alt="Yaksha" /></Box>
               <Box>
                 <Button variant='text' color='primary' onClick={handleClick} value="dashboard">Dashboard</Button>
-                { assessmentMenu && <>
+                
+                { hasAccessToMainMenu(menuObj.assesmentMenu) && <>
                   <Button variant='text' color='primary' onClick={handleClick} value="assessments">Assessments <KeyboardArrowDownIcon /></Button>
                 </>}
-                {questionsMenu && (<>
+
+                {hasAccessToMainMenu(menuObj.questionsMenu) && (<>
                   <Button variant='text' color='primary' onClick={handleClick} value="questions">Questions <KeyboardArrowDownIcon /></Button>
                 </>)}
-                {tenantsMenu && (<>
+
+                {hasAccessToMainMenu(menuObj.tenantsMenu) && (<>
                   <Button variant='text' color='primary' onClick={handleClick} value="tenants">Tenant Management <KeyboardArrowDownIcon /></Button>
                 </>) }
-                {resoursesMenu && (<>
+
+                { hasAccessToMainMenu(menuObj.resoursesMenu) && (<>
                   <Button variant='text' color='primary' onClick={handleClick} value="resourses">Manage Resourses <KeyboardArrowDownIcon /></Button>
                 </>)}
-                {reportsMenu && (<>
+
+                { hasAccessToMainMenu(menuObj.reportsMenu) && (<>
                   <Button variant='text' color='primary' onClick={handleClick} value="reports">Reports</Button>
                 </>)}
+
               </Box>
               <Box>
                 <IconButton color='primary'>
@@ -129,53 +142,32 @@ const Header = () => {
             anchorEl={assessment}
             open={openAssessment}
             onClick={handleClose}>
-              {assessmentMenu && assessmentMenu.menuItems.map(item => (<>
-              <NavLink to={item.to}>
-                <MenuItem onClick={handleClose}>{item.label}</MenuItem>
-              </NavLink>
-              </>))}
+              {menuObj.assesmentMenu && menuObj.assesmentMenu.map(item => renderMenuItems(item))}
           </Menu>
           <Menu id="questions"
             anchorEl={question}
             open={openQuestion}
             onClick={handleClose}>
-              {questionsMenu && questionsMenu.menuItems.map(item => (<>
-              <NavLink to={item.to}>
-                <MenuItem onClick={handleClose}>{item.label}</MenuItem>
-              </NavLink>
-              </>))}
+              {menuObj.questionsMenu && menuObj.questionsMenu.map(item => renderMenuItems(item))}
           </Menu>
           <Menu id="tenants"
             anchorEl={tenant}
             open={openTenant}
             onClick={handleClose}>
-              {tenantsMenu && tenantsMenu.menuItems.map(item => (<>
-              <NavLink to={item.to}>
-                <MenuItem onClick={handleClose}>{item.label}</MenuItem>
-              </NavLink>
-              </>))}
+              {menuObj.tenantsMenu && menuObj.tenantsMenu.map(item => renderMenuItems(item))}
           </Menu>
           <Menu id="resourses"
             anchorEl={resourse}
             open={openResourse}
             onClick={handleClose}>
-              {resoursesMenu && resoursesMenu.menuItems.map(item => (<>
-              <NavLink to={item.to}>
-                <MenuItem onClick={handleClose}>{item.label}</MenuItem>
-              </NavLink>
-              </>))}
+              {menuObj.resoursesMenu && menuObj.resoursesMenu.map(item => renderMenuItems(item))}
           </Menu>
           <Menu id="profile"
             anchorEl={profile}
             open={openProfile}
             onClick={handleClose}>
-              {profileMenu && profileMenu.menuItems.map(item => (<>
-              <NavLink to={item.to}>
-                <MenuItem onClick={handleClose}>{item.label}</MenuItem>
-              </NavLink>
-              </>))}
-              <MenuItem onClick={() => handleLogout()}>Logout</MenuItem>
-              
+              {menuObj.profileMenu && menuObj.profileMenu.map(item => renderMenuItems(item))}
+              <MenuItem onClick={() => handleLogout()}>Logout</MenuItem>              
           </Menu>
       </Container>
     </AppBar>

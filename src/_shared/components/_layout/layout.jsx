@@ -27,12 +27,13 @@ const Layout = (props) => {
     const { result: userRolePermission } = userRolePermissions;    
     
     const isRouteHasAccess = () => {
-        const allMenus = [...menuObj.assesmentMenu, ...menuObj.questionsMenu, ...menuObj.tenantsMenu, ...menuObj.resoursesMenu, ...menuObj.profileMenu];
+        const allMenus = [...menuObj.assesmentMenu, ...menuObj.questionsMenu, ...menuObj.tenantsMenu, ...menuObj.resoursesMenu, 
+            ...menuObj.profileMenu, ...menuObj.reportsMenu];
         const foundMenu = allMenus.find(ele => ele.to === match.pathname);
         if(match.pathname === `/${tenancyName}/dashboard`) {
             return true;
         }
-        if (foundMenu && foundMenu.roles &&foundMenu.roles.some(ele => ele === userRolePermission.userRole)) {
+        if (foundMenu && foundMenu.roles && foundMenu.roles.some(ele => ele === userRolePermission.userRole)) {
             return true;
         }
         return false

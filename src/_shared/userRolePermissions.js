@@ -104,7 +104,7 @@ const useUserRolePermissions = () => {
       }
   ];
   const profileMenu = [
-    {
+        {
         to: `/${tenancyName}/profile`,
         label: "My Profile",
         roles: [Role.candidate]
@@ -115,81 +115,85 @@ const useUserRolePermissions = () => {
         roles: [Role.superAdmin, Role.tenantAdmin, Role.reviewer, Role.candidate]
       }
   ];
-  const superAdminPermissions = [
-    {
-      permisionKey: "Assessments.Manage.All",
-      menu: "assessments",
-      menuItems: assesmentMenu
-    },
-    {
-        permisionKey: "Question.Manage.All",
-        menu: "questions", 
-        menuItems: questionsMenu
-    },
-    {
-        permisionKey: "Tenants.Manage.All",
-        menu: "tenants", 
-        menuItems: tenantsMenu
-    },
-    {
-        permisionKey: "Assessments.Manage.All",
-        menu: "resourses", 
-        menuItems: resoursesMenu
-    },
-    {
-        permisionKey: "Assessments.Manage.All",
-        menu: "profile", 
-        menuItems: profileMenu
-    },
-    {
-        permisionKey: "Reports.Manage.All",
-        menu: "reports",
-    }
-  ];
-  const reviewerPermissions = [
-    {
-        permisionKey: "Tenant.Question.Reviewer.Manage.All",
-        menu: "questions",
-        menuItems: [
-            {
-              to: `/${tenancyName}/questions-on-review`,
-              label: "Questions on Review",
-            },
-          ],  
-    },
-    {
-      permisionKey: "Tenant.Question.Reviewer.Manage.All",
-      menu: "assessments",
-      menuItems: [
-        {
-            to: `/${tenancyName}/assessments-on-review`,
-          label: "Assessments On Review",
-        },
-      ],
-    },
-    {
-      menu: "dashboard",
-      permisionKey: "Dashboard.Manage.All",
-      menuItems: [
-        {
-          to: `/${tenancyName}/dashboard`,
-          label: "Dashboard",
-        },
-      ]
-    },
-  ];
-  const getMenu = new Map();
-  getMenu.set(Role.superAdmin, superAdminPermissions);  
-  getMenu.set(Role.tenantAdmin, superAdminPermissions); // we need to set correct object
-  getMenu.set(Role.tenantUser, superAdminPermissions); // we need to set correct object
-  getMenu.set(Role.reviewer, reviewerPermissions);
-  getMenu.set(Role.questionReviewer, superAdminPermissions); // we need to set correct object
-  getMenu.set(Role.evaluator, superAdminPermissions); // we need to set correct object
-  getMenu.set(Role.candidate, superAdminPermissions); // we need to set correct object
-  getMenu.set(Role.author, superAdminPermissions); // we need to set correct object
+  const reportsMenu = [{
+    to: `/${tenancyName}/reports`,
+    label: "Reports",
+    roles: [Role.superAdmin]
+  }];
+//   const superAdminPermissions = [
+//     {
+//       permisionKey: "Assessments.Manage.All",
+//       menu: "assessments",
+//       menuItems: assesmentMenu
+//     },
+//     {
+//         permisionKey: "Question.Manage.All",
+//         menu: "questions", 
+//         menuItems: questionsMenu
+//     },
+//     {
+//         permisionKey: "Tenants.Manage.All",
+//         menu: "tenants", 
+//         menuItems: tenantsMenu
+//     },
+//     {
+//         permisionKey: "Assessments.Manage.All",
+//         menu: "resourses", 
+//         menuItems: resoursesMenu
+//     },
+//     {
+//         permisionKey: "Assessments.Manage.All",
+//         menu: "profile", 
+//         menuItems: profileMenu
+//     },
+//     {
+//         permisionKey: "Reports.Manage.All",
+//         menu: "reports",
+//     }
+//   ];
+//   const reviewerPermissions = [
+//     {
+//         permisionKey: "Tenant.Question.Reviewer.Manage.All",
+//         menu: "questions",
+//         menuItems: [
+//             {
+//               to: `/${tenancyName}/questions-on-review`,
+//               label: "Questions on Review",
+//             },
+//           ],  
+//     },
+//     {
+//       permisionKey: "Tenant.Question.Reviewer.Manage.All",
+//       menu: "assessments",
+//       menuItems: [
+//         {
+//             to: `/${tenancyName}/assessments-on-review`,
+//           label: "Assessments On Review",
+//         },
+//       ],
+//     },
+//     {
+//       menu: "dashboard",
+//       permisionKey: "Dashboard.Manage.All",
+//       menuItems: [
+//         {
+//           to: `/${tenancyName}/dashboard`,
+//           label: "Dashboard",
+//         },
+//       ]
+//     },
+//   ];
+//   const getMenu = new Map();
+//   getMenu.set(Role.superAdmin, superAdminPermissions);  
+//   getMenu.set(Role.tenantAdmin, superAdminPermissions); // we need to set correct object
+//   getMenu.set(Role.tenantUser, superAdminPermissions); // we need to set correct object
+//   getMenu.set(Role.reviewer, reviewerPermissions);
+//   getMenu.set(Role.questionReviewer, superAdminPermissions); // we need to set correct object
+//   getMenu.set(Role.evaluator, superAdminPermissions); // we need to set correct object
+//   getMenu.set(Role.candidate, superAdminPermissions); // we need to set correct object
+//   getMenu.set(Role.author, superAdminPermissions); // we need to set correct object
   return {
-    getMenu,
-    assesmentMenu, questionsMenu, tenantsMenu, resoursesMenu, profileMenu, 
+    assesmentMenu, questionsMenu, tenantsMenu, resoursesMenu, profileMenu, reportsMenu
   };
 };
 export default useUserRolePermissions;

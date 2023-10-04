@@ -119,16 +119,7 @@ const useUserRolePermissions = () => {
     {
       permisionKey: "Assessments.Manage.All",
       menu: "assessments",
-      menuItems: assesmentMenu,
-      menuLinks: [
-        "/assessment-banks",
-        "/create-assessment-bank",
-        "/create-assessment",
-        "/assessment-drives",
-        "/create-assessment-drive",
-        "/assessments-on-review",
-        "/proctoring-configuration",
-      ],
+      menuItems: assesmentMenu
     },
     {
         permisionKey: "Question.Manage.All",
@@ -175,7 +166,6 @@ const useUserRolePermissions = () => {
           label: "Assessments On Review",
         },
       ],
-      menuLinks: ["/assessments-on-review", "/questions-on-review"],
     },
     {
       menu: "dashboard",
@@ -185,8 +175,7 @@ const useUserRolePermissions = () => {
           to: `/${tenancyName}/dashboard`,
           label: "Dashboard",
         },
-      ],
-      menuLinks: ["/dashboard"],
+      ]
     },
   ];
   const getMenu = new Map();

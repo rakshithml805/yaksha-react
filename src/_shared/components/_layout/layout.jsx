@@ -24,24 +24,18 @@ const Layout = (props) => {
         return <>Loading...</>
     }    
     const { userRolePermissions } = loggedInUserDetailsStore.data;
-    const { result: userRolePermission } = userRolePermissions;
-    const assessmentMenu =  menuObj.getMenu.get(userRolePermission.userRole).find(ele => ele.menu === "assessments");
-    const questionsMenu =  menuObj.getMenu.get(userRolePermission.userRole).find(ele => ele.menu === "questions");
-    const tenantsMenu =  menuObj.getMenu.get(userRolePermission.userRole).find(ele => ele.menu === "tenants");
-    const resoursesMenu =  menuObj.getMenu.get(userRolePermission.userRole).find(ele => ele.menu === "resourses");
-    const profileMenu =  menuObj.getMenu.get(userRolePermission.userRole).find(ele => ele.menu === "profile");
-    const reportsMenu =  menuObj.getMenu.get(userRolePermission.userRole).find(ele => ele.menu === "reports");
-
-    
+    const { result: userRolePermission } = userRolePermissions;    
     
     const isRouteHasAccess = () => {
-        let hasAccess = false;
         const allMenus = [...menuObj.assesmentMenu, ...menuObj.questionsMenu, ...menuObj.tenantsMenu, ...menuObj.resoursesMenu, ...menuObj.profileMenu];
         const foundMenu = allMenus.find(ele => ele.to === match.pathname);
-        if (foundMenu && foundMenu.roles &&foundMenu.roles.some(ele => ele === userRolePermission.userRole)) {
-            hasAccess = true;
+        if(match.pathname === `/${tenancyName}/dashboard`) {
+            return true;
         }
-        return hasAccess
+        if (foundMenu && foundMenu.roles &&foundMenu.roles.some(ele => ele === userRolePermission.userRole)) {
+            return true;
+        }
+        return false
     }
     
     return (

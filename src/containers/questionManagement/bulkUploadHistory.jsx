@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, TableContainer, Table,TableHead,TableRow,TableCell, TableBody, TableSortLabel, Container, Breadcrumbs, Typography,
         Grid, Autocomplete, TextField, FormControl, InputLabel, OutlinedInput, InputAdornment, IconButton } from '@mui/material'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useParams } from 'react-router-dom'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -14,12 +14,12 @@ import Banner from '../../_shared/components/banner/banner';
 import { useTranslation } from 'react-i18next';
 
 export default function BulkUploadHistory() {
-
+    const { tenancyName } = useParams();
     const {t} = useTranslation();
     const breadcrumbs = [
         {
             name: "Dashboard",
-            url: "/dashboard"
+            url: `/${tenancyName}/dashboard`
         },
         {
             name: "Bulk Upload History",

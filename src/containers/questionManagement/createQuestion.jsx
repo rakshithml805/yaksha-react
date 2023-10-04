@@ -15,9 +15,10 @@ import Stack from './Questions/stack';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useTranslation } from 'react-i18next';
+import { useParams } from 'react-router-dom';
 
 export default function CreateQuestion() {
-
+    const { tenancyName } = useParams();
     const {t} = useTranslation();
     const proficencyList = ['Beginner','Intermediate','Advanced'];
     const categoriesList= ['All Categories','Machine Learning','Front End'];
@@ -57,14 +58,14 @@ export default function CreateQuestion() {
     const breadcrumbs = [
         {
             name: "Dashboard",
-            url: "/dashboard"
+            url: `/${tenancyName}/dashboard`
         },
         {
             name: "Create Questions",
             url: ""
         }
     ]
-    const button = ['Bulk Upload', "/bulk-upload-questions"];
+    const button = ['Bulk Upload', `/${tenancyName}/bulk-upload-questions`];
     var toolbarOptions = [ 
         ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
         ['blockquote', 'code-block'],

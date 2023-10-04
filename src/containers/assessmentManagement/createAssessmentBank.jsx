@@ -6,7 +6,7 @@ import {
 
 import Banner from '../../_shared/components/banner/banner';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import AnalyticsOutlinedIcon from '@mui/icons-material/AnalyticsOutlined';
 import LayersOutlinedIcon from '@mui/icons-material/LayersOutlined';
@@ -16,10 +16,11 @@ import LoopOutlinedIcon from '@mui/icons-material/LoopOutlined';
 import RemoveOutlinedIcon from '@mui/icons-material/RemoveOutlined';
 
 export default function CreateAssessmentBank() {
+    const { tenancyName } = useParams();
     const breadcrumbs = [
         {
             name: "Dashboard",
-            url: "/dashboard"
+            url: `/${tenancyName}/dashboard`
         },
         {
             name: "Create Assesment Bank",

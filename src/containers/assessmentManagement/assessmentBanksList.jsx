@@ -20,23 +20,24 @@ import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined
 import FindInPageOutlinedIcon from '@mui/icons-material/FindInPageOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import { useTranslation } from 'react-i18next';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import DeleteDialog from '../../_shared/components/deleteDialog/DeleteDialog';
 
 export default function AssessmentBanksList() {
+  const { tenancyName } = useParams();
   const { t } = useTranslation();
 
   const breadcrumbs = [
     {
       name: "Dashboard",
-      url: "/dashboard"
-    },
+      url: `/${tenancyName}/dashboard`
+  },
     {
       name: "Assessment Banks",
       url: ""
     }
   ]
-  const button = ['Create Assessment Bank', "/create-assessment-bank"];
+  const button = ['Create Assessment Bank', `/${tenancyName}/create-assessment-bank`];
   const tenants = [
     {
       id: 101,

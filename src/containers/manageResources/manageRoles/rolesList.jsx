@@ -2,20 +2,10 @@ import React from 'react';
 import { Box, Typography, Card, CardContent, Grid } from '@mui/material';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Banner from '../../../_shared/components/banner/banner';
 
-const breadcrumbs = [
-    {
-        name: "Dashboard",
-        url: "/dashboard"
-    },
-    {
-        name: "Manage Roles",
-        url: ""
-    }
-]
-const button = ['CREATE ROLE', "/create-roles"];
+const button = ['Create Role', "create-role"];
 
 const roles = [
     {
@@ -55,8 +45,19 @@ const roles = [
 ]
 
 const RoleList = () => {
+    const { tenancyName } = useParams();
     const { t } = useTranslation();
     const navigate = useNavigate();
+    const breadcrumbs = [
+        {
+            name: "Dashboard",
+            url: `/${tenancyName}/dashboard`
+        },
+        {
+            name: "Manage Roles",
+            url: ""
+        }
+    ]
     return (
         <Box>
             <Banner title="Manage Roles" crumbs={breadcrumbs} bannerButton={button} />

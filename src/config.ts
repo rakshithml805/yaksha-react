@@ -1,6 +1,6 @@
 
 
 export const config = {
-    apiIdentity: import.meta.env.VITE_ASSET_API_BASE_PATH ,
-    apiyaksha: import.meta.env.VITE_USER_API_BASE_PATH,
+    apiIdentity: import.meta.env.VITE_IDENTITY_API_BASE_PATH ,
+    apiyaksha: import.meta.env.VITE_YAKSHA_API_BASE_PATH,
 }

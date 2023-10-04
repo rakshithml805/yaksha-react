@@ -9,27 +9,27 @@ const useUserRolePermissions = () => {
       label: "Assessment Banks",
     },
     {
-      to: `/${tenancyName}/assessment-banks/create-assessment-bank`,
+      to: `/${tenancyName}/create-assessment-bank`,
       label: "Create Assessment Banks",
     },
     {
-      to: `/${tenancyName}/assessment-banks/create-assessment`,
+      to: `/${tenancyName}/create-assessment`,
       label: "Create Assessments",
     },
     {
-      to: `/${tenancyName}/assessment-banks/assessment-drives`,
+      to: `/${tenancyName}/assessment-drives`,
       label: "Assessment Drives",
     },
     {
-      to: `/${tenancyName}/assessment-banks/create-assessment-drive`,
+      to: `/${tenancyName}/create-assessment-drive`,
       label: "Create Assessment Drive",
     },
     {
-      to: `/${tenancyName}/assessment-banks/assessments-on-review`,
+      to: `/${tenancyName}/assessments-on-review`,
       label: "Assessments On Review",
     },
     {
-      to: `/${tenancyName}/assessment-banks/proctoring-configuration`,
+      to: `/${tenancyName}/proctoring-configuration`,
       label: "Proctoring Configuration",
     },
   ];
@@ -39,7 +39,7 @@ const useUserRolePermissions = () => {
       label: "Question Banks",
     },
     {
-      to: `/${tenancyName}/question-banks/create-question-bank`,
+      to: `/${tenancyName}/create-question-bank`,
       label: "Create Question Banks",
     },
     {
@@ -70,7 +70,7 @@ const useUserRolePermissions = () => {
         to: `/${tenancyName}/users`,
         label: "Users",
       },{
-        to: `/${tenancyName}/create-upload-users`,
+        to: `/${tenancyName}/users/onboard-user`,
         label: "Create / Upload Users",
       },
   ]

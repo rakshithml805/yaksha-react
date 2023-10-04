@@ -117,7 +117,7 @@ const Header = () => {
               <NavLink to={`/${tenancyName}/assessment-banks`}>
                 <MenuItem onClick={handleClose}>Assessment Banks</MenuItem>
               </NavLink>
-              <NavLink to={`/${tenancyName}/assessment-bank/create-assessment-bank`}>
+              <NavLink to={`/${tenancyName}/create-assessment-bank`}>
                 <MenuItem onClick={handleClose}>Create Assessment Banks</MenuItem>
               </NavLink>
               <NavLink to={`/${tenancyName}/create-assessment`}>
@@ -137,7 +137,7 @@ const Header = () => {
               <NavLink to={`/${tenancyName}/question-banks`}>
                 <MenuItem onClick={handleClose}>Question Banks</MenuItem>
               </NavLink>
-              <NavLink to={`/${tenancyName}/question-banks/create-question-bank`}>
+              <NavLink to={`/${tenancyName}/create-question-bank`}>
                 <MenuItem onClick={handleClose}>Create Question Banks</MenuItem>
               </NavLink>
               <NavLink to={`/${tenancyName}/create-question`}>
@@ -160,13 +160,13 @@ const Header = () => {
               <NavLink to={`/${tenancyName}/tenants`}>
                 <MenuItem onClick={handleClose}>Tenants</MenuItem>
               </NavLink>
-              <NavLink to={`/${tenancyName}/create-tennant`}>
+              <NavLink to={`/${tenancyName}/tenants/onboard-tenant`}>
                 <MenuItem onClick={handleClose}>Create Tenant</MenuItem>
               </NavLink>
               <NavLink to={`/${tenancyName}/users`}>
                 <MenuItem onClick={handleClose}>Users</MenuItem>
               </NavLink>
-              <NavLink to={`/${tenancyName}/create-upload-users`}>
+              <NavLink to={`/${tenancyName}/users/onboard-user`}>
                 <MenuItem onClick={handleClose}>Create / Upload Users</MenuItem>
               </NavLink>
           </Menu>

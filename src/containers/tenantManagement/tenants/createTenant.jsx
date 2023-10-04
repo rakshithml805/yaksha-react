@@ -2,21 +2,22 @@ import React, { useRef } from 'react';
 import { Container, Box, Typography, Button, Grid, TextField, FormControl, Select, MenuItem, InputLabel, Divider } from '@mui/material';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Banner from '../../../_shared/components/banner/banner';
 import { useTranslation } from 'react-i18next';
 
 
 export default function CreateTenant() {
+    const { tenancyName } = useParams();
     const { t } = useTranslation();
     const breadcrumbs = [
         {
             name: "Dashboard",
-            url: "/dashboard"
+            url: `/${tenancyName}/dashboard`
         },
         {
             name: "Manage Tenants",
-            url: "/tenants"
+            url: `/${tenancyName}/tenants`
         },
         {
             name: "Onboard Tenant",

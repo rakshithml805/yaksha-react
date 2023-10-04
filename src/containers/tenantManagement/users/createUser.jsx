@@ -1,32 +1,32 @@
 import React from 'react'
 import { Box, Container, Typography, Grid, TextField, Switch, FormControlLabel, Button, Divider, Autocomplete } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import { useTranslation } from 'react-i18next';
 import Banner from '../../../_shared/components/banner/banner';
 
-const breadcrumbs = [
-    {
-        name: "Dashboard",
-        url: "/dashboard"
-    },
-    {
-        name: "All Users",
-        url: "/users"
-    },
-    {
-        name: "Onboard Users",
-        url: ""
-    },
-]
-
 export default function CreateUser() {
+    const { tenancyName } = useParams();
     const { t } = useTranslation();
     let navigate = useNavigate();
     const navigateToUser = () => {
         let path = '/users';
         navigate(path);
     }
+    const breadcrumbs = [
+        {
+            name: "Dashboard",
+            url: `/${tenancyName}/dashboard`
+        },
+        {
+            name: "All Users",
+            url: `/${tenancyName}/users`
+        },
+        {
+            name: "Onboard Users",
+            url: ""
+        },
+    ]
     const tenants = ['Yaksha', 'CA', 'NSEIT', 'Cognizant'];
     const buisnessUnitList = [
         'Engineer',

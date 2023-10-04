@@ -23,20 +23,22 @@ import { visuallyHidden } from '@mui/utils';
 import { useTranslation } from 'react-i18next';
 import Banner from '../../../_shared/components/banner/banner';
 import DeleteDialog from '../../../_shared/components/deleteDialog/DeleteDialog';
+import { useParams } from 'react-router-dom';
 
 export default function UsersList() {
+    const { tenancyName } = useParams();
     const { t } = useTranslation();
     const breadcrumbs = [
         {
             name: "Dashboard",
-            url: "/dashboard"
+            url: `/${tenancyName}/dashboard`
         },
         {
             name: "All Users",
             url: "/"
         }
     ]
-    const button = ['Onboard Users', "/create-upload-users"];
+    const button = ['Onboard Users', "onboard-user"];
     const usersList = [
         {
             id: '1',

@@ -79,7 +79,7 @@ export default function CreateTenant() {
     };
     let navigate = useNavigate();
     const navigateToTenant = () => {
-        let path = '/tenants';
+        let path = `/${tenancyName}/tenants`;
         navigate(path);
     };
     const handleCreate = () => {

@@ -3,6 +3,7 @@ export const Role = {
     tenantAdmin: "TenantAdmin",
     tenantUser: "TenantUser",
     reviewer: "Reviewer",
+    questionReviewer: "QuestionReviewer",
     evaluator: "Evaluator",
     candidate: "Candidate",
     author: "Author",

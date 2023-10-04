@@ -162,7 +162,7 @@ const useUserRolePermissions = () => {
       menu: "assessments",
       menuItems: [
         {
-            to: `/${tenancyName}/assessment-banks/assessments-on-review`,
+            to: `/${tenancyName}/assessments-on-review`,
           label: "Assessments On Review",
         },
       ],

@@ -146,15 +146,15 @@ const router = createBrowserRouter([
     },
     {
       path: ":tenancyName/profile",
-      element: (<>Profile</>),
+      element: (<Layout>Profile</Layout>),
     },
     {
       path: ":tenancyName/account-settings",
-      element: (<>Account Settings</>),
+      element: (<Layout>Account Settings</Layout>),
     },
     {
       path: ":tenancyName/account-settings",
-      element: (<>Account Settings</>),
+      element: (<Layout>Account Settings</Layout>),
     },
     {
       path: "*",

@@ -2,13 +2,11 @@
 import { Box } from '@mui/material';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation, useMatch, useParams } from "react-router-dom";
 import Footer from "../../components/footer/footer";
 import Header from "../../components/header/header";
 import useAuthGuard from '../../useAuthGuard';
-import { useParams, useLocation, useMatch } from 'react-router-dom';
 import useUserRolePermissions from '../../userRolePermissions';
-import { Role } from '../../helper';
 
 const Layout = (props) => {
     const state = useAuthGuard();

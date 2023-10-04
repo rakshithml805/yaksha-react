@@ -153,10 +153,6 @@ const router = createBrowserRouter([
       element: (<Layout>Account Settings</Layout>),
     },
     {
-      path: ":tenancyName/account-settings",
-      element: (<Layout>Account Settings</Layout>),
-    },
-    {
       path: "*",
       element: (<PageNotFound />),
     },

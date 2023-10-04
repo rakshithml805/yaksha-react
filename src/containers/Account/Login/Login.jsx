@@ -192,7 +192,7 @@ const Login = () => {
                         
                         <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4}}>
                             <FormControlLabel control={<Switch defaultChecked />} label={t('preLogin.rememberMe')}/>
-                            <Link href="/forgotPassword" underline="none">{t('preLogin.forgotPassword')}</Link>
+                            <Link href="forgot-password" underline="none">{t('preLogin.forgotPassword')}</Link>
                         </Box>
                         <Button color='primary' onClick={formik.handleSubmit} variant="contained" sx={{width:'100%'}}>{t('preLogin.login')}</Button>
                     </Box>

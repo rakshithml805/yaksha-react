@@ -113,7 +113,9 @@ const Header = () => {
                 </>)}
 
                 {hasAccessToMainMenu(menuObj.tenantsMenu) && (<>
-                  <Button variant='text' color='primary' onClick={handleClick} value="tenants">Tenant Management <KeyboardArrowDownIcon /></Button>
+                  <Button variant='text' color='primary' onClick={handleClick} value="tenants">
+                    {userRolePermission.userRole === 'TenantAdmin' ? 'User Management' : 'Tenant Management'} <KeyboardArrowDownIcon />
+                  </Button>
                 </>) }
 
                 { hasAccessToMainMenu(menuObj.resoursesMenu) && (<>

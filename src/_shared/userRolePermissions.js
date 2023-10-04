@@ -118,7 +118,7 @@ const useUserRolePermissions = () => {
   const reportsMenu = [{
     to: `/${tenancyName}/reports`,
     label: "Reports",
-    roles: [Role.superAdmin]
+    roles: [Role.superAdmin, Role.tenantAdmin]
   }];
 //   const superAdminPermissions = [
 //     {

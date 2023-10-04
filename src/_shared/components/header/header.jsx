@@ -81,11 +81,16 @@ const Header = () => {
   }
   const location = useLocation();
   const match = useMatch(location.pathname);
-
   const menuObj = useUserRolePermissions()
-  const permissions = ["Assessments.Manage.All"];
-  console.info(`=====menuObj========`, menuObj.getMenu.get(userRolePermission.userRole))
-  console.info(`=====userRolePermission.rolePermissions========`, userRolePermission)
+  const assessmentMenu =  menuObj.getMenu.get(userRolePermission.userRole).find(ele => ele.menu === "assessments");
+  const questionsMenu =  menuObj.getMenu.get(userRolePermission.userRole).find(ele => ele.menu === "questions");
+  const tenantsMenu =  menuObj.getMenu.get(userRolePermission.userRole).find(ele => ele.menu === "tenants");
+  const resoursesMenu =  menuObj.getMenu.get(userRolePermission.userRole).find(ele => ele.menu === "resourses");
+  const profileMenu =  menuObj.getMenu.get(userRolePermission.userRole).find(ele => ele.menu === "profile");
+  const reportsMenu =  menuObj.getMenu.get(userRolePermission.userRole).find(ele => ele.menu === "reports");
+  console.info(`=====assessmentMenu========`, assessmentMenu)
+  console.info(`=====questionsMenu========`, questionsMenu)
+  // console.info(`=====userRolePermission.rolePermissions========`, userRolePermission)
   // console.info(`====location========`, location.pathname)
   // console.info(`====match========`, match)
   return (
@@ -95,11 +100,21 @@ const Header = () => {
               <Box sx={{mt:"5px"}}><img src={logo} alt="Yaksha" /></Box>
               <Box>
                 <Button variant='text' color='primary' onClick={handleClick} value="dashboard">Dashboard</Button>
-                <Button variant='text' color='primary' onClick={handleClick} value="assessments">Assessments <KeyboardArrowDownIcon /></Button>
-                <Button variant='text' color='primary' onClick={handleClick} value="questions">Questions <KeyboardArrowDownIcon /></Button>
-                <Button variant='text' color='primary' onClick={handleClick} value="tenants">Tenant Management <KeyboardArrowDownIcon /></Button>
-                <Button variant='text' color='primary' onClick={handleClick} value="resourses">Manage Resourses <KeyboardArrowDownIcon /></Button>
-                <Button variant='text' color='primary' onClick={handleClick} value="reports">Reports</Button>
+                { assessmentMenu && <>
+                  <Button variant='text' color='primary' onClick={handleClick} value="assessments">Assessments <KeyboardArrowDownIcon /></Button>
+                </>}
+                {questionsMenu && (<>
+                  <Button variant='text' color='primary' onClick={handleClick} value="questions">Questions <KeyboardArrowDownIcon /></Button>
+                </>)}
+                {tenantsMenu && (<>
+                  <Button variant='text' color='primary' onClick={handleClick} value="tenants">Tenant Management <KeyboardArrowDownIcon /></Button>
+                </>) }
+                {resoursesMenu && (<>
+                  <Button variant='text' color='primary' onClick={handleClick} value="resourses">Manage Resourses <KeyboardArrowDownIcon /></Button>
+                </>)}
+                {reportsMenu && (<>
+                  <Button variant='text' color='primary' onClick={handleClick} value="reports">Reports</Button>
+                </>)}
               </Box>
               <Box>
                 <IconButton color='primary'>
@@ -118,7 +133,7 @@ const Header = () => {
             anchorEl={assessment}
             open={openAssessment}
             onClick={handleClose}>
-              {menuObj.assesmentMenu.map(item => (<>
+              {assessmentMenu && assessmentMenu.menuItems.map(item => (<>
               <NavLink to={item.to}>
                 <MenuItem onClick={handleClose}>{item.label}</MenuItem>
               </NavLink>
@@ -128,7 +143,7 @@ const Header = () => {
             anchorEl={question}
             open={openQuestion}
             onClick={handleClose}>
-              {menuObj.questionsMenu.map(item => (<>
+              {questionsMenu && questionsMenu.menuItems.map(item => (<>
               <NavLink to={item.to}>
                 <MenuItem onClick={handleClose}>{item.label}</MenuItem>
               </NavLink>
@@ -138,7 +153,7 @@ const Header = () => {
             anchorEl={tenant}
             open={openTenant}
             onClick={handleClose}>
-              {menuObj.tenantsMenu.map(item => (<>
+              {tenantsMenu && tenantsMenu.menuItems.map(item => (<>
               <NavLink to={item.to}>
                 <MenuItem onClick={handleClose}>{item.label}</MenuItem>
               </NavLink>
@@ -148,7 +163,7 @@ const Header = () => {
             anchorEl={resourse}
             open={openResourse}
             onClick={handleClose}>
-              {menuObj.resoursesMenu.map(item => (<>
+              {resoursesMenu && resoursesMenu.menuItems.map(item => (<>
               <NavLink to={item.to}>
                 <MenuItem onClick={handleClose}>{item.label}</MenuItem>
               </NavLink>
@@ -158,7 +173,7 @@ const Header = () => {
             anchorEl={profile}
             open={openProfile}
             onClick={handleClose}>
-              {menuObj.profileMenu.map(item => (<>
+              {profileMenu && profileMenu.menuItems.map(item => (<>
               <NavLink to={item.to}>
                 <MenuItem onClick={handleClose}>{item.label}</MenuItem>
               </NavLink>

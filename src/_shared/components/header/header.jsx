@@ -148,23 +148,21 @@ const Header = () => {
             anchorEl={resourse}
             open={openResourse}
             onClick={handleClose}>
-              <NavLink to={`/${tenancyName}/tags`}>
-                <MenuItem onClick={handleClose}>Manage Tags</MenuItem>
+              {menuObj.resoursesMenu.map(item => (<>
+              <NavLink to={item.to}>
+                <MenuItem onClick={handleClose}>{item.label}</MenuItem>
               </NavLink>
-              <NavLink to={`/${tenancyName}/roles`}>
-                <MenuItem onClick={handleClose}>Manage Roles</MenuItem>
-              </NavLink>
+              </>))}
           </Menu>
           <Menu id="profile"
             anchorEl={profile}
             open={openProfile}
             onClick={handleClose}>
-              <NavLink to={`/${tenancyName}/profile`}>
-                <MenuItem>My Profile</MenuItem>
+              {menuObj.profileMenu.map(item => (<>
+              <NavLink to={item.to}>
+                <MenuItem onClick={handleClose}>{item.label}</MenuItem>
               </NavLink>
-              <NavLink to={`/${tenancyName}/account-settings`}>
-                <MenuItem onClick={handleClose}>Account Settings</MenuItem>
-              </NavLink>
+              </>))}
               {/* <NavLink to="/default/login"> */}
                 <MenuItem onClick={() => handleLogout()}>Logout</MenuItem>
               {/* </NavLink> */}

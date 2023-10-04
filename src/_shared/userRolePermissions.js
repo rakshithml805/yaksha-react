@@ -74,6 +74,26 @@ const useUserRolePermissions = () => {
         label: "Create / Upload Users",
       },
   ]
+  const resoursesMenu = [
+    {
+        to: `/${tenancyName}/tags`,
+        label: "Manage Tags",
+      },
+      {
+        to: `/${tenancyName}/roles`,
+        label: "Manage Roles",
+      }
+  ];
+  const profileMenu = [
+    {
+        to: `/${tenancyName}/profile`,
+        label: "My Profile",
+      },
+      {
+        to: `/${tenancyName}/account-settings`,
+        label: "Account Settings",
+      }
+  ];
   const superAdminPermissions = [
     {
       permisionKey: "Assessments.Manage.All",
@@ -124,7 +144,7 @@ const useUserRolePermissions = () => {
   return {
     getMenu,
     assesmentMenu,
-    questionsMenu, tenantsMenu,
+    questionsMenu, tenantsMenu, resoursesMenu, profileMenu, 
   };
 };
 export default useUserRolePermissions;

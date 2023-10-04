@@ -168,7 +168,7 @@ export default function CreateAssessmentBank() {
     const { t } = useTranslation();
     let navigate = useNavigate();
     const navigateToBanks = () => {
-        let path = '/assessment-banks';
+        let path = `/${tenancyName}/assessment-banks`;
         navigate(path);
     }
     const [viewSelected, setViewSelected] = React.useState(false);

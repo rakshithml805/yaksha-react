@@ -278,7 +278,7 @@ export default function AssessmentBankDetail() {
                                             <Typography variant='body2' color="text.secondary" sx={{ maxHeight: '44px', overflow: 'hidden' }}>{assessment.category}</Typography>
                                             <Typography variant='caption' color="text.disabled" sx={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>{assessment.skills}</Typography>
                                         </Box>
-                                        <NavLink to="assessment-details">
+                                        <NavLink state={assessment.name} to="assessment-details">
                                             <Typography variant='subtitle1' sx={{ maxHeight: '56px', overflow: 'hidden', my: 1 }}>{assessment.name}</Typography>
                                         </NavLink>
                                         <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '80%' }}>

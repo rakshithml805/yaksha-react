@@ -11,16 +11,18 @@ import LayersOutlinedIcon from '@mui/icons-material/LayersOutlined';
 import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
 import LoopOutlinedIcon from '@mui/icons-material/LoopOutlined';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { useParams } from 'react-router-dom';
 
 export default function AssessmentBankDetail() {
+    const { tenancyName } = useParams();
     const breadcrumbs = [
         {
             name: "Dashboard",
-            url: "/dashboard"
+            url: `/${tenancyName}/dashboard`
         },
         {
             name: "Assesment Banks",
-            url: "/assessment-banks"
+            url: `/${tenancyName}/assessment-banks`
         },
         {
             name: "Assesments",

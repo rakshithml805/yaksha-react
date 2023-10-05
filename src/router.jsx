@@ -33,11 +33,11 @@ const router = createBrowserRouter([
         element: <Login />,
     },
     {
-      path: ":tenancyName/login",
+      path: "/:tenancyName/login",
       element: <Login />,
     },
     {
-      path: ":tenancyName/forgot-password",
+      path: "/:tenancyName/forgot-password",
       element: <ForgotPassword />,
     },
     {
@@ -46,110 +46,110 @@ const router = createBrowserRouter([
     },
     // routes as per persona
     {
-      path: ":tenancyName/dashboard",
+      path: "/:tenancyName/dashboard",
       element: (<Layout><Dashboard /></Layout> ),
     },
     {
-      path: ":tenancyName/tags",
+      path: "/:tenancyName/tags",
       element: (<Layout><TagsLists /></Layout> ),
     },
     {
-      path: ":tenancyName/tags/create-tag",
+      path: "/:tenancyName/tags/create-tag",
       element: (<Layout><CreateTag /></Layout> ),
     },
     {
-      path: ":tenancyName/roles",
+      path: "/:tenancyName/roles",
       element: (<Layout><RoleList /></Layout> ),
     },
     {
-      path: ":tenancyName/roles/create-role",
+      path: "/:tenancyName/roles/create-role",
       element: (<Layout><CreateRole /></Layout> ),
     },
     {
-      path: ":tenancyName/users",
+      path: "/:tenancyName/users",
       element: (<Layout><UsersList /></Layout> ),
     },
     {
-      path: ":tenancyName/users/onboard-user",
+      path: "/:tenancyName/users/onboard-user",
       element: (<Layout><CreateUser /></Layout> ),
     },
     {
-      path: ":tenancyName/tenants",
+      path: "/:tenancyName/tenants",
       element: (<Layout><TenantsList /></Layout> ),
     },
     {
-      path: ":tenancyName/tenants/onboard-tenant",
+      path: "/:tenancyName/tenants/onboard-tenant",
       element: (<Layout><CreateTenant /></Layout> ),
     },
     {
-      path: ":tenancyName/reports",
+      path: "/:tenancyName/reports",
       element: (<Layout><Reports /></Layout> ),
     },
     {
-      path: ":tenancyName/question-banks",
+      path: "/:tenancyName/question-banks",
       element: (<Layout><QuestionBankList /></Layout> ),
     },
     // ::TODO:: question bank detail might have dynamic value in url
     {
-      path: ":tenancyName/question-banks/question-bank-detail",
+      path: "/:tenancyName/question-banks/question-bank-detail",
       element: (<Layout><QuestionBankDetail /></Layout> ),
     },
     // ::TODO:: question detail might have dynamic value in url
     {
-      path: ":tenancyName/question-banks/question-bank-detail/question-detail",
+      path: "/:tenancyName/question-banks/question-bank-detail/question-detail",
       element: (<Layout><QuestionDetail /></Layout> ),
     },
     {
-      path: ":tenancyName/create-question-bank",
+      path: "/:tenancyName/create-question-bank",
       element: (<Layout><CreateQuestionBank /></Layout> ),
     },
     {
-      path: ":tenancyName/create-question",
+      path: "/:tenancyName/create-question",
       element: (<Layout><CreateQuestion /></Layout> ),
     },
     {
-      path: ":tenancyName/bulk-upload-questions",
+      path: "/:tenancyName/bulk-upload-questions",
       element: (<Layout><QuestionsBulkUpload /></Layout> ),
     },
     {
-      path: ":tenancyName/bulk-upload-history",
+      path: "/:tenancyName/bulk-upload-history",
       element: (<Layout><BulkUploadHistory /></Layout> ),
     },
     {
-      path: ":tenancyName/questions-on-review",
+      path: "/:tenancyName/questions-on-review",
       element: (<Layout><QuestionReview /></Layout> ),
     },
     {
-      path: ":tenancyName/assessment-banks",
+      path: "/:tenancyName/assessment-banks",
       element: (<Layout><AssessmentBanksList /></Layout> ),
     },
     // ::TODO:: assessment bank detail might have dynamic value in url
     {
-      path: ":tenancyName/assessment-bank/assessment-bank-details",
+      path: "/:tenancyName/assessment-bank/assessment-bank-details",
       element: (<Layout><AssessmentBankDetail /></Layout> ),
     },
     {
-      path: ":tenancyName/create-assessment-bank",
+      path: "/:tenancyName/create-assessment-bank",
       element: (<Layout><CreateAssessmentBank /></Layout> ),
     },
     {
-      path: ":tenancyName/assessments-on-review",
+      path: "/:tenancyName/assessments-on-review",
       element: (<Layout><AssessmentsOnReview /></Layout> ),
     },
     {
-      path: ":tenancyName/proctoring-configuration",
+      path: "/:tenancyName/proctoring-configuration",
       element: (<Layout>Proctoring Settings</Layout>),
     },
     {
-      path: ":tenancyName/create-assessment",
+      path: "/:tenancyName/create-assessment",
       element: (<Layout>Create Assessment</Layout>),
     },
     {
-      path: ":tenancyName/profile",
+      path: "/:tenancyName/profile",
       element: (<Layout>Profile</Layout>),
     },
     {
-      path: ":tenancyName/account-settings",
+      path: "/:tenancyName/account-settings",
       element: (<Layout>Account Settings</Layout>),
     },
     {

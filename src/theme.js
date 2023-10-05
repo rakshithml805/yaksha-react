@@ -93,6 +93,17 @@ const theme = createTheme({
                     }
                 }
             ]
+        },
+        MuiChip: {
+            variants:[
+                {
+                    props: {variant: 'skill'},
+                    style: {
+                        color: "#2e2e2e",
+                        backgroundColor: "#ffffff85"
+                    }
+                }
+            ]
         }
     }
 });

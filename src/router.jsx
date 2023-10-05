@@ -25,6 +25,7 @@ import AssessmentBanksList from './containers/assessmentManagement/assessmentBan
 import AssessmentBankDetail from './containers/assessmentManagement/assessmentBankDetail';
 import CreateAssessmentBank from './containers/assessmentManagement/createAssessmentBank';
 import AssessmentsOnReview from './containers/assessmentManagement/assessmentsOnReview';
+import AssessmentDetails from './containers/assessmentManagement/assessmentDetails/assessmentDetails'
 import PageNotFound from "./containers/pagenotfound/pagenotfound";
 const router = createBrowserRouter([
     // common
@@ -127,6 +128,10 @@ const router = createBrowserRouter([
     {
       path: "/:tenancyName/assessment-banks/assessment-bank-detail",
       element: (<Layout><AssessmentBankDetail /></Layout> ),
+    },
+    {
+      path: "/:tenancyName/assessment-banks/assessment-bank-detail/assessment-details",
+      element: (<Layout><AssessmentDetails /></Layout> ),
     },
     {
       path: "/:tenancyName/create-assessment-bank",

@@ -17,6 +17,12 @@ const useUserRolePermissions = () => {
       isMenu: false
     },
     {
+      to: `/${tenancyName}/assessment-banks/assessment-bank-detail/assessment-details`,
+      label: "Assessment Detail",
+      roles: [Role.superAdmin, Role.tenantAdmin],
+      isMenu: false
+    },
+    {
       to: `/${tenancyName}/create-assessment-bank`,
       label: "Create Assessment Bank",
       roles: [Role.superAdmin],

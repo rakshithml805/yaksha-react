@@ -262,7 +262,7 @@ const QuestionBankDetail = () => {
                                                 </IconButton>
                                             </Box> 
                                         </Box>
-                                        <NavLink className='question-link' to="/question-detail">{question.name}</NavLink>
+                                        <NavLink className='question-link' to="question-detail">{question.name}</NavLink>
                                         <Box sx={{ flexGrow: 1 }}>
                                             <Grid container spacing={2}>
                                                 <Grid item xs={4}>

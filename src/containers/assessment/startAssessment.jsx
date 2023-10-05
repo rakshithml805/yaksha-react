@@ -119,7 +119,10 @@ const StartAssessment = () => {
                             <img src={logo} alt="Yaksha" />
                         </Box>
                         <Box className="d-flex flex-column align-center" component="form" autoComplete="off" sx={{my: 4}}>
-                            <TextField label="Username" variant="outlined" sx={{width: "400px", mb: 3}} />
+                            <TextField label="FirtName" variant="outlined" sx={{width: "400px", maxWidth: "100%", mb: 3}} />
+                            <TextField label="LastName" variant="outlined" sx={{width: "400px", maxWidth: "100%", mb: 3}} />
+                            <TextField label="Email" variant="outlined" sx={{width: "400px", maxWidth: "100%", mb: 3}} />
+                            <TextField label="Phone" variant="outlined" sx={{width: "400px", maxWidth: "100%", mb: 3}} />
                             <Button color='primary' onClick={startAssessment} variant="contained" sx={{width:'400px'}}>{t('testTracker.startAssessment')}</Button>
                         </Box>
                         <Box>

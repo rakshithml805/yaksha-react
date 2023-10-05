@@ -471,7 +471,7 @@ export default function AssessmentBanksList() {
                         id={labelId}
                         scope="row"
                       >
-                        <NavLink to="/assessment-bank-detail">
+                        <NavLink to="assessment-bank-detail">
                           <Typography variant='body2' sx={{ color: '#153776' }}>{assessmentBank.name}</Typography>
                         </NavLink>
                       </TableCell>

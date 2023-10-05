@@ -21,9 +21,10 @@ import EventOutlinedIcon from '@mui/icons-material/EventOutlined';
 import LaunchOutlinedIcon from '@mui/icons-material/LaunchOutlined';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import { IconButton } from '@mui/material';
-
+import { useParams } from 'react-router-dom';
 
 export default function AssessmentDriveDetail() {
+    const { tenancyName } = useParams();
     const [value, setValue] = React.useState('1');
 
     const handleChange = (event, newValue) => {
@@ -34,11 +35,11 @@ export default function AssessmentDriveDetail() {
     const breadcrumbs = [
         {
             name: "Dashboard",
-            url: "/dashboard"
+            url: `/${tenancyName}/dashboard`
         },
         {
             name: "Assesment Drive",
-            url: "/assessment-drive"
+            url: `/${tenancyName}/assessment-drives`
         },
         {
             name: "Assesments Drive Detail",
@@ -262,7 +263,7 @@ export default function AssessmentDriveDetail() {
                         <Divider></Divider>
                         <Box>
                             <Box className="d-flex justify-space-between align-center" sx={{ my: 2 }}>
-                                <Typography variant='h2'>{t('common.upcommingSchedules')}</Typography>
+                                <Typography variant='h2'>{t('common.upcomingSchedules')}</Typography>
                                 <Button variant='outlined'>{t('common.schedule')}</Button>
                             </Box>
                             <Grid container rowSpacing={2}>
@@ -395,7 +396,7 @@ export default function AssessmentDriveDetail() {
                                 <TabPanel value="3">
                                     <Box>
                                         <Box sx={{ mb: 2 }}>
-                                            <Typography variant='h2'>{t('common.upcommingSchedules')}</Typography>
+                                            <Typography variant='h2'>{t('common.upcomingSchedules')}</Typography>
                                         </Box>
                                         <Grid container rowSpacing={2}>
                                             {upcommingSchedulesList.map((item) =>

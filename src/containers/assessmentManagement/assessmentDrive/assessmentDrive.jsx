@@ -8,24 +8,24 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { useTranslation } from 'react-i18next';
 import LoopOutlinedIcon from '@mui/icons-material/LoopOutlined';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { NavLink } from 'react-router-dom';
+import { NavLink,useParams } from 'react-router-dom';
 import AnalyticsOutlinedIcon from '@mui/icons-material/AnalyticsOutlined';
 
 
 export default function AssessmentDrive() {
-
+    const { tenancyName } = useParams();
     const { t } = useTranslation();
     const breadcrumbs = [
         {
             name: "Dashboard",
-            url: "/dashboard"
+            url: `/${tenancyName}/dashboard`
         },
         {
             name: "Assessment Drive",
             url: ""
         }
     ]
-    const button = ['Create Assessment Drive', "/create-assessment-drive"];
+    const button = ['Create Assessment Drive', `/${tenancyName}/create-assessment-drives`];
     const status = [
         {
             id: 1,
@@ -199,7 +199,7 @@ export default function AssessmentDrive() {
                                                 </Menu>
                                             </Box>
                                         </Box>
-                                        <NavLink to="/assessment-drive-detail">
+                                        <NavLink to="assessment-drive-detail">
                                             <Typography variant='subtitle1' sx={{ maxHeight: '56px', overflow: 'hidden', my: 1 }}>{assessment.name}</Typography>
                                         </NavLink>
                                         <Box >

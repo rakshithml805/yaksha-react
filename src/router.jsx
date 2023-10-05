@@ -29,6 +29,8 @@ import AssessmentDetails from './containers/assessmentManagement/assessmentDetai
 import PageNotFound from "./containers/pagenotfound/pagenotfound";
 import AssessmentDrive from "./containers/assessmentManagement/assessmentDrive/assessmentDrive";
 import AssessmentDriveDetail from "./containers/assessmentManagement/assessmentDrive/assessmentDriveDetail";
+import CreateAssessmentDrive from "./containers/assessmentManagement/assessmentDrive/createAssessmentDrive";
+import UserProfile from "./containers/tenantManagement/users/UserProfile";
 const router = createBrowserRouter([
     // common
     {
@@ -71,6 +73,10 @@ const router = createBrowserRouter([
     {
       path: "/:tenancyName/users",
       element: (<Layout><UsersList /></Layout> ),
+    },
+    {
+      path: "/:tenancyName/users/user-profile",
+      element: (<Layout><UserProfile /></Layout> ),
     },
     {
       path: "/:tenancyName/users/onboard-user",
@@ -144,8 +150,12 @@ const router = createBrowserRouter([
       element: (<Layout><AssessmentDrive/></Layout> ),
     },
     {
-      path: ":tenancyName/assessment-drive-detail",
+      path: ":tenancyName/assessment-drives/assessment-drive-detail",
       element: (<Layout><AssessmentDriveDetail/></Layout> ),
+    },
+    {
+      path: ":tenancyName/create-assessment-drives",
+      element: (<Layout><CreateAssessmentDrive/></Layout> ),
     },
     {
       path: "/:tenancyName/assessments-on-review",

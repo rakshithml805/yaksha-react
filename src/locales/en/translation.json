@@ -137,7 +137,8 @@
         "rejected":"Rejected",
         "suggested":"Suggested",
         "pending":"Pending",
-        "expiryDate":"Expiry Date"
+        "expiryDate":"Expiry Date",
+        "levels":"levels"
         
     },
     "testTracker": {
@@ -282,5 +283,16 @@
         "adaptiveAssessment":"Adaptive Assessment",
         "description": "Description",
         "instruction": "Instruction"
+    },
+    "assessmentDrive":{
+        "assessmentDrive":"Assessment Drive"
+    },
+    "assessmentDriveDetail":{
+        "assessmentDriveDetail":""
+    },
+    "createAssessmentDrive":{
+        "createAssessmentDrive":"Create Assessment Drive",
+        "assessmentDriveName":"Assessment Drive Name",
+        "assessmentName":"Assessment Name"
     }
 }

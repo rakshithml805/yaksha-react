@@ -2,7 +2,7 @@ import React from "react";
 import { 
     Box, Container, Typography, Grid, Stack, Chip, Avatar
 } from '@mui/material';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import {
     Chart as ChartJS, CategoryScale, LinearScale, PointElement,
     LineElement, Title, Tooltip, Legend, ArcElement
@@ -118,28 +118,27 @@ const hintList = [
     {id: 2, hint: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,"}
 ]
 
-const breadcrumbs = [
-    {
-        name: "Dashboard",
-        url: "/dashboard"
-    },
-    {
-        name: "Question Banks",
-        url: "/question-banks"
-    },
-    {
-        name: "Default Question Bank",
-        url: "/question-bank-details"
-    },
-    {
-        name: "Question Detail",
-        url: ""
-    }
-]
-
 const QuestionDetail = () => {
     const {t} = useTranslation();
-
+    const { tenancyName } = useParams();
+    const breadcrumbs = [
+        {
+            name: "Dashboard",
+            url: `/${tenancyName}/dashboard`
+        },
+        {
+            name: "Question Banks",
+            url: `/${tenancyName}/question-banks`
+        },
+        {
+            name: "Questions",
+            url: `/${tenancyName}/question-banks/question-bank-detail`
+        },
+        {
+            name: "Question Detail",
+            url: ""
+        }
+    ]
     return (
         <>
             <Box>

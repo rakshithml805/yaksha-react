@@ -125,7 +125,7 @@ const router = createBrowserRouter([
     },
     // ::TODO:: assessment bank detail might have dynamic value in url
     {
-      path: ":tenancyName/assessment-bank/assessment-bank-details",
+      path: ":tenancyName/assessment-banks/assessment-bank-detail",
       element: (<Layout><AssessmentBankDetail /></Layout> ),
     },
     {

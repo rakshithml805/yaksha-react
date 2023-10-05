@@ -83,7 +83,7 @@ const Header = () => {
   const menuObj = useUserRolePermissions();
 
   const hasMenuAccess = (item) => {
-    if (item.roles.find(ele => ele === userRolePermission.userRole)) {
+    if (item.roles.find(ele => ele === userRolePermission.userRole && (item.isMenu))) {
       return true;
     }
     return false;

@@ -3,16 +3,15 @@ import {
     Box, Container, Grid, Autocomplete, TextField, FormControl, InputAdornment, InputLabel, OutlinedInput,
     Card, CardContent, Typography, IconButton, Menu, MenuItem
 } from '@mui/material';
-
 import Banner from '../../_shared/components/banner/banner';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { useTranslation } from 'react-i18next';
 import AnalyticsOutlinedIcon from '@mui/icons-material/AnalyticsOutlined';
 import LayersOutlinedIcon from '@mui/icons-material/LayersOutlined';
 import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
-import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import LoopOutlinedIcon from '@mui/icons-material/LoopOutlined';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+
 export default function AssessmentBankDetail() {
     const breadcrumbs = [
         {

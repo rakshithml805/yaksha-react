@@ -30,7 +30,7 @@ const router = createBrowserRouter([
     // common
     {
         path: "/",
-        element: <Login />,
+        element: <PageNotFound />,
     },
     {
       path: ":tenancyName/login",

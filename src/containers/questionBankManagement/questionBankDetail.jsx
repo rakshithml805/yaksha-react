@@ -4,7 +4,7 @@ import {
     Autocomplete, FormControl, InputLabel, OutlinedInput,
     InputAdornment, Card, CardContent, List, ListItem, ListItemText, IconButton
 } from '@mui/material';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import QuestionMarkOutlinedIcon from '@mui/icons-material/QuestionMarkOutlined';
 import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
@@ -19,6 +19,7 @@ import './questionBankDetail.scss';
 
 const QuestionBankDetail = () => {
     const {t} = useTranslation();
+    const { tenancyName } = useParams();
     
     const questionTypeList = [
         {id: 0, type: 'All Types'},
@@ -133,14 +134,14 @@ const QuestionBankDetail = () => {
     const breadcrumbs = [
         {
             name: "Dashboard",
-            url: "/dashboard"
+            url: `/${tenancyName}/dashboard`
         },
         {
             name: "Question Banks",
-            url: "/question-banks"
+            url: `/${tenancyName}/question-banks`
         },
         {
-            name: "Default Question Bank",
+            name: "Questions",
             url: ""
         }
     ]
@@ -262,7 +263,7 @@ const QuestionBankDetail = () => {
                                                 </IconButton>
                                             </Box> 
                                         </Box>
-                                        <NavLink className='question-link' to="/question-detail">{question.name}</NavLink>
+                                        <NavLink className='question-link' to="question-detail">{question.name}</NavLink>
                                         <Box sx={{ flexGrow: 1 }}>
                                             <Grid container spacing={2}>
                                                 <Grid item xs={4}>

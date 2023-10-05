@@ -500,7 +500,7 @@ export default function QuestionBankList() {
                                                 id={labelId}
                                                 scope="row"
                                             >
-                                                <NavLink className='question-bank-link' to="/question-bank-details">{questionBank.name}</NavLink>
+                                                <NavLink className='question-bank-link' to="question-bank-detail">{questionBank.name}</NavLink>
                                             </TableCell>
                                             <TableCell align="left">{questionBank.tenant}</TableCell>
                                             <TableCell align="left">

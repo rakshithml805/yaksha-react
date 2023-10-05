@@ -7,118 +7,158 @@ const useUserRolePermissions = () => {
     {
       to: `/${tenancyName}/assessment-banks`,
       label: "Assessment Banks",
-      roles: [Role.superAdmin, Role.tenantAdmin]
+      roles: [Role.superAdmin, Role.tenantAdmin],
+      isMenu: true
+    },
+    {
+      to: `/${tenancyName}/assessment-banks/assessment-bank-detail`,
+      label: "Assessment Bank Detail",
+      roles: [Role.superAdmin, Role.tenantAdmin],
+      isMenu: false
     },
     {
       to: `/${tenancyName}/create-assessment-bank`,
       label: "Create Assessment Bank",
-      roles: [Role.superAdmin]
+      roles: [Role.superAdmin],
+      isMenu: true
     },
     {
       to: `/${tenancyName}/create-assessment`,
       label: "Create Assessment",
-      roles: [Role.superAdmin, Role.tenantAdmin, Role.author]
+      roles: [Role.superAdmin, Role.tenantAdmin, Role.author],
+      isMenu: true
     },
     {
       to: `/${tenancyName}/assessment-drives`,
       label: "Assessment Drives",
-      roles: [Role.superAdmin, Role.tenantAdmin]
+      roles: [Role.superAdmin, Role.tenantAdmin],
+      isMenu: true
     },
     {
       to: `/${tenancyName}/create-assessment-drive`,
       label: "Create Assessment Drive",
-      roles: [Role.superAdmin, Role.tenantAdmin]
+      roles: [Role.superAdmin, Role.tenantAdmin],
+      isMenu: true
     },
     {
       to: `/${tenancyName}/assessments-on-review`,
       label: "Assessments On Review",
-      roles: [Role.superAdmin, Role.tenantAdmin, Role.reviewer]
+      roles: [Role.superAdmin, Role.tenantAdmin, Role.reviewer],
+      isMenu: true
     },
     {
       to: `/${tenancyName}/proctoring-configuration`,
       label: "Proctoring Configuration",
-      roles: [Role.superAdmin, Role.tenantAdmin]
+      roles: [Role.superAdmin, Role.tenantAdmin],
+      isMenu: true
     },
   ];
   const questionsMenu = [
     {
       to: `/${tenancyName}/question-banks`,
       label: "Question Banks",
-      roles: [Role.superAdmin, Role.tenantAdmin]
+      roles: [Role.superAdmin, Role.tenantAdmin],
+      isMenu: true
+    },
+    {
+      to: `/${tenancyName}/question-banks/question-bank-detail`,
+      label: "Question bank detail",
+      roles: [Role.superAdmin, Role.tenantAdmin],
+      isMenu: false
+    },
+    {
+      to: `/${tenancyName}/question-banks/question-bank-detail/question-detail`,
+      label: "Question detail",
+      roles: [Role.superAdmin, Role.tenantAdmin, Role.reviewer],
+      isMenu: false
     },
     {
       to: `/${tenancyName}/create-question-bank`,
       label: "Create Question Banks",
-      roles: [Role.superAdmin]
+      roles: [Role.superAdmin],
+      isMenu: true
     },
     {
       to: `/${tenancyName}/create-question`,
       label: "Create Question",
-      roles: [Role.superAdmin, Role.tenantAdmin, Role.author]
+      roles: [Role.superAdmin, Role.tenantAdmin, Role.author],
+      isMenu: true
     },
     {
       to: `/${tenancyName}/bulk-upload-questions`,
       label: "Bulk Upload Questions",
-      roles: [Role.superAdmin, Role.tenantAdmin]
+      roles: [Role.superAdmin, Role.tenantAdmin],
+      isMenu: true
     },
     {
       to: `/${tenancyName}/bulk-upload-history`,
       label: "Bulk Upload History",
-      roles: [Role.superAdmin, Role.tenantAdmin]
+      roles: [Role.superAdmin, Role.tenantAdmin],
+      isMenu: true
     },
     {
       to: `/${tenancyName}/questions-on-review`,
       label: "Questions on Review",
-      roles: [Role.superAdmin, Role.tenantAdmin, Role.reviewer]
-    },
+      roles: [Role.superAdmin, Role.tenantAdmin, Role.reviewer],
+      isMenu: true
+    }
   ];
   const tenantsMenu = [
     {
         to: `/${tenancyName}/tenants`,
         label: "Tenants",
-        roles: [Role.superAdmin]
+        roles: [Role.superAdmin],
+        isMenu: true
       },{
         to: `/${tenancyName}/tenants/onboard-tenant`,
         label: "Create Tenant",
-        roles: [Role.superAdmin]
+        roles: [Role.superAdmin],
+        isMenu: true
       },{
         to: `/${tenancyName}/users`,
         label: "Users",
-        roles: [Role.superAdmin, Role.tenantAdmin]
+        roles: [Role.superAdmin, Role.tenantAdmin],
+        isMenu: true
       },{
         to: `/${tenancyName}/users/onboard-user`,
         label: "Create / Upload Users",
-        roles: [Role.superAdmin, Role.tenantAdmin]
+        roles: [Role.superAdmin, Role.tenantAdmin],
+        isMenu: true
       },
   ]
   const resoursesMenu = [
     {
         to: `/${tenancyName}/tags`,
         label: "Manage Tags",
-        roles: [Role.superAdmin, Role.tenantAdmin]
+        roles: [Role.superAdmin, Role.tenantAdmin],
+        isMenu: true
       },
       {
         to: `/${tenancyName}/roles`,
         label: "Manage Roles",
-        roles: [Role.superAdmin, Role.tenantAdmin]
+        roles: [Role.superAdmin, Role.tenantAdmin],
+        isMenu: true
       }
   ];
   const profileMenu = [
         {
         to: `/${tenancyName}/profile`,
         label: "My Profile",
-        roles: [Role.candidate]
+        roles: [Role.candidate],
+        isMenu: true
       },
       {
         to: `/${tenancyName}/account-settings`,
         label: "Account Settings",
-        roles: [Role.superAdmin, Role.tenantAdmin, Role.reviewer, Role.candidate]
+        roles: [Role.superAdmin, Role.tenantAdmin, Role.reviewer, Role.candidate],
+        isMenu: true
       }
   ];
   const reportsMenu = [{
     to: `/${tenancyName}/reports`,
     label: "Reports",
-    roles: [Role.superAdmin, Role.tenantAdmin]
+    roles: [Role.superAdmin, Role.tenantAdmin],
+    isMenu: true
   }];
 //   const superAdminPermissions = [
 //     {

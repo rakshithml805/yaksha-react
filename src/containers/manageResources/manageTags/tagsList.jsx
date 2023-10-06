@@ -87,7 +87,6 @@ const TagLists = () => {
           item.id
         );
         if (status === 200) {
-          console.log(body);
           let data = body.result;
           navigate("create-tag", { state: { data, type: "category", skill } });
         }
@@ -100,7 +99,8 @@ const TagLists = () => {
   };
 
   const handleEditSkill = (item) => {
-    navigate("create-tag", { state: { item, type: "skill" } });
+    let data = item;
+    navigate("create-tag", { state: { data, type: "skill" } });
   };
 
   const [value, setValue] = useState("categories");

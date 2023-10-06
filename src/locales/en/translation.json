@@ -78,6 +78,7 @@
         "questions": "Questions",
         "assessment": "Assessment",
         "assessments": "Assessments",
+        "assessmentAge": "Assessment Age",
         "user": "User",
         "users": "Users",
         "name": "Name",
@@ -137,8 +138,24 @@
         "rejected":"Rejected",
         "suggested":"Suggested",
         "pending":"Pending",
-        "expiryDate":"Expiry Date"
-        
+        "expiryDate":"Expiry Date",
+        "levels":"levels",
+        "upcomingSchedules":"Upcoming Schedules",
+        "pastSchedules":"Past Schedules",
+        "schedule":"Schedule",
+        "basicInfo":"Basic Info",
+        "schedules":"Schedules",
+        "viewCandidates":"View Candidates",
+        "extendValidity":"Extend Validity",
+        "scheduleLink":"Schedule Link",
+        "download":"Download",
+        "Level":"Level",
+        "saveToDrafts":"Save To Drafts",
+        "publish":"Publish",
+        "upcommingSchedules":"Upcomming Schedules",
+        "averageScore":"AverageScore",
+        "averageTimeTaken":"Average Time Taken",
+        "report":"Report" 
     },
     "testTracker": {
         "standardAssessment": "Standard Assessment",
@@ -270,7 +287,7 @@
         "selectAssessmentBank":"Select Assessment Bank"
     }, 
     "usersList":{
-        "allUSers":"All Users",
+        "allUsers":"All Users",
         "userDeletedSuccessfully":"User Deleted Successfully"
     },
     "createUser":{
@@ -282,5 +299,29 @@
         "adaptiveAssessment":"Adaptive Assessment",
         "description": "Description",
         "instruction": "Instruction"
+    },
+    "assessmentDrive":{
+        "assessmentDrive":"Assessment Drive"
+    },
+    "assessmentDriveDetail":{
+        "assessmentDriveDetail":""
+    },
+    "createAssessmentDrive":{
+        "createAssessmentDrive":"Create Assessment Drive",
+        "assessmentDriveName":"Assessment Drive Name",
+        "assessmentName":"Assessment Name"
+    },
+    "userProfile":{
+        "userProfile":"User Profile",
+        "completedAssesment":"Completed Assessment",
+        "clearedAssessment":"Cleared Assessment",
+        "failedAssessment":"Failed Assessment",
+        "eduactionInformationNotAvailable":"Eduation Information not available",
+        "addEducation":"Add Education",
+        "upcommingSchedules":"Upcomming Schedules",
+        "education":"Education",
+        "overview":"Overview",
+        "codingAssessment":"Coding Assessment",
+        "projectAssessment":"Project Assessment"
     }
 }

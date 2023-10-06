@@ -11,7 +11,7 @@ import LayersOutlinedIcon from '@mui/icons-material/LayersOutlined';
 import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
 import LoopOutlinedIcon from '@mui/icons-material/LoopOutlined';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 
 export default function AssessmentBankDetail() {
     const { tenancyName } = useParams();
@@ -278,7 +278,9 @@ export default function AssessmentBankDetail() {
                                             <Typography variant='body2' color="text.secondary" sx={{ maxHeight: '44px', overflow: 'hidden' }}>{assessment.category}</Typography>
                                             <Typography variant='caption' color="text.disabled" sx={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>{assessment.skills}</Typography>
                                         </Box>
-                                        <Typography variant='subtitle1' sx={{ maxHeight: '56px', overflow: 'hidden', my: 1 }}>{assessment.name}</Typography>
+                                        <NavLink state={assessment.name} to="assessment-details">
+                                            <Typography variant='subtitle1' sx={{ maxHeight: '56px', overflow: 'hidden', my: 1 }}>{assessment.name}</Typography>
+                                        </NavLink>
                                         <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '80%' }}>
                                             <Box className='d-flex flex-start'>
                                                 <AnalyticsOutlinedIcon sx={{ fontSize: '18px' }} color='error' />

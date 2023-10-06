@@ -26,6 +26,9 @@ a {
 .d-flex {
     display: flex;
 }
+.flex-wrap{
+    flex-wrap: wrap;
+}
 .d-inline-flex {
     display: inline-flex;
 }
@@ -137,7 +140,35 @@ a {
         background-color: white;
     }
 }
-
 .quill-text{
-    height: 250px;
+    .ql-editor {
+        height: 225px;
+    }
+}   
+
+
+.tab-menu-container {
+    .css-irkmx3-MuiButtonBase-root-MuiTab-root {
+        font-size: 15px;
+        font-Weight: 500,
+    }
+
+    .css-irkmx3-MuiButtonBase-root-MuiTab-root.Mui-selected {
+        color: #AC0521;
+    }
+
+    .css-ol6dp0-MuiTabs-indicator {
+        color: #AC0521;
+        background-color: #AC0521;
+    }
+}
+.date-container{
+    color:#777777;
+    border-radius: 20px;
+    width: 40px;
+    height: 40px;
+}
+.active-date-container{
+    background-color: #AC0521;
+    color:white;
 }

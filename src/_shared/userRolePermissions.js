@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { Role } from "./helper";
 
 const useUserRolePermissions = () => {
-  const { tenancyName } = useParams();
+  const { tenancyName, tagId } = useParams();
   const assesmentMenu = [
     {
       to: `/${tenancyName}/assessment-banks`,
@@ -152,10 +152,28 @@ const useUserRolePermissions = () => {
         isMenu: true
       },
       {
+        to: `/${tenancyName}/tags/edit-tag/${tagId}`,
+        label: "Edit Category",
+        roles: [Role.superAdmin, Role.tenantAdmin],
+        isMenu: false
+      },
+      {
+        to: `/${tenancyName}/tags/create-tag`,
+        label: "Create Tag",
+        roles: [Role.superAdmin, Role.tenantAdmin],
+        isMenu: false
+      },
+      {
         to: `/${tenancyName}/roles`,
         label: "Manage Roles",
         roles: [Role.superAdmin, Role.tenantAdmin],
         isMenu: true
+      },
+      {
+        to: `/${tenancyName}/roles/create-role`,
+        label: "Manage Roles",
+        roles: [Role.superAdmin, Role.tenantAdmin],
+        isMenu: false
       }
   ];
   const profileMenu = [

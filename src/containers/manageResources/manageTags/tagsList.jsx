@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Container,
   Box,
@@ -12,36 +12,28 @@ import {
   Grid,
   Card,
   CardContent,
-  Select,
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import MenuItem from "@mui/material/MenuItem";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import { TabContext, TabList, TabPanel } from "@mui/lab/";
 import { useNavigate, useParams } from "react-router-dom";
-// import { DELETE_CATEGORY, DELETE_SKILL } from "../../../_store/actions/actions";
 import { apiYakshaUrl } from "../../../_api/_urls";
-import { getApi, getByIdApi } from "../../../_api/_api";
+import { getApi } from "../../../_api/_api";
 import Banner from "../../../_shared/components/banner/banner";
 import cardImg from "../../../assets/card-image.jpeg";
-// import DeleteDialog from "../../../_shared/components/deleteDialog/DeleteDialog";
 
-const button = ["Create Tags", "create-tag"];
-const tagImg = {
+const tagImgStyle = {
   width: "112px",
   height: "77px",
   borderRadius: "5px",
+  zoom: "0.9",
+  border: "1px solid",
 };
-const TagLists = () => {
+
+export default function TagLists() {
   const { tenancyName } = useParams();
   const { t } = useTranslation();
-  const [category, setCategory] = useState([]);
-  const [skill, setSkill] = useState([]);
-  const [searchCate, setSearchCate] = useState("");
-  const [searchSkill, setSearchSkill] = useState("");
-
   const breadcrumbs = [
     {
       name: "Dashboard",
@@ -52,83 +44,59 @@ const TagLists = () => {
       url: "",
     },
   ];
+  const button = ["Create Tags", "create-tag"];
+  const [tagView, setTagView] = useState("categories");
+  const tabChange = (event, newValue) => {
+    setTagView(newValue);
+  };
+  const [searchCate, setSearchCate] = useState("");
+  const [searchSkill, setSearchSkill] = useState("");
+  const [categoriesList, setCategoriesList] = useState([]);
+  const [skillsList, setSkillsList] = useState([]);
+
+  const loadSkills = async () => {
+    try {
+      const { status, body } = await getApi(
+        `${apiYakshaUrl}/services/yaksha/Skill/GetSkills`
+      );
+      if (status === 200) {
+        return body.result;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const loadCategories = async () => {
+    try {
+      const { status, body } = await getApi(
+        `${apiYakshaUrl}/services/yaksha/Category/GetCategoryDetails`
+      );
+      if (status === 200) {
+        return body.result;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  let navigate = useNavigate();
+  const handleEditCategory = ({ id }) => navigate(`edit-tag/${id}`);
+  const handleEditSkill = (item) => {
+    let editSkillItem = item;
+    navigate(`edit-tag/${item.id}`, {
+      state: { editSkillItem, editSkillItemType: "skill" },
+    });
+  };
+  const initLoad = async () => {
+    const cateData = await loadCategories();
+    const skillData = await loadSkills();
+    setCategoriesList(cateData);
+    setSkillsList(skillData);
+  };
 
   useEffect(() => {
-    async function fetchMyAPI() {
-      try {
-        const { status, body } = await getApi(
-          `${apiYakshaUrl}/services/yaksha/Category/GetCategoryDetails`
-        );
-        if (status === 200) {
-          setCategory(body.result);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-      try {
-        const { status, body } = await getApi(
-          `${apiYakshaUrl}/services/yaksha/Skill/GetSkills`
-        );
-        if (status === 200) {
-          setSkill(body.result);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    fetchMyAPI();
+    initLoad();
   }, []);
-  let navigate = useNavigate();
-  const handleEditCategory = (item) => {
-    async function GetCategoryById() {
-      try {
-        const { status, body } = await getByIdApi(
-          `${apiYakshaUrl}/services/yaksha/Category/GetCategoriesById`,
-          item.id
-        );
-        if (status === 200) {
-          console.log(body);
-          let data = body.result;
-          navigate("create-tag", { state: { data, type: "category", skill } });
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    GetCategoryById();
-    // navigate("create-tag", { state: { item, type: "category" } });
-  };
 
-  const handleEditSkill = (item) => {
-    navigate("create-tag", { state: { item, type: "skill" } });
-  };
-
-  const [value, setValue] = useState("categories");
-  const tabChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
-  const [categoryValue, setCategoryValue] = useState(0);
-  const cateSelect = (event) => {
-    setCategoryValue(event.target.value);
-  };
-
-  // Delete feature for later release
-  //   const [deleteItem, setDeleteItem] = React.useState("");
-  //   const [dialog, setDialog] = React.useState(false);
-  //   const [tagDelete, setTagDelete] = React.useState(false);
-  //   const dialogOpen = (item) => {
-  //     setDeleteItem(item);
-  //     setDialog(true);
-  //   };
-  //   const dialogClose = () => {
-  //     setDeleteItem("");
-  //     setDialog(false);
-  //     setTagDelete(false);
-  //   };
-  //   const deleteTag = () => {
-  //     setTagDelete(true);
-  //   };
   return (
     <Box>
       <Banner
@@ -137,7 +105,7 @@ const TagLists = () => {
         bannerButton={button}
       />
       <Container maxWidth="xl">
-        <TabContext value={value}>
+        <TabContext value={tagView}>
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
             <TabList
               onChange={tabChange}
@@ -163,7 +131,8 @@ const TagLists = () => {
                 <FormControl
                   variant="outlined"
                   fullWidth
-                  onChange={(e) => setSearchCate(e.target.value)}
+                  onChange={(e) => setSearchCate(e.target.value.toLowerCase())}
+                  value={searchCate}
                 >
                   <InputLabel htmlFor="outlined-search">
                     {t("commonForm.search")}
@@ -184,9 +153,9 @@ const TagLists = () => {
               </Grid>
             </Grid>
             <Grid container spacing={3}>
-              {category
+              {categoriesList
                 ?.filter((each) => {
-                  return searchCate.toLowerCase() === ""
+                  return searchCate === ""
                     ? each
                     : each.name.toLowerCase().includes(searchCate);
                 })
@@ -197,15 +166,15 @@ const TagLists = () => {
                         className="d-flex p-relative"
                         sx={{ minHeight: "130px", maxHeight: "130px" }}
                       >
-                        <Box sx={{ mr: 3 }}>
-                          <img src={cardImg} style={tagImg} />
+                        <Box sx={{ mr: 2 }}>
+                          <img src={cardImg} style={tagImgStyle} />
                         </Box>
                         <Box className="d-flex flex-column">
                           <Typography variant="subtitle1">
                             {each.name}
                           </Typography>
                           <Box className="d-flex" sx={{ mt: 2 }}>
-                            <Box sx={{ mr: 6 }}>
+                            <Box sx={{ mr: 4 }}>
                               <Typography variant="body1">
                                 {each.skillCount}
                               </Typography>
@@ -216,7 +185,7 @@ const TagLists = () => {
                                 {t("common.skills")}
                               </Typography>
                             </Box>
-                            <Box sx={{ mr: 6 }}>
+                            <Box sx={{ mr: 4 }}>
                               <Typography variant="body1">0</Typography>
                               <Typography
                                 variant="caption"
@@ -245,13 +214,6 @@ const TagLists = () => {
                             sx={{ cursor: "pointer" }}
                             onClick={() => handleEditCategory(each)}
                           />
-                          {/* {each.skillCount === 0 && (
-                            <DeleteForeverOutlinedIcon
-                              color="error"
-                              onClick={() => dialogOpen(each.name)}
-                              sx={{ cursor: "pointer", ml: 2 }}
-                            />
-                          )} */}
                         </Box>
                       </CardContent>
                     </Card>
@@ -262,35 +224,11 @@ const TagLists = () => {
           <TabPanel value="skills" sx={{ py: 1, px: 0 }}>
             <Grid container spacing={3} sx={{ mb: 3, pt: 2 }}>
               <Grid item xs={12} md={6} lg={4}>
-                {category.length && (
-                  <FormControl fullWidth>
-                    <InputLabel id="selectCategory">
-                      {t("commonForm.selectCategory")}
-                    </InputLabel>
-                    <Select
-                      labelId="categories"
-                      id="selectCaetgory"
-                      value={categoryValue}
-                      label={t("commonForm.selectCategory")}
-                      onChange={cateSelect}
-                    >
-                      <MenuItem value={0}>
-                        {t("commonForm.selectCategory")}
-                      </MenuItem>
-                      {category.map((each, index) => (
-                        <MenuItem key={index} value={each.id}>
-                          {each.name}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                )}
-              </Grid>
-              <Grid item xs={12} md={6} lg={4}>
                 <FormControl
                   variant="outlined"
                   fullWidth
-                  onChange={(e) => setSearchSkill(e.target.value)}
+                  onChange={(e) => setSearchSkill(e.target.value.toLowerCase())}
+                  value={searchSkill}
                 >
                   <InputLabel htmlFor="outlined-search">
                     {t("commonForm.search")}
@@ -311,9 +249,9 @@ const TagLists = () => {
               </Grid>
             </Grid>
             <Grid container spacing={3}>
-              {skill
+              {skillsList
                 ?.filter((each) => {
-                  return searchSkill.toLowerCase() === ""
+                  return searchSkill === ""
                     ? each
                     : each.name.toLowerCase().includes(searchSkill);
                 })
@@ -325,7 +263,7 @@ const TagLists = () => {
                         sx={{ minHeight: "130px", maxHeight: "130px" }}
                       >
                         <Box sx={{ mr: 3 }}>
-                          <img src={cardImg} style={tagImg} />
+                          <img src={cardImg} style={tagImgStyle} />
                         </Box>
                         <Box className="d-flex flex-column">
                           <Typography variant="subtitle1">
@@ -370,10 +308,6 @@ const TagLists = () => {
                             sx={{ cursor: "pointer" }}
                             onClick={() => handleEditSkill(each)}
                           />
-                          {/* <DeleteForeverOutlinedIcon
-                            color="error"
-                            sx={{ cursor: "pointer", ml: 2 }}
-                          /> */}
                         </Box>
                       </CardContent>
                     </Card>
@@ -383,15 +317,6 @@ const TagLists = () => {
           </TabPanel>
         </TabContext>
       </Container>
-      {/* Delete feature for later release
-      <DeleteDialog
-        open={dialog}
-        item={deleteItem}
-        deleteStatus={tagDelete}
-        handleClose={dialogClose}
-        handleDelete={deleteTag}
-      /> */}
     </Box>
   );
-};
-export default TagLists;
+}

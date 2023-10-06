@@ -152,10 +152,22 @@ const useUserRolePermissions = () => {
         isMenu: true
       },
       {
+        to: `/${tenancyName}/tags/create-tag`,
+        label: "Manage Roles",
+        roles: [Role.superAdmin, Role.tenantAdmin],
+        isMenu: false
+      },
+      {
         to: `/${tenancyName}/roles`,
         label: "Manage Roles",
         roles: [Role.superAdmin, Role.tenantAdmin],
         isMenu: true
+      },
+      {
+        to: `/${tenancyName}/roles/create-role`,
+        label: "Manage Roles",
+        roles: [Role.superAdmin, Role.tenantAdmin],
+        isMenu: false
       }
   ];
   const profileMenu = [

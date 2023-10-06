@@ -11,7 +11,7 @@ function Footer(){
       return <></>;
     }
     return(
-        <Box sx={{borderTop: '1px solid #CECECE', opacity: '0.6'}}>
+        <Box sx={{borderTop: '1px solid #CECECE', opacity: '0.6', mt:3}}>
             <Toolbar>
                 <Container maxWidth="xl">
                     <Box sx={{display: 'flex', justifyContent:'space-between', alignItems:'center'}}>

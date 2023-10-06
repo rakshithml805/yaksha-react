@@ -24,7 +24,6 @@ import { useTranslation } from 'react-i18next';
 import Banner from '../../../_shared/components/banner/banner';
 import DeleteDialog from '../../../_shared/components/deleteDialog/DeleteDialog';
 import { useParams } from 'react-router-dom';
-import { FETCH_USER_LIST } from '../../../_store/actions/actions';
 import { apiYakshaUrl } from '../../../_api/_urls';
 import { getApi } from "../../../_api/_api";
 import { NavLink } from 'react-router-dom';
@@ -42,27 +41,26 @@ export default function UsersList() {
             url: "/"
         }
     ]
-    // useEffect(async () => {
-    //     try {
-    //         const { status, body } = await getApi();
-    //         if(status===200){
-    //             return body;
-    //             await setUsers(body.result);
-    //         }
-    //     }
-    //     catch (error) {
-    //         console.log(error);
-    //     }
-    // }, [])
-    const [users, setUsers] = React.useState([]);
-    useEffect(async () => {
+ 
+    const [usersList, setUsersList] = React.useState([]);
+    const [tenatsList,setTeanatsList]=React.useState([]);
+    useEffect(() => {
         async function fetchMyAPI() {
             try {
-                const { status, body } = await getApi(`${apiYakshaUrl}`+'/services/yaksha/User/GetUserDetails');
+                const { status, body } = await getApi(`${apiYakshaUrl}/services/yaksha/User/GetUserDetails`);
                 if (status === 200) {
-                    return body;
-                    
-                    // await setUsers(body.result);
+                    console.log(body.result.users);
+                    setUsersList(body.result.users);
+                }
+            }
+            catch (error) {
+                console.log(error);
+            }
+            try {
+                const {status,body} = await getApi(`${apiYakshaUrl}/services/yaksha/Tenant/GetTenantDetails?skipCount=0&maxResultCount=10`);
+                if (status === 200) {
+                    // console.log(body.result.tenants);
+                    setTeanatsList(body.result.tenants);
                 }
             }
             catch (error) {
@@ -75,63 +73,7 @@ export default function UsersList() {
     
 
     const button = ['Onboard Users', "onboard-user"];
-    const usersList = [
-        {
-            id: '1',
-            photo: { avatar },
-            name: 'Canon Jenings',
-            buisness: 'Engineer',
-            tenant: 'yaksha',
-            role: 'Admin',
-            email: 'user1@gmail.com',
-            users: '1233',
-            status: true
-        },
-        {
-            id: '2',
-            photo: { avatar },
-            name: 'Canon Gamers',
-            buisness: 'Team Lead',
-            tenant: 'yaksha',
-            role: 'User',
-            email: 'user1@gmail.com',
-            users: '1233',
-            status: false
-        },
-        {
-            id: '3',
-            photo: { avatar },
-            name: 'Thomas Jenings',
-            buisness: 'Management',
-            tenant: 'yaksha',
-            role: 'Author',
-            email: 'user1@gmail.com',
-            users: '1233',
-            status: true
-        },
-        {
-            id: '4',
-            photo: { avatar },
-            name: 'father Jenings',
-            buisness: 'Engineer',
-            tenant: 'yaksha',
-            role: 'Admin',
-            email: 'user1@gmail.com',
-            users: '1233',
-            status: true
-        },
-        {
-            id: '5',
-            photo: { avatar },
-            name: 'Sam Jenings',
-            buisness: 'Marketing',
-            tenant: 'yaksha',
-            role: 'Author',
-            email: 'user1@gmail.com',
-            users: '1233',
-            status: false
-        },
-    ]
+
     const headCells = [
         {
             id: 'name',
@@ -381,7 +323,7 @@ export default function UsersList() {
                 page * rowsPerPage,
                 page * rowsPerPage + rowsPerPage,
             ),
-        [order, orderBy, page, rowsPerPage],
+        [usersList,order, orderBy, page, rowsPerPage],
     );
 
 
@@ -399,7 +341,7 @@ export default function UsersList() {
     ];
 
     const [personName, setPersonName] = React.useState([]);
-    const tenantsList = ['Yaksha', 'CA', 'NSEIT', 'Cognizant'];
+    // const tenantsList = ['Yaksha', 'CA', 'NSEIT', 'Cognizant'];
 
     const handleChange = (event) => {
         const {
@@ -421,22 +363,7 @@ export default function UsersList() {
             typeof value === 'string' ? value.split(',') : value,
         );
     };
-    const [userStatus, setUserStatus] = React.useState({});
-    React.useState(() => {
-        const initialStatus = {};
-        usersList.forEach((user) => {
-            initialStatus[user.id] = user.status;
-        });
-        setUserStatus(initialStatus);
-    }, [usersList]);
-
-    // Function to handle toggle switch changes
-    const handleSwitchChange = (id) => {
-        setUserStatus((prevStatus) => ({
-            ...prevStatus,
-            [id]: !prevStatus[id],
-        }));
-    };
+    const [searchUser,setSearchUser]=React.useState("");
     const [deleteItem, setDeleteItem] = React.useState('');
     const [dialog, setDialog] = React.useState(false);
     const [userDelete, setUserDelete] = React.useState(false);
@@ -462,7 +389,8 @@ export default function UsersList() {
                             <Autocomplete
                                 disablePortal
                                 required
-                                options={tenantsList}
+                                options={tenatsList}
+                                getOptionLabel={(option) => option.name}
                                 renderInput={(params) => <TextField {...params} label={t('commonForm.selectTenant')} />}
                             />
                         </Grid>
@@ -505,7 +433,8 @@ export default function UsersList() {
                             </FormControl>
                         </Grid>
                         <Grid item xs={4.5}>
-                            <FormControl variant="outlined" fullWidth>
+                            <FormControl variant="outlined" fullWidth
+                             onChange={(e) => setSearchUser(e.target.value)}>
                                 <InputLabel>{t('commonForm.search')}</InputLabel>
                                 <OutlinedInput placeholder={t('commonForm.search')}
                                     endAdornment={
@@ -533,8 +462,14 @@ export default function UsersList() {
                                 rowCount={usersList.length}
                             />
                             <TableBody className='data-table-body'>
-                                {visibleRows.map((userList, index) => {
-                                    const isItemSelected = isSelected(userList.name);
+                                {visibleRows
+                                ?.filter((each)=>{
+                                    return searchUser.toLowerCase() === ""
+                                    ? each
+                                    : each.name.toLowerCase().includes(searchUser);
+                                })
+                                .map((user, index) => {
+                                    const isItemSelected = isSelected(user.name);
                                     const labelId = `enhanced-table-checkbox-${index}`;
 
                                     return (
@@ -543,14 +478,14 @@ export default function UsersList() {
                                             role="checkbox"
                                             aria-checked={isItemSelected}
                                             tabIndex={-1}
-                                            key={userList.id}
+                                            key={index}
                                             selected={isItemSelected}
                                         >
                                             <TableCell padding="checkbox">
                                                 <Checkbox
                                                     color="primary"
                                                     checked={isItemSelected}
-                                                    onClick={(event) => handleClick(event, userList.name)}
+                                                    onClick={(event) => handleClick(event, user.name)}
                                                     inputProps={{
                                                         'aria-labelledby': labelId,
                                                     }}
@@ -560,32 +495,34 @@ export default function UsersList() {
                                                 id={labelId}
                                                 scope="row">
                                                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                                    <Avatar alt="" src="{userList.photo}" />
-                                                    <NavLink className='question-bank-link' to="user-profile"><Typography variant='body2' color='primary' sx={{ ml: 2 }}>{userList.name}</Typography></NavLink>
+                                                    <Avatar alt="" src={user.profilePicture} />
+                                                    <NavLink className='question-bank-link' to="user-profile"><Typography variant='body2' color='primary' sx={{ ml: 2 }}>{user.name}</Typography></NavLink>
                                                 </Box>
                                             </TableCell>
                                             <TableCell align="left">
                                                 <Typography variant='body2' color='text.primary'>
-                                                    {userList.email}
+                                                    {user.emailAddress}
                                                 </Typography>
                                             </TableCell>
                                             <TableCell align="left">
                                                 <Typography variant='body2' color='text.primary'>
-                                                    {userList.buisness}
+                                                    {user.businessUnitName}
                                                 </Typography>
                                             </TableCell>
                                             <TableCell align="left">
                                                 <Typography variant='body2' color='text.primary'>
-                                                    {userList.role}
+                                                    {user.userRoles.map((item)=>(
+                                                        item.role.roleName
+                                                    ))}
                                                 </Typography>
                                             </TableCell>
                                             <TableCell align="left" variant='body2' color='text.primary'>
                                                 <Typography variant='body2' color='text.primary'>
-                                                    {userList.tenant}
+                                                    {user.tenant}
                                                 </Typography>
                                             </TableCell>
                                             <TableCell align="center">
-                                                <Switch checked={userStatus[userList.id]} onChange={() => handleSwitchChange(userList.id)} />
+                                                <Switch checked={user.isActive}  />
                                             </TableCell>
                                             <TableCell align="center">
                                                 <Stack direction="row" spacing={1} justifyContent={'center'}>
@@ -613,7 +550,7 @@ export default function UsersList() {
 
                                                     </Tooltip>
                                                     <Tooltip title={t('common.delete')} placement="top">
-                                                        <IconButton color="error" onClick={() => dialogOpen(userList.name)}>
+                                                        <IconButton color="error" onClick={() => dialogOpen(user.name)}>
                                                             <DeleteForeverOutlinedIcon />
                                                         </IconButton>
 

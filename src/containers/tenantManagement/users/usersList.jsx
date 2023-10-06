@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
     Box, Container, Tooltip, InputLabel, OutlinedInput, InputAdornment, IconButton, TablePagination, ListItemText, Autocomplete, Typography,
     Avatar, FormControl, Grid, TextField, TableContainer, Table, TableHead, TableRow, TableCell, Switch, TableBody, Checkbox,
@@ -24,7 +24,9 @@ import { useTranslation } from 'react-i18next';
 import Banner from '../../../_shared/components/banner/banner';
 import DeleteDialog from '../../../_shared/components/deleteDialog/DeleteDialog';
 import { useParams } from 'react-router-dom';
-
+import { FETCH_USER_LIST } from '../../../_store/actions/actions';
+import { apiYakshaUrl } from '../../../_api/_urls';
+import { getApi } from "../../../_api/_api";
 export default function UsersList() {
     const { tenancyName } = useParams();
     const { t } = useTranslation();
@@ -38,6 +40,38 @@ export default function UsersList() {
             url: "/"
         }
     ]
+    // useEffect(async () => {
+    //     try {
+    //         const { status, body } = await getApi();
+    //         if(status===200){
+    //             return body;
+    //             await setUsers(body.result);
+    //         }
+    //     }
+    //     catch (error) {
+    //         console.log(error);
+    //     }
+    // }, [])
+    const [users, setUsers] = React.useState([]);
+    useEffect(async () => {
+        async function fetchMyAPI() {
+            try {
+                const { status, body } = await getApi(`${apiYakshaUrl}`+'/services/yaksha/User/GetUserDetails');
+                if (status === 200) {
+                    return body;
+                    
+                    // await setUsers(body.result);
+                }
+            }
+            catch (error) {
+                console.log(error);
+            }
+        }
+        fetchMyAPI()
+    }, [])
+
+    
+
     const button = ['Onboard Users', "onboard-user"];
     const usersList = [
         {

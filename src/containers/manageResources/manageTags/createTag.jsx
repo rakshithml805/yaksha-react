@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Container,
   Box,
@@ -16,18 +16,17 @@ import {
   MenuItem,
   Checkbox,
   ListItemText,
-  Grid,
   Chip,
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import FileUploadOutlinedIcon from "@mui/icons-material/FileUploadOutlined";
 import Banner from "../../../_shared/components/banner/banner";
-import { Form, useLocation, useParams } from "react-router-dom";
-import { apiIdentityUrl, apiYakshaUrl } from "../../../_api/_urls";
-import { getApi, getByIdApi, postApi, putApi } from "../../../_api/_api";
+import { useLocation, useParams } from "react-router-dom";
+import { apiYakshaUrl } from "../../../_api/_urls";
+import { getApi, postApi } from "../../../_api/_api";
 import { useFormik, FormikProvider, Field } from "formik";
 import * as Yup from "yup";
-const MenuProps = {
+const multiselectDropdown = {
   PaperProps: {
     style: {
       maxHeight: 70 * 4.5,
@@ -37,18 +36,10 @@ const MenuProps = {
   },
 };
 
-const CreateTag = () => {
+export default function CreateTag() {
   const { tenancyName, tagId } = useParams();
   const { t } = useTranslation();
   const { state } = useLocation();
-  const imgUpload = useRef(null);
-  const tagsImg = (event) => {
-    imgUpload.current.click();
-  };
-  const uploadFiles = (event) => {
-    const fileUploaded = event.target.files[0];
-    tagsImg(fileUploaded);
-  };
   const breadcrumbs = [
     {
       name: "Dashboard",
@@ -63,135 +54,68 @@ const CreateTag = () => {
       url: "",
     },
   ];
-
-  const [tagValue, setTagValue] = useState("category");
-  const selectTag = (event) => {
-    setTagValue(event.target.value);
+  const [tagType, setTagType] = useState("category");
+  const tagToggle = (event) => {
+    setTagType(event.target.value);
   };
-  // const [selectedCate, setSelectedCate] = useState([]);
-  const [categoryName, setCategoryName] = useState("");
-  const [skillName, setSkillName] = useState("");
+
+  const [cateReleatedSkills, setCateRelatedSkills] = useState([]);
+  const categoryValidateScheme = Yup.object().shape({
+    name: Yup.string().required("Category name is required!"),
+  });
+  const skillValidateScheme = Yup.object().shape({
+    name: Yup.string().required("Skill name is required!"),
+  });
   const [skillsList, setSkillsList] = useState([]);
-  const [assignedSkills, setAssignedSkills] = useState([]);
-  const [selectedSkillsName, setSelectedSkillsName] = useState([]);
-  const [selectedSkillIds, setSelectedSkillIds] = useState([]);
-
-  const [selectedSkill, setSelectedSkill] = useState([]);
-  const selectSkill = (event) => {
-    let value = event.target.value;
-    setSelectedSkill(typeof value === "string" ? value.split(",") : value);
-    selectedSkillsName.push(value);
-    setSelectedSkillIds(
-      skillsList
-        .filter(function (item) {
-          return item.name == selectedSkillsName.index;
-        })
-        .map(function ({ id }) {
-          return { id };
-        })
-    );
-    console.log(selectedSkillIds);
-  };
-  // const selectCategory = (event) => {
-  //   const {
-  //     target: { value },
-  //   } = event;
-  //   setSelectedCate(typeof value === "string" ? value.split(",") : value);
-  // };
-
-  const [cateNameError, setCateNameError] = useState(false);
-  const [cateNameErrorTxt, setCateNameErrorTxt] = useState("");
-  const handleSaveCategory = () => {
-    setCateNameError(false);
-    setCateNameErrorTxt("");
-    if (categoryName !== "") {
-      let data = [];
-      if (state && state.type === "category") {
-        data = [
-          {
-            id: state.data.id,
-            name: categoryName,
-            skillId: skillIds,
-          },
-        ];
-      } else {
-        data = [
-          {
-            id: 0,
-            name: categoryName,
-            skillId: skillIds,
-          },
-        ];
-      }
-    } else {
-      setCateNameError(true);
-      setCateNameErrorTxt("Category name is required!");
-    }
-  };
-
-  async function saveSkill(data) {
-    try {
-      const { status, body } = await postApi(
-        `${apiYakshaUrl}/services/yaksha/Skill/CreateOrUpdateSkillAsync`,
-        data
-      );
-      if (status >= 400 && status <= 599) {
-        console.log("Something went wrong..!!!");
-        return;
-      }
-      if (status === 200) {
-        if (body.errorMessage) {
-          console.log("Something Wrong!");
-          return;
+  const formikCategory = useFormik({
+    initialValues: {
+      id: 0,
+      name: "",
+      description: "",
+      idNumber: "",
+      skillId: [],
+    },
+    validationSchema: categoryValidateScheme,
+    onSubmit: async () => {
+      try {
+        const req = { ...formikCategory.values };
+        const { status, body } = await postApi(
+          `${apiYakshaUrl}/services/yaksha/Category/CreateOrUpdateCategoryAsync`,
+          req
+        );
+        if (status === 200) {
+          console.info(body);
         }
+        return;
+      } catch (error) {
+        console.error(error);
       }
-    } catch (error) {
-      console.error(error);
-    }
-  }
-  const [skillError, setSkillError] = useState(false);
-  const [skillErrorText, setSkillErrorText] = useState("");
-  const handleSkillSave = () => {
-    setSkillError(false);
-    setSkillErrorText("");
-    if (skillName !== "") {
-      let data = [];
-      if (state && state.type === "skill") {
-        data = [
-          {
-            id: state.data.id,
-            name: skillName,
-            level: 1,
-          },
-        ];
-      } else {
-        data = [
-          {
-            id: 0,
-            name: skillName,
-            level: 1,
-          },
-        ];
+    },
+  });
+
+  const formikSkill = useFormik({
+    initialValues: {
+      id: 0,
+      name: "",
+    },
+    validationSchema: skillValidateScheme,
+    onSubmit: async () => {
+      try {
+        const req = [{ ...formikSkill.values }];
+        const { status, body } = await postApi(
+          `${apiYakshaUrl}/services/yaksha/Skill/CreateOrUpdateSkillAsync`,
+          req
+        );
+        if (status === 200) {
+          console.info(body);
+        }
+        return;
+      } catch (error) {
+        console.error(error);
       }
-      saveSkill(data);
-    } else {
-      setSkillError(true);
-      setSkillErrorText("Skill name is required!");
-    }
-  };
-  const getCategoryById = async () => {
-    try {
-      const { status, body } = await getApi(
-        `${apiYakshaUrl}/services/yaksha/Category/GetCategoriesById?id=${tagId}`);
-        
-      if (status === 200) {
-        return body.result;
-    }
-    } catch (error) {
-      console.log(error);
-    }
-  }
-  const getSkills = async () => {
+    },
+  });
+  const loadSkills = async () => {
     try {
       const { status, body } = await getApi(
         `${apiYakshaUrl}/services/yaksha/Skill/GetSkills`
@@ -203,72 +127,46 @@ const CreateTag = () => {
       console.error(error);
     }
   };
-  const loadInitialData = async () => {
-    const skills = await getSkills()
-    setSkillsList(skills);
-
-    if (tagId) {
-        const tags = await getCategoryById();
-        console.info(tags)
+  const loadCategory = async () => {
+    try {
+      const { status, body } = await getApi(
+        `${apiYakshaUrl}/services/yaksha/Category/GetCategoriesById?id=${tagId}`
+      );
+      if (status === 200) {
+        return body.result;
+      }
+    } catch (error) {
+      console.error(error);
     }
-  }
+  };
+
+  const initLoad = async () => {
+    if (state && state.editSkillItemType) {
+      setTagType(state.editSkillItemType);
+      formikSkill.values.name = state.editSkillItem.name;
+      formikSkill.values.id = state.editSkillItem.id;
+    } else {
+      const skills = await loadSkills();
+      setSkillsList(skills);
+      if (tagId) {
+        const category = await loadCategory();
+        setCateRelatedSkills(category.skillDetails);
+        formikCategory.values.name = category.name;
+        formikCategory.values.id = category.id;
+        setSkillsList(
+          skills?.filter(
+            ({ id: id1 }) =>
+              !category.skillDetails.some(({ id: id2 }) => id2 === id1)
+          )
+        );
+      }
+    }
+  };
+
   useEffect(() => {
-    loadInitialData();
+    initLoad();
   }, []);
 
-//   useEffect(() => {
-    
-//     if (state) {
-//       setTagValue(state.type);
-//       if (state.type === "category") {
-//         setCategoryName(state.data.name);
-//         setSkillsList(
-//           state.skill.filter(
-//             ({ id: id1 }) =>
-//               !state.data.skillDetails.some(({ id: id2 }) => id2 === id1)
-//           )
-//         );
-//         setAssignedSkills(state.data.skillDetails);
-//       } else {
-//         setSkillName(state.data.name);
-//       }
-//     } else {
-//       getSkills();
-//     }
-//   }, []);
-    const categorySchema = Yup.object().shape({    
-        name: Yup.string().required("Field is Required")
-    });
-  const formikCategory = useFormik({
-    initialValues: {
-        id: 0,
-        name: "",
-        description: "",
-        idNumber: "",
-        skillId: []
-    },
-    validationSchema: categorySchema,
-    onSubmit: async () => {
-        try {
-            const req = {...formikCategory.values};
-            if (tagId) {
-                const { status, body } = await putApi(`${apiYakshaUrl}/services/yaksha/Category/CreateOrUpdateCategoryAsync/${tagId}`, req); 
-                if (status === 200) {
-                    // reroute to listing page
-                    // show toast message
-                }
-                return;
-            }
-            const { status, body } = await postApi(`${apiYakshaUrl}/services/yaksha/Category/CreateOrUpdateCategoryAsync`, req); 
-            if (status === 200) {
-                // reroute to listing page
-                // show toast message
-            }
-         } catch (error) {
-             console.error(error); 
-         }
-    }
-  })
   return (
     <Box>
       <Banner title="Create Tags" crumbs={breadcrumbs} />
@@ -283,8 +181,8 @@ const CreateTag = () => {
               name="tags"
               defaultValue="Category"
               className="d-flex align-center"
-              value={tagValue}
-              onChange={selectTag}
+              value={tagType}
+              onChange={tagToggle}
             >
               <FormControlLabel
                 control={<Radio />}
@@ -301,145 +199,160 @@ const CreateTag = () => {
           </FormControl>
         </Box>
 
-        {tagValue === "category" && (
+        {tagType === "category" && (
           <>
-          <FormikProvider value={formikCategory}>
-            <Box className="d-flex">
-              <Box
-                sx={{ mr: 3, py: 3, width: 350, minWidth: 350 }}
-                className="upload-img d-flex flex-column align-center justify-center"
-              >
-                <Button variant="text" color="secondary" onClick={tagsImg}>
-                  <FileUploadOutlinedIcon color="error" />
-                  <Typography variant="subtitle1" color="primary">
-                    {t("commonForm.uploadCategoryImage")}
-                  </Typography>
-                </Button>
+            <FormikProvider value={formikCategory}>
+              <Box className="d-flex">
                 <Box
-                  sx={{ mt: 2 }}
-                  className="d-flex flex-column align-center justify-center"
+                  sx={{ mr: 3, py: 3, width: 350, minWidth: 350 }}
+                  className="upload-img d-flex flex-column align-center justify-center"
                 >
-                  <Typography variant="caption" color="grey">
-                    {t("commonForm.imgFileSize")}
-                  </Typography>
-                  <Typography variant="caption" color="grey">
-                    {t("commonForm.imgSupportFormat")}
-                  </Typography>
-                  <Typography variant="caption" color="grey">
-                    {t("commonForm.maxResolution")}
-                  </Typography>
-                </Box>
-                <input
-                  type="file"
-                  accept=".jpg , .png , .jpeg"
-                  onChange={uploadFiles}
-                  ref={imgUpload}
-                  hidden
-                ></input>
-              </Box>
-              <Box className="d-flex flex-column">
-                <Box className="d-flex">
-                  <Box sx={{ minWidth: 350, mr: 2 }}>
-                    <Field name="name">
-                        {({field, meta}) => (<>
-                            <TextField
-                                {...field}
-                                label={t("commonForm.categoryName")}
-                                variant="outlined"
-                                fullWidth
-                                required
-                                error={(meta.touched && meta.error) && meta.error}
-                                helperText={meta.touched && meta.error && meta.error}
-                                // onKeyDown={(e) => {
-                                //     if (e.key === "Enter") {
-                                //         form.handleChange()
-                                //     }
-                                // }}
-                                />
-                                {/* {meta.touched && meta.error && (
-                                    <Typography sx={{color: '#FF4128'}} variant='caption'>
-                                    {meta.error}
-                                    </Typography>
-                                )} */}
-                        </>)}
-                    </Field>
-                    
-                  </Box>
-                  <Box sx={{ minWidth: 350, maxWidth: 400 }}>
-                    <FormControl fullWidth>
-                      <InputLabel>{t("commonForm.assignSkills")}</InputLabel>
-                      <Field name="skillId">
-                                {({ field, form, meta }) => (<>
-                                    <Select
-                                        {...field}
-                                        multiple
-                                        input={
-                                            <OutlinedInput label={t("commonForm.assignSkills")} />
-                                        }
-                                        renderValue={(selected) => {
-                                            const s = skillsList.filter(ele => selected.some(item => item === ele.id))
-                                            return (s && s.length) && s.map(ele => ele.name).join(", ")
-                                        }}
-                                        MenuProps={MenuProps}
-                                    >
-                                        {skillsList?.map((skill, index) => (
-                                        <MenuItem
-                                            key={index}
-                                            value={skill.id}
-                                            name={skill.name}
-                                        >
-                                            <Checkbox
-                                                checked={field.value.some(ele => ele === skill.id) ? true : false}
-                                            />
-                                            <ListItemText primary={skill.name} />
-                                        </MenuItem>
-                                        ))}
-                                    </Select>
-                                </>)}
-                      </Field>
-                      
-                    </FormControl>
-                  </Box>
-                </Box>
-                <Box sx={{ mt: 3 }}>
-                  {assignedSkills.length > 0 && (
-                    <Typography variant="subtitle1" sx={{ mb: 1 }}>
-                      Assigned Skills
+                  <Button variant="text" color="secondary">
+                    <FileUploadOutlinedIcon color="error" />
+                    <Typography variant="subtitle1" color="primary">
+                      {t("commonForm.uploadCategoryImage")}
                     </Typography>
-                  )}
-                  {assignedSkills.length > 0 &&
-                    assignedSkills.map((each, index) => (
-                      <Chip
-                        key={index}
-                        label={each.name}
-                        id={each.id}
-                        sx={{ mr: 1, mb: 1 }}
-                      />
-                    ))}
+                  </Button>
+                  <Box
+                    sx={{ mt: 2 }}
+                    className="d-flex flex-column align-center justify-center"
+                  >
+                    <Typography variant="caption" color="grey">
+                      {t("commonForm.imgFileSize")}
+                    </Typography>
+                    <Typography variant="caption" color="grey">
+                      {t("commonForm.imgSupportFormat")}
+                    </Typography>
+                    <Typography variant="caption" color="grey">
+                      {t("commonForm.maxResolution")}
+                    </Typography>
+                  </Box>
+                  <input
+                    type="file"
+                    accept=".jpg , .png , .jpeg"
+                    hidden
+                  ></input>
+                </Box>
+                <Box className="d-flex flex-column">
+                  <Box className="d-flex">
+                    <Box sx={{ minWidth: 350, mr: 2 }}>
+                      <Field name="name">
+                        {({ field, meta }) => (
+                          <>
+                            <TextField
+                              {...field}
+                              label={t("commonForm.categoryName")}
+                              variant="outlined"
+                              fullWidth
+                              required
+                              error={meta.touched && meta.error && meta.error}
+                              helperText={
+                                meta.touched && meta.error && meta.error
+                              }
+                            />
+                          </>
+                        )}
+                      </Field>
+                    </Box>
+                    <Box sx={{ minWidth: 350, maxWidth: 400 }}>
+                      <FormControl fullWidth>
+                        <InputLabel>{t("commonForm.assignSkills")}</InputLabel>
+                        <Field name="skillId">
+                          {({ field, form, meta }) => (
+                            <>
+                              <Select
+                                {...field}
+                                multiple
+                                input={
+                                  <OutlinedInput
+                                    label={t("commonForm.assignSkills")}
+                                  />
+                                }
+                                renderValue={(selected) => {
+                                  const s = skillsList.filter((ele) =>
+                                    selected.some((item) => item === ele.id)
+                                  );
+                                  return (
+                                    s &&
+                                    s.length &&
+                                    s.map((ele) => ele.name).join(", ")
+                                  );
+                                }}
+                                MenuProps={multiselectDropdown}
+                              >
+                                {skillsList?.map((skill, index) => (
+                                  <MenuItem
+                                    key={index}
+                                    value={skill.id}
+                                    name={skill.name}
+                                  >
+                                    <Checkbox
+                                      checked={
+                                        field.value.some(
+                                          (ele) => ele === skill.id
+                                        )
+                                          ? true
+                                          : false
+                                      }
+                                    />
+                                    <ListItemText primary={skill.name} />
+                                  </MenuItem>
+                                ))}
+                              </Select>
+                            </>
+                          )}
+                        </Field>
+                      </FormControl>
+                    </Box>
+                  </Box>
+                  <Box sx={{ mt: 3 }}>
+                    {cateReleatedSkills.length > 0 && (
+                      <Typography variant="subtitle1" sx={{ mb: 1 }}>
+                        Assigned Skills
+                      </Typography>
+                    )}
+                    {cateReleatedSkills.length > 0 &&
+                      cateReleatedSkills.map((each, index) => (
+                        <Chip
+                          key={index}
+                          label={each.name}
+                          id={each.id}
+                          sx={{ mr: 1, mb: 1 }}
+                        />
+                      ))}
+                  </Box>
                 </Box>
               </Box>
-            </Box>
-            <Divider sx={{ mt: 4, mb: 2 }} />
-            <Box className="d-flex justify-end">
-              <Button variant="contained" onClick={formikCategory.resetForm} color="secondary" sx={{ mr: 3 }}>
-                {t("common.cancel")}
-              </Button>
-              <Button variant="contained" onClick={formikCategory.handleSubmit} color="primary">
-                {t("common.create")}
-              </Button>
-            </Box>
+              <Divider sx={{ mt: 4, mb: 2 }} />
+              <Box className="d-flex justify-end">
+                <Button
+                  variant="contained"
+                  onClick={formikCategory.resetForm}
+                  color="secondary"
+                  sx={{ mr: 3 }}
+                >
+                  {t("common.cancel")}
+                </Button>
+                <Button
+                  variant="contained"
+                  onClick={formikCategory.handleSubmit}
+                  color="primary"
+                >
+                  {t("common.create")}
+                </Button>
+              </Box>
             </FormikProvider>
           </>
         )}
 
-        {tagValue === "skill" && (
-          <Form onSubmit={handleSkillSave}>
+        {tagType === "skill" && (
+          <FormikProvider value={formikSkill}>
             <Box className="d-flex">
               <Box
                 sx={{ mr: 3, py: 3, width: 350 }}
                 className="upload-img d-flex flex-column align-center justify-center"
               >
-                <Button variant="text" color="secondary" onClick={tagsImg}>
+                <Button variant="text" color="secondary">
                   <FileUploadOutlinedIcon color="error" />
                   <Typography variant="subtitle1" color="primary">
                     {t("commonForm.uploadSkillImage")}
@@ -459,13 +372,7 @@ const CreateTag = () => {
                     {t("commonForm.maxResolution")}
                   </Typography>
                 </Box>
-                <input
-                  type="file"
-                  accept=".jpg , .png , .jpeg"
-                  onChange={uploadFiles}
-                  ref={imgUpload}
-                  hidden
-                ></input>
+                <input type="file" accept=".jpg , .png , .jpeg" hidden></input>
               </Box>
               <Box
                 className="d-flex flex-column justify-space-between"
@@ -473,41 +380,33 @@ const CreateTag = () => {
               >
                 <Box className="d-flex">
                   <Box sx={{ width: 380, mr: 2 }}>
-                    <TextField
-                      label={t("commonForm.skillName")}
-                      variant="outlined"
-                      required
-                      fullWidth
-                      value={skillName}
-                      error={skillError}
-                      helperText={skillErrorText}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter") {
-                          handleSkillSave();
-                        }
-                      }}
-                      onChange={(e) => setSkillName(e.target.value)}
-                    />
+                    <Field name="name">
+                      {({ field, meta }) => (
+                        <>
+                          <TextField
+                            {...field}
+                            label={t("commonForm.skillName")}
+                            variant="outlined"
+                            fullWidth
+                            required
+                            error={meta.touched && meta.error && meta.error}
+                            helperText={
+                              meta.touched && meta.error && meta.error
+                            }
+                          />
+                        </>
+                      )}
+                    </Field>
                   </Box>
                   <TextField
                     label={t("commonForm.subSkillName")}
                     variant="outlined"
                     sx={{ width: 380, mr: 2 }}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter") {
-                        handleSkillSave();
-                      }
-                    }}
                   />
                   <TextField
                     label={t("commonForm.subSkillName")}
                     variant="outlined"
                     sx={{ width: 380 }}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter") {
-                        handleSkillSave();
-                      }
-                    }}
                   />
                 </Box>
                 {/* <FormControl sx={{ width: 360 }}>
@@ -534,21 +433,25 @@ const CreateTag = () => {
             </Box>
             <Divider sx={{ mt: 4, mb: 2 }} />
             <Box className="d-flex justify-end">
-              <Button variant="contained" color="secondary" sx={{ mr: 3 }}>
+              <Button
+                variant="contained"
+                onClick={formikSkill.resetForm}
+                color="secondary"
+                sx={{ mr: 3 }}
+              >
                 {t("common.cancel")}
               </Button>
               <Button
                 variant="contained"
                 color="primary"
-                onClick={handleSkillSave}
+                onClick={formikSkill.handleSubmit}
               >
                 {t("common.create")}
               </Button>
             </Box>
-          </Form>
+          </FormikProvider>
         )}
       </Container>
     </Box>
   );
-};
-export default CreateTag;
+}

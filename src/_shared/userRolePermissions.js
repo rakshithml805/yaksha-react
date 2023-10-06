@@ -152,7 +152,7 @@ const useUserRolePermissions = () => {
         isMenu: true
       },
       {
-        to: `/${tenancyName}/tags/${tagId}`,
+        to: `/${tenancyName}/tags/edit-tag/${tagId}`,
         label: "Edit Category",
         roles: [Role.superAdmin, Role.tenantAdmin],
         isMenu: false

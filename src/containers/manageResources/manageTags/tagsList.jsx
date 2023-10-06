@@ -79,11 +79,13 @@ const TagLists = () => {
     fetchMyAPI();
   }, []);
   let navigate = useNavigate();
-  const handleEditCategory = ({id}) => navigate(`/${tenancyName}/tags/${id}`);
+  const handleEditCategory = ({ id }) => navigate(`edit-tag/${id}`);
 
   const handleEditSkill = (item) => {
-    let data = item;
-    navigate("create-tag", { state: { data, type: "skill" } });
+    let editSkillItem = item;
+    navigate(`edit-tag/${item.id}`, {
+      state: { editSkillItem, editSkillItemType: "skill" },
+    });
   };
 
   const [value, setValue] = useState("categories");

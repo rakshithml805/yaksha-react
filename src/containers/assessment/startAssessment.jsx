@@ -13,7 +13,8 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import "./startAssessment.scss";
-
+import { useFormik, FormikProvider, Field } from "formik";
+import * as Yup from "yup";
 export default function StartAssessment() {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -21,6 +22,24 @@ export default function StartAssessment() {
     let path = "/live-assessment";
     navigate(path);
   };
+  const schema = Yup.object().shape({
+    fName: Yup.string().required("Field is Required"),
+    lName: Yup.string().required("Field is Required"),
+    email: Yup.string().required("Field is Required"),
+    phone: Yup.string().required("Field is Required")
+  })
+  const formik = useFormik({
+    initialValues: {
+      fName: "",
+      lName: "",
+      email: "",
+      phone: ""
+    },
+    validationSchema: schema,
+    onSubmit: () => {
+      console.info(formik.values);
+    }
+  });
   return (
     <Box>
       <Container maxWidth="xl">
@@ -122,21 +141,45 @@ export default function StartAssessment() {
             <Box className="d-flex flex-column align-center justify-center">
               <img src={Logo} alt="Yaksha" />
               <Grid container spacing={2} sx={{ mt: 1, mb: 3 }}>
+                <FormikProvider value={formik}>                
                 <Grid item xs={12} md={12} lg={6}>
-                  <TextField
-                    label="FirtName"
-                    variant="outlined"
-                    required
-                    fullWidth
-                  />
+                  <Field name="fName">
+                    {({field, meta}) => (<>
+                     <TextField
+                     {...field}
+                      label="FirtName"
+                      variant="outlined"
+                      required
+                      fullWidth
+                    />
+                    {meta.touched && meta.error && (
+                        <Typography sx={{color: '#FF4128'}} variant='caption'>
+                          {meta.error}
+                        </Typography>
+                      )}
+                    </>)}
+                  </Field>
+                 
                 </Grid>
                 <Grid item xs={12} md={12} lg={6}>
-                  <TextField
-                    label="Lastname"
-                    variant="outlined"
-                    required
-                    fullWidth
-                  />
+                <Field name="lName">
+                    {({field, meta}) => (<>
+                      <TextField
+                      {...field}
+                      label="Lastname"
+                      variant="outlined"
+                      required
+                      fullWidth
+                    />
+                    {meta.touched && meta.error && (
+                        <Typography sx={{color: '#FF4128'}} variant='caption'>
+                          {meta.error}
+                        </Typography>
+                      )}
+                    </>)}
+                  </Field>
+
+                  
                 </Grid>
                 <Grid item xs={12} md={12} lg={6}>
                   <TextField
@@ -152,12 +195,13 @@ export default function StartAssessment() {
                 <Grid item xs={12}>
                   <Button
                     variant="contained"
-                    onClick={startAssessment}
+                    onClick={formik.handleSubmit}
                     fullWidth
                   >
                     {t("testTracker.startAssessment")}
                   </Button>
                 </Grid>
+                </FormikProvider>
               </Grid>
               <Box sx={{ width: "100%" }}>
                 <Typography variant="subtitle1" sx={{ textAlign: "center" }}>

@@ -1,151 +1,244 @@
-import React from "react";
-import { Box, Grid, Typography, Stack, Chip, List, ListItem, ListItemText, TextField, Button } from "@mui/material";
+import Logo from "../../assets/yaksha.png";
 import { useTranslation } from "react-i18next";
+import {
+  Box,
+  Grid,
+  Typography,
+  TextField,
+  Button,
+  List,
+  ListItem,
+  Chip,
+  Container,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
-import RepeatOutlinedIcon from '@mui/icons-material/RepeatOutlined';
-import DynamicFeedOutlinedIcon from '@mui/icons-material/DynamicFeedOutlined';
-import QuestionMarkOutlinedIcon from '@mui/icons-material/QuestionMarkOutlined';
-import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
-import logo from "../../assets/yaksha.png";
-import './startAssessment.scss';
-
-const StartAssessment = () => {
-
-    const {t} = useTranslation();
-    let navigate = useNavigate();
-    
-    const assessmentData = {
-        title: "Proactive Monitoring Assessment For MCQ & SFA - Manual",
-        duration: "45 Mins",
-        attempts: "03",
-        sections: "02",
-        questions: "34",
-        passPercentage: "65%",
-        role: "Frontend Developer",
-        keyword: ["JavaScript", "Angular", "ReactJs", "NextJs"],
-        description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-        instruction: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."
+import "./startAssessment.scss";
+import { useFormik, FormikProvider, Field } from "formik";
+import * as Yup from "yup";
+export default function StartAssessment() {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const startAssessment = () => {
+    let path = "/live-assessment";
+    navigate(path);
+  };
+  const schema = Yup.object().shape({
+    fName: Yup.string().required("Field is Required"),
+    lName: Yup.string().required("Field is Required"),
+    email: Yup.string().required("Field is Required"),
+    phone: Yup.string().required("Field is Required")
+  })
+  const formik = useFormik({
+    initialValues: {
+      fName: "",
+      lName: "",
+      email: "",
+      phone: ""
+    },
+    validationSchema: schema,
+    onSubmit: () => {
+      console.info(formik.values);
     }
-    const systemRequirement = [
-        {id: 1, requirement: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."},
-        {id: 2, requirement: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."},
-        {id: 3, requirement: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."},
-        {id: 4, requirement: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."}
-    ];
-
-    const startAssessment = () => {
-        let path = "/assessment-test-tracker";
-        navigate(path);
-    }
-
-    return(
-        <Box>
-            <Grid container spacing={3} className="custom-grid">
-                <Grid item xs={7}>
-                    <Box className="background-graphic">
-                        <Box className="background-transparent">
-                            <Typography variant="caption" sx={{opacity: "0.6"}}>{t('testTracker.standardAssessment')}</Typography>
-                            <Typography variant="h6">{assessmentData.title}</Typography>
-
-                            <List className="d-flex list" sx={{p: 0, my: 3}}>
-                                <ListItem>
-                                    <Box>
-                                        <AccessTimeOutlinedIcon />
-                                        <ListItemText primary={assessmentData.duration} sx={{m: 0}} />
-                                    </Box>
-                                    <Typography variant="body2" sx={{opacity: "0.6"}}>{t('common.duration')}</Typography>
-                                </ListItem>
-                                <ListItem>
-                                    <Box>
-                                        <RepeatOutlinedIcon />
-                                        <ListItemText primary={assessmentData.attempts} sx={{m: 0}} />
-                                    </Box>
-                                    <Typography variant="body2" sx={{opacity: "0.6"}}>{t('testTracker.attempts')}</Typography>
-                                </ListItem>
-                                <ListItem>
-                                    <Box>
-                                        <DynamicFeedOutlinedIcon />
-                                        <ListItemText primary={assessmentData.sections} sx={{m: 0}} />
-                                    </Box>
-                                    <Typography variant="body2" sx={{opacity: "0.6"}}>{t('testTracker.sections')}</Typography>
-                                </ListItem>
-                                <ListItem>
-                                    <Box>
-                                        <QuestionMarkOutlinedIcon />
-                                        <ListItemText primary={assessmentData.questions} sx={{m: 0}} />
-                                    </Box>
-                                    <Typography variant="body2" sx={{opacity: "0.6"}}>{t('common.questions')}</Typography>
-                                </ListItem>
-                                <ListItem>
-                                    <Box>
-                                        <SchoolOutlinedIcon />
-                                        <ListItemText primary={assessmentData.passPercentage} sx={{m: 0}} />
-                                    </Box>
-                                    <Typography variant="body2" sx={{opacity: "0.6"}}>{t('testTracker.passPercentage')}</Typography>
-                                </ListItem>
-                            </List>
-
-                            <Typography variant="subtitle1" sx={{mt: 2, mb: 1,}}>
-                                {assessmentData.role}
-                            </Typography>
-                            <Stack direction="row" spacing={2}>
-                                {
-                                    assessmentData.keyword.map((tag) => (
-                                        <Chip label={tag} key={tag} />
-                                    ))
-                                }
-                            </Stack>
-
-                            <Typography variant="subtitle1" sx={{mt: 3}}>
-                                {t('common.description')}
-                            </Typography>
-                            <Typography variant="body1" sx={{lineHeight: "2"}}>
-                                {assessmentData.description}
-                            </Typography>
-
-                            <Typography variant="subtitle1" sx={{mt: 3}}>
-                                {t('testTracker.instruction')}
-                            </Typography>
-                            <Typography variant="body1" sx={{lineHeight: "2"}}>
-                                {assessmentData.instruction}
-                            </Typography>
-                        </Box>
-                    </Box>
+  });
+  return (
+    <Box>
+      <Container maxWidth="xl">
+        <Grid container spacing={2} sx={{ height: "97vh" }}>
+          <Grid
+            item
+            xs={12}
+            md={6}
+            lg={7}
+            className="assessment-detail d-flex flex-column align-center justify-center"
+          >
+            <Box sx={{ p: 3, m: 3 }} className="assessment-box">
+              <Typography variant="caption" color="white">
+                Standard Assessment
+              </Typography>
+              <Typography variant="h1" color="white">
+                Assessment Name
+              </Typography>
+              <Grid container spacing={2} sx={{ mt: 2, mb: 2 }}>
+                <Grid item xs={4} md={3} lg={2}>
+                  <Typography variant="body2" color="white">
+                    45
+                  </Typography>
+                  <Typography variant="caption" color="white">
+                    Duration
+                  </Typography>
                 </Grid>
-                <Grid item xs={5}>
-                    <Box className="d-flex flex-column justify-center" sx={{paddingLeft: "25px", backgroundColor: "#f5f5f5", height: "100%", textAlign: "center"}}>
-                        <Box>
-                            <img src={logo} alt="Yaksha" />
-                        </Box>
-                        <Box className="d-flex flex-column align-center" component="form" autoComplete="off" sx={{my: 4}}>
-                            <TextField label="FirtName" variant="outlined" sx={{width: "400px", maxWidth: "100%", mb: 3}} />
-                            <TextField label="LastName" variant="outlined" sx={{width: "400px", maxWidth: "100%", mb: 3}} />
-                            <TextField label="Email" variant="outlined" sx={{width: "400px", maxWidth: "100%", mb: 3}} />
-                            <TextField label="Phone" variant="outlined" sx={{width: "400px", maxWidth: "100%", mb: 3}} />
-                            <Button color='primary' onClick={startAssessment} variant="contained" sx={{width:'400px'}}>{t('testTracker.startAssessment')}</Button>
-                        </Box>
-                        <Box>
-                            <Typography variant="h6">{t('testTracker.systemRequirement')}</Typography>
-                            <ul className="normal-list">
-                                {
-                                    systemRequirement.map((requirement) => (
-                                        <li key={requirement.id}>
-                                            <span>{requirement.requirement}</span>
-                                        </li>
-                                    ))
-                                }
-                            </ul>
-                        </Box>
-
-                        <Box component="footer" sx={{paddingRight: "25px", mt: 10}}>
-                            <Typography variant="body1" sx={{fontSize: "12px", color: "#939393"}}>{t('common.footerNote')}</Typography>
-                        </Box>
-                    </Box>
+                <Grid item xs={4} md={3} lg={2}>
+                  <Typography variant="body2" color="white">
+                    45
+                  </Typography>
+                  <Typography variant="caption" color="white">
+                    Attempts
+                  </Typography>
                 </Grid>
-            </Grid>
-        </Box>
-    );
+                <Grid item xs={4} md={3} lg={2}>
+                  <Typography variant="body2" color="white">
+                    45
+                  </Typography>
+                  <Typography variant="caption" color="white">
+                    Sections
+                  </Typography>
+                </Grid>
+                <Grid item xs={4} md={3} lg={2}>
+                  <Typography variant="body2" color="white">
+                    45
+                  </Typography>
+                  <Typography variant="caption" color="white">
+                    Questions
+                  </Typography>
+                </Grid>
+                <Grid item xs={4} md={3} lg={3}>
+                  <Typography variant="body2" color="white">
+                    45
+                  </Typography>
+                  <Typography variant="caption" color="white">
+                    Pass Percentage
+                  </Typography>
+                </Grid>
+              </Grid>
+              <Chip label="Skill Name" variant="skill" sx={{ mr: 1, mb: 1 }} />
+              <Chip label="Skill Name" variant="skill" sx={{ mr: 1, mb: 1 }} />
+              <Chip label="Skill Name" variant="skill" sx={{ mr: 1, mb: 1 }} />
+              <Chip label="Skill Name" variant="skill" sx={{ mr: 1, mb: 1 }} />
+              <Chip label="Skill Name" variant="skill" sx={{ mr: 1, mb: 1 }} />
+              <Chip label="Skill Name" variant="skill" sx={{ mr: 1, mb: 1 }} />
+              <Chip label="Skill Name" variant="skill" sx={{ mr: 1, mb: 1 }} />
+              <Box sx={{ my: 2 }}>
+                <Typography variant="h2" color="white">
+                  Description
+                </Typography>
+                <Typography variant="body1" color="white">
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                  Aliquam accusantium voluptates nulla ad fugiat consequatur
+                  facere ullam suscipit distinctio? Suscipit nihil laboriosam
+                  quo facilis tempore minus quia sint voluptatum iure.
+                </Typography>
+              </Box>
+              <Box sx={{ my: 2 }}>
+                <Typography variant="h2" color="white">
+                  Instruction
+                </Typography>
+                <Typography variant="body1" color="white">
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                  Aliquam accusantium voluptates nulla ad fugiat consequatur
+                  facere ullam suscipit distinctio? Suscipit nihil laboriosam
+                  quo facilis tempore minus quia sint voluptatum iure.
+                </Typography>
+              </Box>
+            </Box>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            md={6}
+            lg={5}
+            className="d-flex flex-column align-center justify-center"
+          >
+            <Box className="d-flex flex-column align-center justify-center">
+              <img src={Logo} alt="Yaksha" />
+              <Grid container spacing={2} sx={{ mt: 1, mb: 3 }}>
+                <FormikProvider value={formik}>                
+                <Grid item xs={12} md={12} lg={6}>
+                  <Field name="fName">
+                    {({field, meta}) => (<>
+                     <TextField
+                     {...field}
+                      label="FirtName"
+                      variant="outlined"
+                      required
+                      fullWidth
+                    />
+                    {meta.touched && meta.error && (
+                        <Typography sx={{color: '#FF4128'}} variant='caption'>
+                          {meta.error}
+                        </Typography>
+                      )}
+                    </>)}
+                  </Field>
+                 
+                </Grid>
+                <Grid item xs={12} md={12} lg={6}>
+                <Field name="lName">
+                    {({field, meta}) => (<>
+                      <TextField
+                      {...field}
+                      label="Lastname"
+                      variant="outlined"
+                      required
+                      fullWidth
+                    />
+                    {meta.touched && meta.error && (
+                        <Typography sx={{color: '#FF4128'}} variant='caption'>
+                          {meta.error}
+                        </Typography>
+                      )}
+                    </>)}
+                  </Field>
+
+                  
+                </Grid>
+                <Grid item xs={12} md={12} lg={6}>
+                  <TextField
+                    label="Email"
+                    variant="outlined"
+                    required
+                    fullWidth
+                  />
+                </Grid>
+                <Grid item xs={12} md={12} lg={6}>
+                  <TextField label="Phone" variant="outlined" fullWidth />
+                </Grid>
+                <Grid item xs={12}>
+                  <Button
+                    variant="contained"
+                    onClick={formik.handleSubmit}
+                    fullWidth
+                  >
+                    {t("testTracker.startAssessment")}
+                  </Button>
+                </Grid>
+                </FormikProvider>
+              </Grid>
+              <Box sx={{ width: "100%" }}>
+                <Typography variant="subtitle1" sx={{ textAlign: "center" }}>
+                  {t("testTracker.systemRequirement")}
+                </Typography>
+                <List>
+                  <ListItem sx={{ px: 0 }}>
+                    <Typography variant="body1" color="text.secondary">
+                      alskdjfslf asldfkjas asdlf asdl;fj asldfkj asdfasd fsd
+                    </Typography>
+                  </ListItem>
+                  <ListItem sx={{ px: 0 }}>
+                    <Typography variant="body1" color="text.secondary">
+                      alskdjfslf asldfkjas asdlf asdl;fj asldfkj asdfasd fsd
+                    </Typography>
+                  </ListItem>
+                  <ListItem sx={{ px: 0 }}>
+                    <Typography variant="body1" color="text.secondary">
+                      alskdjfslf asldfkjas asdlf asdl;fj asldfkj asdfasd fsd
+                    </Typography>
+                  </ListItem>
+                  <ListItem sx={{ px: 0 }}>
+                    <Typography variant="body1" color="text.secondary">
+                      alskdjfslf asldfkjas asdlf asdl;fj asldfkj asdfasd fsd
+                    </Typography>
+                  </ListItem>
+                  <ListItem sx={{ px: 0 }}>
+                    <Typography variant="body1" color="text.secondary">
+                      alskdjfslf asldfkjas asdlf asdl;fj asldfkj asdfasd fsd
+                    </Typography>
+                  </ListItem>
+                </List>
+              </Box>
+            </Box>
+          </Grid>
+        </Grid>
+      </Container>
+    </Box>
+  );
 }
-
-export default StartAssessment;

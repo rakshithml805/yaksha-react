@@ -31,6 +31,9 @@ import AssessmentDrive from "./containers/assessmentManagement/assessmentDrive/a
 import AssessmentDriveDetail from "./containers/assessmentManagement/assessmentDrive/assessmentDriveDetail";
 import CreateAssessmentDrive from "./containers/assessmentManagement/assessmentDrive/createAssessmentDrive";
 import UserProfile from "./containers/tenantManagement/users/UserProfile";
+import StartAssessment from "./containers/assessment/startAssessment";
+import AssessmentTestTracker from "./containers/assessment/assessmentTestTracker";
+import AssessmentCompletion from "./containers/assessment/assessmentCompletion";
 const router = createBrowserRouter([
   // common
   {
@@ -49,6 +52,19 @@ const router = createBrowserRouter([
     path: "/reset-password",
     element: <ResetPassword />,
   },
+  {
+    path: "/start-assessment",
+    element: <StartAssessment />,
+  },
+  {
+    path: "/live-assessment",
+    element: <AssessmentTestTracker />,
+  },
+  {
+    path: "/assessment-completion",
+    element: <AssessmentCompletion />,
+  },
+
   // routes as per persona
   {
     path: "/:tenancyName/dashboard",
@@ -238,7 +254,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: ":tenancyName/assessment-drives",
+    path: "/:tenancyName/assessment-drives",
     element: (
       <Layout>
         <AssessmentDrive />
@@ -246,7 +262,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: ":tenancyName/assessment-drives/assessment-drive-detail",
+    path: "/:tenancyName/assessment-drives/assessment-drive-detail",
     element: (
       <Layout>
         <AssessmentDriveDetail />
@@ -254,7 +270,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: ":tenancyName/create-assessment-drives",
+    path: "/:tenancyName/create-assessment-drives",
     element: (
       <Layout>
         <CreateAssessmentDrive />

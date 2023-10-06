@@ -44,7 +44,7 @@ const McoAssessment = () => {
                 <FormGroup className="d-flex justify-space-between" sx={{flexWrap: "wrap", flexDirection: "row"}}>
                     {
                         mcoTest.options.map((option) => (
-                            <Box key={option.id} sx={{width: "calc(50% - 15px)", border: "solid 1px #cbd2dc", padding: "10px", borderRadius: "6px", marginBottom: "20px"}}>
+                            <Box className="checkbox-wrapper" key={option.id} sx={{width: "calc(50% - 15px)", border: "solid 1px #cbd2dc", padding: "10px", borderRadius: "6px", marginBottom: "20px"}}>
                                 <FormControlLabel control={<Checkbox />} label={option.option}
                                 sx={{color: "#676767"}} />
                             </Box>

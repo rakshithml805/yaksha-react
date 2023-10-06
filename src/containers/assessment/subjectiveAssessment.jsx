@@ -32,8 +32,8 @@ const SubjectiveAssessment = () => {
                 {t('testTracker.subjective')}
             </Typography>
 
-            <Grid container spacing={3} sx={{mb: 6}}>
-                <Grid item xs={6}>
+            <Grid container spacing={3} sx={{mb: 0}}>
+                <Grid item xs={12} sm={12} md={6}>
                     <Box className="file-upload-container">
                         <FileUploader handleChange={uploadFileHandleChange} name="file" types={fileTypes} classes="file-upload-field" label="Upload File" />
                         <FileUploadOutlinedIcon className='upload-icon'/>
@@ -43,7 +43,7 @@ const SubjectiveAssessment = () => {
                         </Box>
                     </Box>
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={12} sm={12} md={6}>
                     <ReactQuill theme="snow" value={rteValue} onChange={setRteValue} />
                 </Grid>
             </Grid>

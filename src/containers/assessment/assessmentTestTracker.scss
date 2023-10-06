@@ -3,7 +3,38 @@
     color: #ffffff;
     padding: 15px 0px;
 
+    @media screen and (max-width: 767px) {
+        padding: 10px 0px;
+    }
+
+    > .MuiContainer-root {
+        @media screen and (max-width: 767px) {
+            padding: 0px 10px;
+        }
+
+        > .MuiBox-root {
+            @media screen and (max-width: 599px) {
+                flex-wrap: wrap;       
+            }
+
+            > .MuiTypography-root {
+                @media screen and (max-width: 767px) {
+                    font-size: 14px;
+                }
+
+                @media screen and (max-width: 599px) {
+                    width: 100%;
+                }
+            }
+        }
+    }
+
     .right-control-holder {
+        @media screen and (max-width: 599px) {
+            width: 100%;
+            justify-content: space-between;
+        }
+
         > .MuiButtonBase-root {
             svg {
                 width: 36px;
@@ -15,8 +46,14 @@
         > .MuiBox-root {
             margin: 0px 20px;
 
+            @media screen and (max-width: 767px) {
+                margin: 0px 10px;
+            }
+
             > .MuiTypography-root {
-                opacity: 0.7;
+                @media screen and (max-width: 767px) {
+                    font-size: 12px;
+                }
             }
 
             > .MuiList-root {
@@ -28,76 +65,167 @@
                     padding: 3px 5px;
                     width: 40px;
                     text-align: center;
+
+                    @media screen and (max-width: 599px) {
+                        margin: 0px 3px;
+                        padding: 1px 2px;
+                        width: 30px;
+                    }
+
+                    .MuiListItemText-primary {
+                        @media screen and (max-width: 599px) {
+                            font-size: 12px;
+                        }
+                    }
                 }
             }
         }
     }
 }
 
-.test-list {
-    padding-top: 0px !important;
-
-    li {
-        padding: 0px;
-        width: auto;
-        text-align: center;
-
-        .MuiListItemText-root {
-            margin-top: 0px !important;
+.compact-grid {
+    .assessment-right-section {
+        .MuiButton-root {
+            + .MuiButton-root {
+                @media screen and (max-width: 899px) {
+                    margin-left: 10px;
+                }
+            }
         }
 
-        .primary {
-            .MuiListItemText-primary {
-                background-color: #153776;
-            }    
+        .button-holder {
+            @media screen and (max-width: 850px) and (min-width: 600px) {
+                flex-wrap: wrap;
+                justify-content: flex-end;
+            }
         }
 
-        .success {
-            .MuiListItemText-primary {
-                background-color: #4caf50;
-            }    
-        }
-
-        .warn {
-            .MuiListItemText-primary {
-                background-color: #ff9d00;
-            }    
-        }
-
-        .danger {
-            .MuiListItemText-primary {
-                background-color: #ad0521;
-            }    
-        }
-
-        .MuiListItemText-primary {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #e5e5e5;
-            color: #ffffff;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-        }
-
-        .MuiListItemText-secondary {
-            color: #7e97ac;
-            font-size: 13px;
-            margin-top: 5px;
+        .left-action {
+            @media screen and (max-width: 850px) and (min-width: 600px) {
+                width: 100%;
+                text-align: right;
+                margin-bottom: 20px;
+            }
         }
     }
 }
 
 .assessment-left-bar {
+    transition: all 0.2s ease-in-out;
+
+    @media screen and (max-width: 599px) {
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        z-index: 999;
+        background-color: #ffffff;
+        padding: 0px !important;
+    }
+
+    &.assessment-left-bar-hidden {
+        display: none;
+
+        @media screen and (max-width: 599px) {
+            display: block;
+            left: -100%;
+        }
+    }
+
     > .MuiBox-root {
         margin: 15px 0px;
         border-right: solid 1px #dadada;
         padding-right: 24px;
         height: calc(100% - 30px);
+
+        @media screen and (max-width: 599px) {
+            height: auto;
+            padding-right: 0px;
+            margin: 0px;
+        }
+
+        .close-left-section {
+            display: none;
+            justify-content: flex-end;
+            border-bottom: solid 1px #dddddd;
+
+            @media screen and (max-width: 599px) {
+                display: flex;
+            }
+
+            .MuiSvgIcon-root {
+                width: 1.5em;
+                height: 1.5em;
+                fill: #000000;
+            }
+        }
+    }
+
+    .test-list {
+        padding-top: 0px !important;
+    
+        @media screen and (max-width: 599px) {
+            padding: 10px !important;
+        }
+    
+        li {
+            padding: 0px;
+            width: auto;
+            text-align: center;
+    
+            .MuiListItemText-root {
+                margin-top: 0px !important;
+            }
+    
+            .primary {
+                .MuiListItemText-primary {
+                    background-color: #153776;
+                }    
+            }
+    
+            .success {
+                .MuiListItemText-primary {
+                    background-color: #4caf50;
+                }    
+            }
+    
+            .warn {
+                .MuiListItemText-primary {
+                    background-color: #ff9d00;
+                }    
+            }
+    
+            .danger {
+                .MuiListItemText-primary {
+                    background-color: #ad0521;
+                }    
+            }
+    
+            .MuiListItemText-primary {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                background-color: #e5e5e5;
+                color: #ffffff;
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+            }
+    
+            .MuiListItemText-secondary {
+                color: #7e97ac;
+                font-size: 13px;
+                margin-top: 5px;
+            }
+        }
     }
     
     .section-accordion {
+        @media screen and (max-width: 599px) {
+            padding: 10px;
+        }
+
         .MuiAccordion-root {
             border: solid 1px #cbd2dc;
             box-shadow: 0px 0px 5px rgba(0,0,0,0.2);
@@ -140,6 +268,7 @@
                         align-items: center;
                         justify-content: center;
                         margin: 0px 20px 20px 0px;
+                        cursor: pointer;
     
                         &.not-started {
                             color: #7c7c7c;
@@ -156,9 +285,49 @@
         margin: 15px 0px;
     }
 
+    .button-holder {
+        @media screen and (max-width: 410px) {
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+    }
+
+    .left-action {
+        position: relative;
+
+        @media screen and (max-width: 410px) {
+            width: 100%;
+            text-align: right;
+            margin-bottom: 20px;
+        }
+
+        .toggle-btn {
+            background-color: #a4c3db;
+            padding: 5px;
+            min-width: auto;
+            border-radius: 0px 4px 4px 0px;
+            position: absolute;
+            left: -24px;
+            top: 1px;
+            cursor: pointer;
+
+            @media screen and (max-width: 599px) {
+                left: -16px;
+            }
+
+            + .MuiButton-root {
+                margin-left: 30px;
+            }
+        }
+    }
+
     .MuiButton-root {
         + .MuiButton-root {
             margin-left: 20px;
+
+            @media screen and (max-width: 599px) {
+                margin-left: 5px;
+            }
         }
     }
 
@@ -168,5 +337,26 @@
         min-height: 200px;
         margin: 20px 0px;
         padding: 20px 0px;
+    }
+
+    .checkbox-wrapper {
+        @media screen and (max-width: 992px) {
+            width: 100%;
+        }
+    }
+
+    .smooth-dnd-draggable-wrapper {
+        .MuiListItem-container {
+            .MuiListItem-root {
+                @media screen and (max-width: 450px) {
+                    padding-left: 30px;
+                }
+            }
+            .MuiListItemSecondaryAction-root {
+                @media screen and (max-width: 450px) {
+                    left: 5px;
+                }
+            }
+        }
     }
 }

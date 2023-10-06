@@ -155,7 +155,8 @@
         "upcommingSchedules":"Upcomming Schedules",
         "averageScore":"AverageScore",
         "averageTimeTaken":"Average Time Taken",
-        "report":"Report" 
+        "report":"Report",
+        "allTenants":"All Tenants" 
     },
     "testTracker": {
         "standardAssessment": "Standard Assessment",

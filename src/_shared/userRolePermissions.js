@@ -41,7 +41,13 @@ const useUserRolePermissions = () => {
       isMenu: true
     },
     {
-      to: `/${tenancyName}/create-assessment-drive`,
+      to: `/${tenancyName}/assessment-drives/assessment-drive-detail`,
+      label: "Assessment Drive Detail",
+      roles: [Role.superAdmin, Role.tenantAdmin],
+      isMenu: false
+    },
+    {
+      to: `/${tenancyName}/create-assessment-drives`,
       label: "Create Assessment Drive",
       roles: [Role.superAdmin, Role.tenantAdmin],
       isMenu: true
@@ -125,6 +131,12 @@ const useUserRolePermissions = () => {
         label: "Users",
         roles: [Role.superAdmin, Role.tenantAdmin],
         isMenu: true
+      },
+      {
+        to: `/${tenancyName}/users/user-profile`,
+        label: "User Profile",
+        roles: [Role.superAdmin, Role.tenantAdmin],
+        isMenu: false
       },{
         to: `/${tenancyName}/users/onboard-user`,
         label: "Create / Upload Users",
@@ -140,10 +152,22 @@ const useUserRolePermissions = () => {
         isMenu: true
       },
       {
+        to: `/${tenancyName}/tags/create-tag`,
+        label: "Manage Roles",
+        roles: [Role.superAdmin, Role.tenantAdmin],
+        isMenu: false
+      },
+      {
         to: `/${tenancyName}/roles`,
         label: "Manage Roles",
         roles: [Role.superAdmin, Role.tenantAdmin],
         isMenu: true
+      },
+      {
+        to: `/${tenancyName}/roles/create-role`,
+        label: "Manage Roles",
+        roles: [Role.superAdmin, Role.tenantAdmin],
+        isMenu: false
       }
   ];
   const profileMenu = [

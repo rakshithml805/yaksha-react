@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import {
     Box, Container, Typography, Grid, Stack, Chip, Avatar, Button, Tab, TableHead, TableRow, Paper, IconButton, TableSortLabel
 } from '@mui/material';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import {
     Chart as ChartJS, CategoryScale, LinearScale, PointElement,
     LineElement, Title, Tooltip, Legend, ArcElement
@@ -117,29 +117,30 @@ const questionTag = {
     tags: ['Javascript', 'Angular', 'React', 'SASS']
 };
 
-const breadcrumbs = [
-    {
-        name: "Dashboard",
-        url: "/dashboard"
-    },
-    {
-        name: "Assesment Banks",
-        url: "/assessment-banks"
-    },
-    {
-        name: "Assesments",
-        url: "/assessment-bank-detail"
-    },
-    {
-        name: "Assesment Details",
-        url: "/"
-    }
-]
-
 const AssessmentDetails = () => {
     const { t } = useTranslation();
+    const { tenancyName } = useParams();
     const [value, setValue] = React.useState('one');
     let location = useLocation();
+
+    const breadcrumbs = [
+        {
+            name: "Dashboard",
+            url: `/${tenancyName}/dashboard`
+        },
+        {
+            name: "Assesment Banks",
+            url: `/${tenancyName}/assessment-banks`
+        },
+        {
+            name: "Assesments",
+            url: `/${tenancyName}/assessment-banks/assessment-bank-detail`
+        },
+        {
+            name: "Assesment Details",
+            url: ""
+        }
+    ]
    
     const upcomingSchedulesList = [
         {

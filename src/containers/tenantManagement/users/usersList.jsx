@@ -27,6 +27,8 @@ import { useParams } from 'react-router-dom';
 import { FETCH_USER_LIST } from '../../../_store/actions/actions';
 import { apiYakshaUrl } from '../../../_api/_urls';
 import { getApi } from "../../../_api/_api";
+import { NavLink } from 'react-router-dom';
+
 export default function UsersList() {
     const { tenancyName } = useParams();
     const { t } = useTranslation();
@@ -559,7 +561,7 @@ export default function UsersList() {
                                                 scope="row">
                                                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                                                     <Avatar alt="" src="{userList.photo}" />
-                                                    <Typography variant='body2' color='primary' sx={{ ml: 2 }}>{userList.name}</Typography>
+                                                    <NavLink className='question-bank-link' to="user-profile"><Typography variant='body2' color='primary' sx={{ ml: 2 }}>{userList.name}</Typography></NavLink>
                                                 </Box>
                                             </TableCell>
                                             <TableCell align="left">

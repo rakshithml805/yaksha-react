@@ -87,7 +87,7 @@ export const getApiForDownload = async (url) => {
 
 export const getByIdApi = async (url, id) => {
     try {
-        const result = await axiosApi.get(`${url}/${id}`);
+        const result = await axiosApi.get(`${url}?id=${id}`);
         return {
             status: result.status, body: result.data   
         }

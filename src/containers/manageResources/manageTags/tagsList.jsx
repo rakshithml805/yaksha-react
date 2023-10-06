@@ -79,24 +79,7 @@ const TagLists = () => {
     fetchMyAPI();
   }, []);
   let navigate = useNavigate();
-  const handleEditCategory = (item) => {
-    async function GetCategoryById() {
-      try {
-        const { status, body } = await getByIdApi(
-          `${apiYakshaUrl}/services/yaksha/Category/GetCategoriesById`,
-          item.id
-        );
-        if (status === 200) {
-          let data = body.result;
-          navigate("create-tag", { state: { data, type: "category", skill } });
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    GetCategoryById();
-    // navigate("create-tag", { state: { item, type: "category" } });
-  };
+  const handleEditCategory = ({id}) => navigate(`/${tenancyName}/tags/${id}`);
 
   const handleEditSkill = (item) => {
     let data = item;

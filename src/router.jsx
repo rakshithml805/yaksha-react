@@ -67,6 +67,14 @@ const router = createBrowserRouter([
     ),
   },
   {
+    path: "/:tenancyName/tags/:tagId",
+    element: (
+      <Layout>
+        <CreateTag />
+      </Layout>
+    ),
+  },
+  {
     path: "/:tenancyName/tags/create-tag",
     element: (
       <Layout>

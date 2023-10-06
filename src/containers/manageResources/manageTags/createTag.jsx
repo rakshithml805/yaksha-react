@@ -23,9 +23,10 @@ import { useTranslation } from "react-i18next";
 import FileUploadOutlinedIcon from "@mui/icons-material/FileUploadOutlined";
 import Banner from "../../../_shared/components/banner/banner";
 import { Form, useLocation, useParams } from "react-router-dom";
-import { apiYakshaUrl } from "../../../_api/_urls";
-import { getApi, postApi } from "../../../_api/_api";
-
+import { apiIdentityUrl, apiYakshaUrl } from "../../../_api/_urls";
+import { getApi, getByIdApi, postApi, putApi } from "../../../_api/_api";
+import { useFormik, FormikProvider, Field } from "formik";
+import * as Yup from "yup";
 const MenuProps = {
   PaperProps: {
     style: {
@@ -37,7 +38,7 @@ const MenuProps = {
 };
 
 const CreateTag = () => {
-  const { tenancyName } = useParams();
+  const { tenancyName, tagId } = useParams();
   const { t } = useTranslation();
   const { state } = useLocation();
   const imgUpload = useRef(null);
@@ -178,38 +179,96 @@ const CreateTag = () => {
       setSkillErrorText("Skill name is required!");
     }
   };
+  const getCategoryById = async () => {
+    try {
+      const { status, body } = await getApi(
+        `${apiYakshaUrl}/services/yaksha/Category/GetCategoriesById?id=${tagId}`);
+        
+      if (status === 200) {
+        return body.result;
+    }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  const getSkills = async () => {
+    try {
+      const { status, body } = await getApi(
+        `${apiYakshaUrl}/services/yaksha/Skill/GetSkills`
+      );
+      if (status === 200) {
+        return body.result;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const loadInitialData = async () => {
+    const skills = await getSkills()
+    setSkillsList(skills);
+
+    if (tagId) {
+        const tags = await getCategoryById();
+        console.info(tags)
+    }
+  }
   useEffect(() => {
-    async function getSkills() {
-      try {
-        const { status, body } = await getApi(
-          `${apiYakshaUrl}/services/yaksha/Skill/GetSkills`
-        );
-        if (status === 200) {
-          setSkillsList(body.result);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    if (state) {
-      setTagValue(state.type);
-      if (state.type === "category") {
-        setCategoryName(state.data.name);
-        setSkillsList(
-          state.skill.filter(
-            ({ id: id1 }) =>
-              !state.data.skillDetails.some(({ id: id2 }) => id2 === id1)
-          )
-        );
-        setAssignedSkills(state.data.skillDetails);
-      } else {
-        setSkillName(state.data.name);
-      }
-    } else {
-      getSkills();
-    }
+    loadInitialData();
   }, []);
 
+//   useEffect(() => {
+    
+//     if (state) {
+//       setTagValue(state.type);
+//       if (state.type === "category") {
+//         setCategoryName(state.data.name);
+//         setSkillsList(
+//           state.skill.filter(
+//             ({ id: id1 }) =>
+//               !state.data.skillDetails.some(({ id: id2 }) => id2 === id1)
+//           )
+//         );
+//         setAssignedSkills(state.data.skillDetails);
+//       } else {
+//         setSkillName(state.data.name);
+//       }
+//     } else {
+//       getSkills();
+//     }
+//   }, []);
+    const categorySchema = Yup.object().shape({    
+        name: Yup.string().required("Field is Required")
+    });
+  const formikCategory = useFormik({
+    initialValues: {
+        id: 0,
+        name: "",
+        description: "",
+        idNumber: "",
+        skillId: []
+    },
+    validationSchema: categorySchema,
+    onSubmit: async () => {
+        try {
+            const req = {...formikCategory.values};
+            if (tagId) {
+                const { status, body } = await putApi(`${apiYakshaUrl}/services/yaksha/Category/CreateOrUpdateCategoryAsync/${tagId}`, req); 
+                if (status === 200) {
+                    // reroute to listing page
+                    // show toast message
+                }
+                return;
+            }
+            const { status, body } = await postApi(`${apiYakshaUrl}/services/yaksha/Category/CreateOrUpdateCategoryAsync`, req); 
+            if (status === 200) {
+                // reroute to listing page
+                // show toast message
+            }
+         } catch (error) {
+             console.error(error); 
+         }
+    }
+  })
   return (
     <Box>
       <Banner title="Create Tags" crumbs={breadcrumbs} />
@@ -244,6 +303,7 @@ const CreateTag = () => {
 
         {tagValue === "category" && (
           <>
+          <FormikProvider value={formikCategory}>
             <Box className="d-flex">
               <Box
                 sx={{ mr: 3, py: 3, width: 350, minWidth: 350 }}
@@ -280,48 +340,68 @@ const CreateTag = () => {
               <Box className="d-flex flex-column">
                 <Box className="d-flex">
                   <Box sx={{ minWidth: 350, mr: 2 }}>
-                    <TextField
-                      label={t("commonForm.categoryName")}
-                      variant="outlined"
-                      fullWidth
-                      required
-                      value={categoryName}
-                      error={cateNameError}
-                      helperText={cateNameErrorTxt}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter") {
-                          handleSaveCategory();
-                        }
-                      }}
-                      onChange={(e) => setCategoryName(e.target.value)}
-                    />
+                    <Field name="name">
+                        {({field, meta}) => (<>
+                            <TextField
+                                {...field}
+                                label={t("commonForm.categoryName")}
+                                variant="outlined"
+                                fullWidth
+                                required
+                                error={(meta.touched && meta.error) && meta.error}
+                                helperText={meta.touched && meta.error && meta.error}
+                                // onKeyDown={(e) => {
+                                //     if (e.key === "Enter") {
+                                //         form.handleChange()
+                                //     }
+                                // }}
+                                />
+                                {/* {meta.touched && meta.error && (
+                                    <Typography sx={{color: '#FF4128'}} variant='caption'>
+                                    {meta.error}
+                                    </Typography>
+                                )} */}
+                        </>)}
+                    </Field>
+                    
                   </Box>
                   <Box sx={{ minWidth: 350, maxWidth: 400 }}>
                     <FormControl fullWidth>
                       <InputLabel>{t("commonForm.assignSkills")}</InputLabel>
-                      <Select
-                        multiple
-                        value={selectedSkill}
-                        onChange={selectSkill}
-                        input={
-                          <OutlinedInput label={t("commonForm.assignSkills")} />
-                        }
-                        renderValue={(selected) => selected.join(", ")}
-                        MenuProps={MenuProps}
-                      >
-                        {skillsList?.map((skill, index) => (
-                          <MenuItem
-                            key={index}
-                            value={skill.name}
-                            name={skill.id}
-                          >
-                            <Checkbox
-                              checked={selectedSkill.indexOf(skill.name) > -1}
-                            />
-                            <ListItemText primary={skill.name} />
-                          </MenuItem>
-                        ))}
-                      </Select>
+                      <Field name="skillId">
+                                {({ field, form, meta }) => (<>
+                                    <Select
+                                        {...field}
+                                        multiple
+                                        // value={[skillsList[0], skillsList[1]]}
+                                        value={skillsList.filter(ele => field.value.some(item => item === ele.id))}
+                                        onChange={({target}) => {
+                                            form.setFieldValue(field.name, target.value)
+                                        }}
+                                        input={
+                                            <OutlinedInput label={t("commonForm.assignSkills")} />
+                                        }
+                                        renderValue={(selected) => {
+                                            return (selected && selected.length) && selected.map(ele => ele.name).join(", ")
+                                        }}
+                                        MenuProps={MenuProps}
+                                    >
+                                        {skillsList?.map((skill, index) => (
+                                        <MenuItem
+                                            key={index}
+                                            value={skill.id}
+                                            name={skill.name}
+                                        >
+                                            <Checkbox
+                                                checked={field.value.some(ele => ele.id === skill.id) ? true : false}
+                                            />
+                                            <ListItemText primary={skill.name} />
+                                        </MenuItem>
+                                        ))}
+                                    </Select>
+                                </>)}
+                      </Field>
+                      
                     </FormControl>
                   </Box>
                 </Box>
@@ -345,13 +425,14 @@ const CreateTag = () => {
             </Box>
             <Divider sx={{ mt: 4, mb: 2 }} />
             <Box className="d-flex justify-end">
-              <Button variant="contained" color="secondary" sx={{ mr: 3 }}>
+              <Button variant="contained" onClick={formikCategory.resetForm} color="secondary" sx={{ mr: 3 }}>
                 {t("common.cancel")}
               </Button>
-              <Button variant="contained" color="primary">
+              <Button variant="contained" onClick={formikCategory.handleSubmit} color="primary">
                 {t("common.create")}
               </Button>
             </Box>
+            </FormikProvider>
           </>
         )}
 

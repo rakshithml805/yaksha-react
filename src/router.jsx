@@ -146,15 +146,15 @@ const router = createBrowserRouter([
       element: (<Layout><CreateAssessmentBank /></Layout> ),
     },
     {
-      path: ":tenancyName/assessment-drives",
+      path: "/:tenancyName/assessment-drives",
       element: (<Layout><AssessmentDrive/></Layout> ),
     },
     {
-      path: ":tenancyName/assessment-drives/assessment-drive-detail",
+      path: "/:tenancyName/assessment-drives/assessment-drive-detail",
       element: (<Layout><AssessmentDriveDetail/></Layout> ),
     },
     {
-      path: ":tenancyName/create-assessment-drives",
+      path: "/:tenancyName/create-assessment-drives",
       element: (<Layout><CreateAssessmentDrive/></Layout> ),
     },
     {

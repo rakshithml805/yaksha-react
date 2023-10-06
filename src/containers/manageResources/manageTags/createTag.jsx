@@ -373,16 +373,12 @@ const CreateTag = () => {
                                     <Select
                                         {...field}
                                         multiple
-                                        // value={[skillsList[0], skillsList[1]]}
-                                        value={skillsList.filter(ele => field.value.some(item => item === ele.id))}
-                                        onChange={({target}) => {
-                                            form.setFieldValue(field.name, target.value)
-                                        }}
                                         input={
                                             <OutlinedInput label={t("commonForm.assignSkills")} />
                                         }
                                         renderValue={(selected) => {
-                                            return (selected && selected.length) && selected.map(ele => ele.name).join(", ")
+                                            const s = skillsList.filter(ele => selected.some(item => item === ele.id))
+                                            return (s && s.length) && s.map(ele => ele.name).join(", ")
                                         }}
                                         MenuProps={MenuProps}
                                     >
@@ -393,7 +389,7 @@ const CreateTag = () => {
                                             name={skill.name}
                                         >
                                             <Checkbox
-                                                checked={field.value.some(ele => ele.id === skill.id) ? true : false}
+                                                checked={field.value.some(ele => ele === skill.id) ? true : false}
                                             />
                                             <ListItemText primary={skill.name} />
                                         </MenuItem>

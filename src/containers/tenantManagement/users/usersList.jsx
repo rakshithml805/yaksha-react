@@ -24,6 +24,7 @@ import { useTranslation } from 'react-i18next';
 import Banner from '../../../_shared/components/banner/banner';
 import DeleteDialog from '../../../_shared/components/deleteDialog/DeleteDialog';
 import { useParams } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 export default function UsersList() {
     const { tenancyName } = useParams();
@@ -525,7 +526,7 @@ export default function UsersList() {
                                                 scope="row">
                                                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                                                     <Avatar alt="" src="{userList.photo}" />
-                                                    <Typography variant='body2' color='primary' sx={{ ml: 2 }}>{userList.name}</Typography>
+                                                    <NavLink className='question-bank-link' to="user-profile"><Typography variant='body2' color='primary' sx={{ ml: 2 }}>{userList.name}</Typography></NavLink>
                                                 </Box>
                                             </TableCell>
                                             <TableCell align="left">

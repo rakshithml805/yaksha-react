@@ -8,7 +8,7 @@ const CountDown = () => {
     const [mins, setMins] = useState(0);
     const [secs, setSecs] = useState(0);
 
-    const deadLine = "October, 03, 2023";
+    const deadLine = "October, 31, 2023";
 
     const getTime = () => {
         const time = Date.parse(deadLine) - Date.now();

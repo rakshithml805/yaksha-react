@@ -1,8 +1,8 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Container, Box, Typography, Button, Grid, TextField, FormControl, Select, MenuItem, InputLabel, Divider } from '@mui/material';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Banner from '../../../_shared/components/banner/banner';
 import { useTranslation } from 'react-i18next';
 
@@ -24,6 +24,7 @@ export default function CreateTenant() {
             url: ""
         }
     ];
+    const editTeanatState  = useLocation();
     const [logo,setLogo]=React.useState()
     const [tenantName, setTenantName] = React.useState('');
     const [displayName, setDisplayName] = React.useState('');
@@ -51,6 +52,13 @@ export default function CreateTenant() {
             reader.readAsDataURL(file);
         }
     };
+
+    useEffect(() => {
+       if (editTeanatState.state) {
+        setTenantName(editTeanatState.state.item.name);
+        setDisplayName(editTeanatState.state.item.tenancyName);
+        } 
+      }, []);
    
     const handleTenantName = (e) => {
         setTenantName(e.target.value)

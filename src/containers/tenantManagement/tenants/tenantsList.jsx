@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
     Container, Box, Typography, FormControl, InputLabel, OutlinedInput,
     Checkbox, Switch, InputAdornment, IconButton, Table, TableBody, TablePagination, Stack,
@@ -19,11 +19,14 @@ import { useTranslation } from 'react-i18next';
 import { visuallyHidden } from '@mui/utils';
 import Banner from '../../../_shared/components/banner/banner';
 import DeleteDialog from '../../../_shared/components/deleteDialog/DeleteDialog';
-import { useParams } from 'react-router-dom';
+import { apiYakshaUrl } from '../../../_api/_urls';
+import { getApi } from "../../../_api/_api";
+import { useParams, useNavigate } from 'react-router-dom';
 
 export default function TenantsList() {
     const { tenancyName } = useParams();
     const { t } = useTranslation();
+    let navigate = useNavigate();
 
     const breadcrumbs = [
         {
@@ -36,53 +39,6 @@ export default function TenantsList() {
         }
     ]
     const button = ['Onboard Tenant', "onboard-tenant"];
-    const tenantsListArray = [
-        {
-            id: 1,
-            tenantname: 'Yaksha',
-            display: 'yaksha',
-            admin: 'User 1',
-            email: 'user1@gmail.com',
-            users: '1233',
-            status: true
-        },
-        {
-            id: 2,
-            tenantname: 'Capegemini',
-            display: 'Capegemini',
-            admin: 'User 2',
-            email: 'user2@gmail.com',
-            users: '133',
-            status: false
-        },
-        {
-            id: 3,
-            tenantname: 'Cognizant',
-            display: 'Cognizant',
-            admin: 'User 3',
-            email: 'user3@gmail.com',
-            users: '163',
-            status: false
-        },
-        {
-            id: 4,
-            tenantname: 'Xoraint',
-            display: 'Xoriant',
-            admin: 'User 4',
-            email: 'user4@gmail.com',
-            users: '1243',
-            status: false
-        },
-        {
-            id: 5,
-            tenantname: 'CA',
-            display: 'CA',
-            admin: 'User 5',
-            email: 'user5@gmail.com',
-            users: '1933',
-            status: true
-        },
-    ]
     const headCells = [
         {
             id: 'name',
@@ -205,12 +161,12 @@ export default function TenantsList() {
         rowCount: PropTypes.number.isRequired,
     };
 
-    const [order, setOrder] = React.useState('asc');
-    const [orderBy, setOrderBy] = React.useState('calories');
-    const [selected, setSelected] = React.useState([]);
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(5);
-    const [tenantsList, setTenantsList] = React.useState(tenantsListArray);
+    const [order, setOrder] = useState('asc');
+    const [orderBy, setOrderBy] = useState('calories');
+    const [selected, setSelected] = useState([]);
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(5);
+    const [tenantsList, setTenantsList] = useState([]);
     const handleRequestSort = (event, property) => {
         const isAsc = orderBy === property && order === 'asc';
         setOrder(isAsc ? 'desc' : 'asc');
@@ -317,29 +273,26 @@ export default function TenantsList() {
         rowsPerPage: PropTypes.number.isRequired,
     };
 
+    const handleEditTenant = (item) => {
+        navigate("onboard-tenant", { state: { item} });
+      };
+
     const isSelected = (name) => selected.indexOf(name) !== -1;
 
     // Avoid a layout jump when reaching the last page with empty rows.
     const emptyRows =
         page > 0 ? Math.max(0, (1 + page) * rowsPerPage - TenantsList.length) : 0;
 
-    const visibleRows = React.useMemo(
-        () =>
-            stableSort(tenantsList, getComparator(order, orderBy)).slice(
-                page * rowsPerPage,
-                page * rowsPerPage + rowsPerPage,
-            ),
-        [order, orderBy, page, rowsPerPage],
-    );
+    const visibleRows = useMemo(() => {
+        return stableSort(tenantsList, getComparator(order, orderBy)).slice(
+            page * rowsPerPage,
+            page * rowsPerPage + rowsPerPage
+        );
+    }, [tenantsList, order, orderBy, page, rowsPerPage]);
 
-    const [tenantStatus, setTenantStatus] = React.useState({});
-    React.useState(() => {
-        const initialStatus = {};
-        tenantsListArray.forEach((tenant) => {
-            initialStatus[tenant.id] = tenant.status;
-        });
-        setTenantStatus(initialStatus);
-    }, [tenantsListArray]);
+
+    const [tenantStatus, setTenantStatus] = useState();
+    const [searchTenants, setSearchTenants] = useState("");
 
     // Function to handle toggle switch changes
     const handleSwitchChange = (id) => {
@@ -348,9 +301,9 @@ export default function TenantsList() {
             [id]: !prevStatus[id],
         }));
     };
-    const [deleteItem, setDeleteItem] = React.useState('');
-    const [dialog, setDialog] = React.useState(false);
-    const [tenantDelete, setTenantDelete] = React.useState(false);
+    const [deleteItem, setDeleteItem] = useState('');
+    const [dialog, setDialog] = useState(false);
+    const [tenantDelete, setTenantDelete] = useState(false);
     const dialogOpen = (item) => {
         setDeleteItem(item)
         setDialog(true);
@@ -364,14 +317,30 @@ export default function TenantsList() {
         setTenantDelete(true);
     }
 
+    useEffect(() => {
+        async function getTenantList() {
+            try {
+                const { status, body } = await getApi(`${apiYakshaUrl}/services/yaksha/Tenant/GetTenantDetails`);
+                if (status === 200) {
+                    setTenantsList(body.result.tenants);
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        getTenantList()
+    }, [])
+
     return (
         <Box>
-            <Banner title="Manage Tags" crumbs={breadcrumbs} bannerButton={button} />
+
+            <Banner title={t('common.allTenants')} crumbs={breadcrumbs} bannerButton={button} />
             <Container maxWidth="xl">
                 <Box sx={{ my: 4 }}>
-                    <FormControl variant="outlined" sx={{ width: '30%' }}>
+                    <FormControl variant="outlined" sx={{ width: '30%' }} onChange={(e) => setSearchTenants(e.target.value.toLowerCase())}>
                         <InputLabel>{t('commonForm.search')}</InputLabel>
-                        <OutlinedInput placeholder={t('commonForm.search')}
+                        <OutlinedInput id="outlined-search" placeholder={t('commonForm.search')}
                             endAdornment={
                                 <InputAdornment position="end">
                                     <IconButton edge="end">
@@ -395,7 +364,12 @@ export default function TenantsList() {
                                 rowCount={tenantsList.length}
                             />
                             <TableBody className='data-table-body'>
-                                {visibleRows.map((tenant, index) => {
+                                {visibleRows?.filter((each) => {
+                                    return searchTenants === ""
+                                        ? each
+                                        : each.name.toLowerCase().includes(searchTenants);
+                                })
+                                .map((tenant, index) => {
                                     const isItemSelected = isSelected(tenant.id);
                                     const labelId = `enhanced-table-checkbox-${index}`;
 
@@ -409,7 +383,7 @@ export default function TenantsList() {
                                             selected={isItemSelected}
                                         >
                                             <TableCell padding="checkbox">
-                                                {tenant.tenantname !== "Yaksha" &&
+                                                {tenant.name !== "Yaksha" &&
                                                     <Checkbox
                                                         color="primary"
                                                         checked={isItemSelected}
@@ -424,28 +398,25 @@ export default function TenantsList() {
                                                 <img src={tenantlogo} />
                                             </TableCell>
                                             <TableCell id={labelId} scope="row">
-                                                <Typography variant='body2'>{tenant.tenantname}</Typography>
+                                                <Typography variant='body2'>{tenant.name}</Typography>
                                             </TableCell>
                                             <TableCell align="left">
                                                 <Typography variant='body2'>
-                                                    {tenant.display}
+                                                    {tenant.tenancyName}
                                                 </Typography>
                                             </TableCell>
                                             <TableCell align="left">
                                                 <Typography variant='body2'>
-                                                    {tenant.admin}
-                                                </Typography>
-                                                <Typography variant="caption">
-                                                    {tenant.email}
+                                                    {tenant.managerEmails.length ? tenant.managerEmails : "-"}
                                                 </Typography>
                                             </TableCell>
                                             <TableCell align="center">
                                                 <Typography variant='body2'>
-                                                    {tenant.users}
+                                                    NA
                                                 </Typography>
                                             </TableCell>
                                             <TableCell align="center">
-                                                <Switch checked={tenantStatus[tenant.id]} onChange={() => handleSwitchChange(tenant.id)} />
+                                                <Switch disabled={true} checked={tenant.isActive} onChange={() => handleSwitchChange(tenant.isActive)} />
                                             </TableCell>
                                             <TableCell align="center">
                                                 <Stack direction="row" spacing={1} justifyContent={'center'}>
@@ -456,14 +427,14 @@ export default function TenantsList() {
                                                     </Tooltip>
                                                     <Tooltip title={t('common.edit')} placement="top">
                                                         <IconButton aria-label="delete" color="primary">
-                                                            <EditOutlinedIcon color="warning" />
+                                                            <EditOutlinedIcon onClick={() => handleEditTenant(tenant)} color="warning" />
                                                         </IconButton>
 
                                                     </Tooltip>
                                                     <Tooltip title={t('common.delete')} placement="top">
                                                         <IconButton color="error"
-                                                            onClick={() => dialogOpen(tenant.tenantname)}
-                                                            sx={{ visibility: tenant.tenantname === 'Yaksha' ? 'hidden' : 'visible' }}>
+                                                            onClick={() => dialogOpen(tenant.name)}
+                                                            sx={{ visibility: tenant.name === 'Yaksha' ? 'hidden' : 'visible' }}>
                                                             <DeleteForeverOutlinedIcon />
                                                         </IconButton>
                                                     </Tooltip>

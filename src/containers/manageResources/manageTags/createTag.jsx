@@ -72,13 +72,24 @@ const CreateTag = () => {
   const [skillName, setSkillName] = useState("");
   const [skillsList, setSkillsList] = useState([]);
   const [assignedSkills, setAssignedSkills] = useState([]);
+  const [selectedSkillsName, setSelectedSkillsName] = useState([]);
+  const [selectedSkillIds, setSelectedSkillIds] = useState([]);
 
   const [selectedSkill, setSelectedSkill] = useState([]);
   const selectSkill = (event) => {
-    const {
-      target: { value },
-    } = event;
+    let value = event.target.value;
     setSelectedSkill(typeof value === "string" ? value.split(",") : value);
+    selectedSkillsName.push(value);
+    setSelectedSkillIds(
+      skillsList
+        .filter(function (item) {
+          return item.name == selectedSkillsName.index;
+        })
+        .map(function ({ id }) {
+          return { id };
+        })
+    );
+    console.log(selectedSkillIds);
   };
   // const selectCategory = (event) => {
   //   const {
@@ -299,7 +310,11 @@ const CreateTag = () => {
                         MenuProps={MenuProps}
                       >
                         {skillsList?.map((skill, index) => (
-                          <MenuItem key={index} value={skill.name}>
+                          <MenuItem
+                            key={index}
+                            value={skill.name}
+                            name={skill.id}
+                          >
                             <Checkbox
                               checked={selectedSkill.indexOf(skill.name) > -1}
                             />
